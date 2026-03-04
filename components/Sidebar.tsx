@@ -35,16 +35,21 @@ const categories = [
     ],
   },
   {
-    label: "온라인 도구",
+    label: "변환기",
     items: [
-      { title: "타이머 & 스톱워치", href: "/tools/timer" },
-      { title: "JSON 포매터", href: "/tools/json-formatter" },
-      { title: "Base64 인코더", href: "/tools/base64" },
-      { title: "QR 코드 생성기", href: "/tools/qr-code" },
-      { title: "색상 변환기", href: "/tools/color-converter" },
       { title: "이미지 변환기", href: "/tools/image-converter" },
       { title: "CSV JSON 변환기", href: "/tools/csv-json" },
       { title: "Markdown HTML", href: "/tools/markdown-html" },
+      { title: "Base64 인코더", href: "/tools/base64" },
+      { title: "색상 변환기", href: "/tools/color-converter" },
+    ],
+  },
+  {
+    label: "도구",
+    items: [
+      { title: "타이머 & 스톱워치", href: "/tools/timer" },
+      { title: "JSON 포매터", href: "/tools/json-formatter" },
+      { title: "QR 코드 생성기", href: "/tools/qr-code" },
     ],
   },
 ];
@@ -53,8 +58,13 @@ export default function Sidebar({ type }: { type: "calculators" | "tools" }) {
   const pathname = usePathname();
 
   // Show current type's categories first
+  const toolLabels = ["변환기", "도구"];
   const sorted = type === "tools"
-    ? [...categories].sort((a, b) => (a.label === "온라인 도구" ? -1 : b.label === "온라인 도구" ? 1 : 0))
+    ? [...categories].sort((a, b) => {
+        const aIsTool = toolLabels.includes(a.label) ? -1 : 0;
+        const bIsTool = toolLabels.includes(b.label) ? -1 : 0;
+        return aIsTool - bIsTool;
+      })
     : categories;
 
   return (

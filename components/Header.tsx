@@ -29,15 +29,18 @@ const lifeCalcs = [
   { title: "학점 계산기", href: "/calculators/gpa" },
 ];
 
-const toolItems = [
-  { title: "타이머 & 스톱워치", href: "/tools/timer" },
-  { title: "JSON 포매터", href: "/tools/json-formatter" },
-  { title: "Base64 인코더", href: "/tools/base64" },
-  { title: "QR 코드 생성기", href: "/tools/qr-code" },
-  { title: "색상 변환기", href: "/tools/color-converter" },
+const converterItems = [
   { title: "이미지 변환기", href: "/tools/image-converter" },
   { title: "CSV JSON 변환기", href: "/tools/csv-json" },
   { title: "Markdown HTML", href: "/tools/markdown-html" },
+  { title: "Base64 인코더", href: "/tools/base64" },
+  { title: "색상 변환기", href: "/tools/color-converter" },
+];
+
+const toolItems = [
+  { title: "타이머 & 스톱워치", href: "/tools/timer" },
+  { title: "JSON 포매터", href: "/tools/json-formatter" },
+  { title: "QR 코드 생성기", href: "/tools/qr-code" },
 ];
 
 function DropdownMenu({
@@ -173,7 +176,19 @@ export default function Header() {
             ))}
           </DropdownMenu>
 
-          <DropdownMenu label="온라인 도구">
+          <DropdownMenu label="변환기">
+            {converterItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </DropdownMenu>
+
+          <DropdownMenu label="도구">
             {toolItems.map((item) => (
               <Link
                 key={item.href}
@@ -236,7 +251,15 @@ export default function Header() {
           />
 
           <MobileSection
-            label="온라인 도구"
+            label="변환기"
+            items={converterItems}
+            expanded={mobileExpanded === "converters"}
+            onToggle={() => setMobileExpanded(mobileExpanded === "converters" ? null : "converters")}
+            onClose={closeMobile}
+          />
+
+          <MobileSection
+            label="도구"
             items={toolItems}
             expanded={mobileExpanded === "tools"}
             onToggle={() => setMobileExpanded(mobileExpanded === "tools" ? null : "tools")}
