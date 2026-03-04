@@ -134,12 +134,73 @@ const calculators = [
     href: "/calculators/bmi",
     emoji: "\u2696\uFE0F",
   },
+  // 예금이자
+  {
+    title: "예금이자 계산기",
+    description: "예치금액, 이자율, 기간으로 예금 만기 수령액을 계산합니다.",
+    href: "/calculators/deposit",
+    emoji: "\uD83C\uDFE6",
+  },
+  // 주식 수익률
+  {
+    title: "주식 수익률 계산기",
+    description: "매수가, 매도가, 수수료, 세금을 반영한 순수익과 수익률을 계산합니다.",
+    href: "/calculators/stock-return",
+    emoji: "\uD83D\uDCC8",
+  },
+  // 물타기
+  {
+    title: "물타기 계산기",
+    description: "여러 차수의 매수를 입력하여 평균 매수단가를 계산합니다.",
+    href: "/calculators/average-price",
+    emoji: "\uD83D\uDCB9",
+  },
+  // 인플레이션
+  {
+    title: "인플레이션 계산기",
+    description: "물가상승률에 따른 미래 화폐가치와 구매력 변화를 계산합니다.",
+    href: "/calculators/inflation",
+    emoji: "\uD83D\uDCB8",
+  },
   // 12위: 600
   {
     title: "전월세 전환 계산기",
     description: "전세를 월세로, 월세를 전세로 전환할 때 적정 금액을 계산합니다.",
     href: "/calculators/rent-conversion",
     emoji: "\uD83C\uDFE0",
+  },
+];
+
+const realEstateCalcs = [
+  {
+    title: "중개수수료 계산기",
+    description: "매매, 전세, 월세 거래 시 부동산 중개수수료를 계산합니다.",
+    href: "/calculators/brokerage-fee",
+    emoji: "\uD83C\uDFE2",
+  },
+  {
+    title: "취득세 계산기",
+    description: "주택 취득 시 취득세, 농어촌특별세, 지방교육세를 계산합니다.",
+    href: "/calculators/acquisition-tax",
+    emoji: "\uD83C\uDFE0",
+  },
+  {
+    title: "양도소득세 계산기",
+    description: "부동산 양도 시 양도소득세를 장기보유특별공제 포함하여 계산합니다.",
+    href: "/calculators/capital-gains-tax",
+    emoji: "\uD83D\uDCB0",
+  },
+  {
+    title: "증여세 계산기",
+    description: "증여재산가액과 관계별 공제액으로 증여세를 계산합니다.",
+    href: "/calculators/gift-tax",
+    emoji: "\uD83C\uDF81",
+  },
+  {
+    title: "상속세 계산기",
+    description: "상속재산, 배우자 유무, 자녀 수로 상속세를 계산합니다.",
+    href: "/calculators/inheritance-tax",
+    emoji: "\uD83D\uDCDC",
   },
 ];
 
@@ -213,6 +274,23 @@ export default function Home() {
             key={calc.href}
             href={calc.href}
             className="block bg-white rounded-xl border border-gray-200 p-6 transition-all hover:shadow-lg hover:border-blue-300 hover:-translate-y-1"
+          >
+            <div className="text-3xl mb-3">{calc.emoji}</div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-2">
+              {calc.title}
+            </h2>
+            <p className="text-sm text-gray-500">{calc.description}</p>
+          </Link>
+        ))}
+      </div>
+
+      <h2 className="text-xl font-bold text-gray-900 mb-4">부동산 계산기</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {realEstateCalcs.map((calc) => (
+          <Link
+            key={calc.href}
+            href={calc.href}
+            className="block bg-white rounded-xl border border-gray-200 p-6 transition-all hover:shadow-lg hover:border-purple-300 hover:-translate-y-1"
           >
             <div className="text-3xl mb-3">{calc.emoji}</div>
             <h2 className="text-lg font-semibold text-gray-900 mb-2">

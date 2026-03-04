@@ -1,0 +1,393 @@
+"use client";
+
+import { useState } from "react";
+import RelatedTools from "@/components/RelatedTools";
+
+type TaxType = "normal" | "taxFree" | "taxFavored";
+
+interface DepositResult {
+  principal: number;
+  grossInterest: number;
+  taxAmount: number;
+  netInterest: number;
+  totalAmount: number;
+  monthlyAvgInterest: number;
+}
+
+function calculateDeposit(
+  principal: number,
+  annualRate: number,
+  months: number,
+  taxType: TaxType
+): DepositResult {
+  // 단리 이자 = 원금 x 이율 x 기간/12
+  const grossInterest = Math.round(principal * (annualRate / 100) * (months / 12));
+
+  let taxRate = 0;
+  if (taxType === "normal") taxRate = 15.4;
+  else if (taxType === "taxFavored") taxRate = 9.5;
+
+  const taxAmount = Math.round(grossInterest * (taxRate / 100));
+  const netInterest = grossInterest - taxAmount;
+  const totalAmount = principal + netInterest;
+  const monthlyAvgInterest = months > 0 ? Math.round(netInterest / months) : 0;
+
+  return {
+    principal,
+    grossInterest,
+    taxAmount,
+    netInterest,
+    totalAmount,
+    monthlyAvgInterest,
+  };
+}
+
+export default function DepositCalculator() {
+  const [principal, setPrincipal] = useState("");
+  const [rate, setRate] = useState("");
+  const [months, setMonths] = useState("");
+  const [taxType, setTaxType] = useState<TaxType>("normal");
+  const [result, setResult] = useState<DepositResult | null>(null);
+
+  const formatNumber = (num: number) => num.toLocaleString("ko-KR");
+
+  const handleNumberInput = (
+    value: string,
+    setter: (v: string) => void
+  ) => {
+    const raw = value.replace(/[^0-9]/g, "");
+    if (raw) {
+      setter(parseInt(raw, 10).toLocaleString("ko-KR"));
+    } else {
+      setter("");
+    }
+  };
+
+  const parseNumber = (value: string) =>
+    parseInt(value.replace(/,/g, ""), 10) || 0;
+
+  const handleCalculate = () => {
+    const p = parseNumber(principal);
+    const r = parseFloat(rate);
+    const m = parseInt(months.replace(/,/g, ""), 10);
+    if (!p || p <= 0 || !r || r <= 0 || !m || m <= 0) return;
+    setResult(calculateDeposit(p, r, m, taxType));
+  };
+
+  const quickAmounts = [1000, 3000, 5000, 10000];
+  const quickMonths = [6, 12, 24, 36];
+
+  return (
+    <div className="py-4">
+      <h1 className="text-2xl font-bold text-gray-900 mb-2">
+        예금이자 계산기
+      </h1>
+      <p className="text-gray-500 mb-8">
+        정기예금의 세후 수령액과 이자를 계산합니다. 목돈을 한 번에 예치하는 예금 상품에 적합합니다.
+      </p>
+
+      {/* 입력 영역 */}
+      <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* 예치금액 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              예치금액
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={principal}
+                onChange={(e) => handleNumberInput(e.target.value, setPrincipal)}
+                placeholder="예: 10,000,000"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                원
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {quickAmounts.map((amt) => (
+                <button
+                  key={amt}
+                  onClick={() => {
+                    setPrincipal((amt * 10000).toLocaleString("ko-KR"));
+                  }}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded-full hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                >
+                  {amt.toLocaleString()}만원
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 연이율 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              연이율
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={rate}
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9.]/g, "");
+                  setRate(v);
+                }}
+                placeholder="예: 3.5"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                %
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {[2.5, 3.0, 3.5, 4.0, 4.5].map((r) => (
+                <button
+                  key={r}
+                  onClick={() => setRate(r.toString())}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded-full hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                >
+                  {r}%
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 예치기간 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              예치기간
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={months}
+                onChange={(e) => {
+                  const v = e.target.value.replace(/[^0-9]/g, "");
+                  setMonths(v);
+                }}
+                placeholder="예: 12"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+                개월
+              </span>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {quickMonths.map((m) => (
+                <button
+                  key={m}
+                  onClick={() => setMonths(m.toString())}
+                  className="px-3 py-1 text-xs border border-gray-200 rounded-full hover:bg-blue-50 hover:border-blue-300 transition-colors"
+                >
+                  {m}개월
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 이자과세 */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              이자과세
+            </label>
+            <div className="space-y-2">
+              {[
+                { value: "normal" as TaxType, label: "일반과세 (15.4%)" },
+                { value: "taxFree" as TaxType, label: "비과세 (0%)" },
+                { value: "taxFavored" as TaxType, label: "세금우대 (9.5%)" },
+              ].map((option) => (
+                <label
+                  key={option.value}
+                  className="flex items-center gap-2 cursor-pointer"
+                >
+                  <input
+                    type="radio"
+                    name="taxType"
+                    value={option.value}
+                    checked={taxType === option.value}
+                    onChange={() => setTaxType(option.value)}
+                    className="w-4 h-4 text-blue-600"
+                  />
+                  <span className="text-sm text-gray-700">{option.label}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={handleCalculate}
+          className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          계산하기
+        </button>
+      </div>
+
+      {/* 결과 영역 */}
+      {result && (
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
+          <div className="bg-blue-600 text-white p-6 text-center">
+            <p className="text-blue-100 text-sm mb-1">세후 수령액</p>
+            <p className="text-3xl font-bold">
+              {formatNumber(result.totalAmount)}원
+            </p>
+            <p className="text-blue-200 text-sm mt-2">
+              원금 {formatNumber(result.principal)}원 + 세후이자{" "}
+              {formatNumber(result.netInterest)}원
+            </p>
+          </div>
+
+          <div className="p-6">
+            <h3 className="font-semibold text-gray-900 mb-4">상세 내역</h3>
+            <div className="space-y-3">
+              <Row label="예치금액 (원금)" value={formatNumber(result.principal) + "원"} bold />
+              <div className="border-t border-gray-100 pt-3">
+                <Row label="세전이자" value={formatNumber(result.grossInterest) + "원"} />
+                <Row
+                  label={`이자소득세 (${taxType === "normal" ? "15.4%" : taxType === "taxFavored" ? "9.5%" : "0%"})`}
+                  value={"-" + formatNumber(result.taxAmount) + "원"}
+                  highlight
+                />
+                <Row label="세후이자" value={formatNumber(result.netInterest) + "원"} bold />
+              </div>
+              <div className="border-t border-gray-200 pt-3">
+                <Row label="세후 수령액" value={formatNumber(result.totalAmount) + "원"} bold />
+                <Row label="월평균 이자 (세후)" value={formatNumber(result.monthlyAvgInterest) + "원"} />
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SEO 콘텐츠 */}
+      <section className="mt-12 space-y-8">
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            예금이자 계산기란?
+          </h2>
+          <p className="text-gray-600 leading-relaxed">
+            예금이자 계산기는 정기예금에 목돈을 예치했을 때 만기 시 받을 수 있는
+            이자와 수령액을 계산합니다. 예금은 적금과 달리 목돈을 한 번에
+            예치하고 만기일에 원금과 이자를 함께 수령하는 금융 상품입니다.
+            단리 방식으로 이자가 계산되며, 이자소득세를 차감한 세후 수령액을
+            확인할 수 있습니다.
+          </p>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            예금과 적금의 차이
+          </h2>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="bg-gray-50">
+                  <th className="text-left py-2 px-3 border border-gray-200">구분</th>
+                  <th className="text-left py-2 px-3 border border-gray-200">예금</th>
+                  <th className="text-left py-2 px-3 border border-gray-200">적금</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-600">
+                <tr>
+                  <td className="py-2 px-3 border border-gray-200">납입 방식</td>
+                  <td className="py-2 px-3 border border-gray-200">목돈 일시 예치</td>
+                  <td className="py-2 px-3 border border-gray-200">매월 일정 금액 납입</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3 border border-gray-200">이자 계산</td>
+                  <td className="py-2 px-3 border border-gray-200">전체 원금에 대해 이자 계산</td>
+                  <td className="py-2 px-3 border border-gray-200">매월 납입금에 대해 개별 이자 계산</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3 border border-gray-200">이자 수익</td>
+                  <td className="py-2 px-3 border border-gray-200">같은 이율 대비 높음</td>
+                  <td className="py-2 px-3 border border-gray-200">같은 이율 대비 낮음</td>
+                </tr>
+                <tr>
+                  <td className="py-2 px-3 border border-gray-200">적합 대상</td>
+                  <td className="py-2 px-3 border border-gray-200">여유 자금 운용</td>
+                  <td className="py-2 px-3 border border-gray-200">저축 습관 형성</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            이자과세 유형 안내
+          </h2>
+          <div className="space-y-3 text-gray-600 leading-relaxed">
+            <p>
+              <strong className="text-gray-900">일반과세 (15.4%)</strong>: 이자소득세 14% + 지방소득세 1.4%가 원천징수됩니다. 대부분의 예금 상품에 적용됩니다.
+            </p>
+            <p>
+              <strong className="text-gray-900">비과세 (0%)</strong>: 조합 출자금, 비과세 종합저축(만 65세 이상, 장애인 등) 등 특정 조건을 충족하면 이자소득세가 면제됩니다.
+            </p>
+            <p>
+              <strong className="text-gray-900">세금우대 (9.5%)</strong>: 농어촌특별세 포함 9.5%만 과세됩니다. 조합원 예탁금 등 일부 상품에 적용됩니다.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">자주 묻는 질문 (FAQ)</h2>
+          <div className="space-y-4">
+            <div>
+              <h3 className="font-medium text-gray-900">예금 이자는 어떻게 계산되나요?</h3>
+              <p className="text-gray-600 text-sm mt-1">
+                정기예금은 단리 방식으로 계산됩니다. 이자 = 원금 x 연이율 x (예치기간/12개월)입니다.
+                예를 들어 1,000만원을 연 3.5%로 12개월 예치하면 세전이자는 350,000원입니다.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-900">예금자보호가 되나요?</h3>
+              <p className="text-gray-600 text-sm mt-1">
+                예금자보호법에 따라 1인당 5,000만원까지 보호됩니다. 여러 은행에 분산 예치하면
+                각 은행별로 5,000만원까지 보호받을 수 있습니다.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-900">중도해지하면 이자는?</h3>
+              <p className="text-gray-600 text-sm mt-1">
+                중도해지 시 약정 이율보다 낮은 중도해지 이율이 적용됩니다. 일반적으로 가입 기간과
+                해지 시점에 따라 다르며, 은행별 약관을 확인해야 합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <RelatedTools current="deposit" />
+    </div>
+  );
+}
+
+function Row({
+  label,
+  value,
+  bold,
+  highlight,
+}: {
+  label: string;
+  value: string;
+  bold?: boolean;
+  highlight?: boolean;
+}) {
+  return (
+    <div className="flex justify-between items-center py-1">
+      <span
+        className={`text-sm ${bold ? "font-semibold text-gray-900" : "text-gray-600"}`}
+      >
+        {label}
+      </span>
+      <span
+        className={`text-sm ${bold ? "font-semibold text-gray-900" : ""} ${highlight ? "text-red-400" : ""}`}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}

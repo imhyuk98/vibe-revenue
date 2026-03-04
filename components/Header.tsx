@@ -7,12 +7,24 @@ const financeCalcs = [
   { title: "환율 계산기", href: "/calculators/exchange-rate" },
   { title: "연봉 실수령액", href: "/calculators/salary" },
   { title: "대출이자 계산기", href: "/calculators/loan" },
+  { title: "예금이자 계산기", href: "/calculators/deposit" },
+  { title: "적금 이자 계산기", href: "/calculators/savings" },
   { title: "퇴직금 계산기", href: "/calculators/retirement" },
   { title: "실업급여 계산기", href: "/calculators/unemployment" },
-  { title: "적금 이자 계산기", href: "/calculators/savings" },
+  { title: "주식 수익률 계산기", href: "/calculators/stock-return" },
+  { title: "물타기 계산기", href: "/calculators/average-price" },
+  { title: "인플레이션 계산기", href: "/calculators/inflation" },
   { title: "전월세 전환", href: "/calculators/rent-conversion" },
   { title: "자동차세 계산기", href: "/calculators/car-tax" },
   { title: "전기요금 계산기", href: "/calculators/electricity" },
+];
+
+const realEstateCalcs = [
+  { title: "중개수수료 계산기", href: "/calculators/brokerage-fee" },
+  { title: "취득세 계산기", href: "/calculators/acquisition-tax" },
+  { title: "양도소득세 계산기", href: "/calculators/capital-gains-tax" },
+  { title: "증여세 계산기", href: "/calculators/gift-tax" },
+  { title: "상속세 계산기", href: "/calculators/inheritance-tax" },
 ];
 
 const lifeCalcs = [
@@ -164,6 +176,18 @@ export default function Header() {
             ))}
           </DropdownMenu>
 
+          <DropdownMenu label="부동산">
+            {realEstateCalcs.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </DropdownMenu>
+
           <DropdownMenu label="생활 계산기">
             {lifeCalcs.map((item) => (
               <Link
@@ -239,6 +263,14 @@ export default function Header() {
             items={financeCalcs}
             expanded={mobileExpanded === "finance"}
             onToggle={() => setMobileExpanded(mobileExpanded === "finance" ? null : "finance")}
+            onClose={closeMobile}
+          />
+
+          <MobileSection
+            label="부동산"
+            items={realEstateCalcs}
+            expanded={mobileExpanded === "realestate"}
+            onToggle={() => setMobileExpanded(mobileExpanded === "realestate" ? null : "realestate")}
             onClose={closeMobile}
           />
 
