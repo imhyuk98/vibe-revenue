@@ -17,6 +17,8 @@ const allItems: Record<string, { title: string; href: string; category: string }
   "capital-gains-tax": { title: "양도소득세 계산기", href: "/calculators/capital-gains-tax", category: "부동산" },
   "gift-tax": { title: "증여세 계산기", href: "/calculators/gift-tax", category: "부동산" },
   "inheritance-tax": { title: "상속세 계산기", href: "/calculators/inheritance-tax", category: "부동산" },
+  "lotto-tax": { title: "로또 세금 계산기", href: "/calculators/lotto-tax", category: "금융" },
+  vat: { title: "부가세 계산기", href: "/calculators/vat", category: "금융" },
   "car-tax": { title: "자동차세 계산기", href: "/calculators/car-tax", category: "금융" },
   electricity: { title: "전기요금 계산기", href: "/calculators/electricity", category: "금융" },
   percent: { title: "퍼센트 계산기", href: "/calculators/percent", category: "생활" },
@@ -38,6 +40,8 @@ const allItems: Record<string, { title: string; href: string; category: string }
   "markdown-html": { title: "Markdown HTML", href: "/tools/markdown-html", category: "변환기" },
   base64: { title: "Base64 인코더", href: "/tools/base64", category: "변환기" },
   "color-converter": { title: "색상 변환기", href: "/tools/color-converter", category: "변환기" },
+  "blood-type": { title: "혈액형 계산기", href: "/calculators/blood-type", category: "생활" },
+  "nickname-generator": { title: "닉네임 생성기", href: "/tools/nickname-generator", category: "도구" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -58,6 +62,8 @@ const relatedMap: Record<string, string[]> = {
   "capital-gains-tax": ["acquisition-tax", "gift-tax", "inheritance-tax", "brokerage-fee"],
   "gift-tax": ["inheritance-tax", "capital-gains-tax", "acquisition-tax", "savings"],
   "inheritance-tax": ["gift-tax", "capital-gains-tax", "retirement", "savings"],
+  "lotto-tax": ["salary", "gift-tax", "inheritance-tax", "percent"],
+  vat: ["salary", "percent", "loan", "savings"],
   "car-tax": ["electricity", "loan", "salary", "percent"],
   electricity: ["car-tax", "rent-conversion", "pyeong", "percent"],
   percent: ["ratio", "unit-converter", "gpa", "savings"],
@@ -79,6 +85,8 @@ const relatedMap: Record<string, string[]> = {
   "markdown-html": ["csv-json", "json-formatter", "character-count", "base64"],
   base64: ["json-formatter", "csv-json", "markdown-html", "color-converter"],
   "color-converter": ["image-converter", "base64", "unit-converter", "qr-code"],
+  "blood-type": ["bmi", "age", "alcohol", "nickname-generator"],
+  "nickname-generator": ["character-count", "qr-code", "blood-type", "timer"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {

@@ -162,6 +162,27 @@ const calculators = [
     href: "/calculators/inflation",
     emoji: "\uD83D\uDCB8",
   },
+  // 부가세
+  {
+    title: "부가세 계산기",
+    description: "공급가액에서 부가세를 계산하거나, 합계금액에서 역산합니다.",
+    href: "/calculators/vat",
+    emoji: "\uD83E\uDDFE",
+  },
+  // 로또 세금
+  {
+    title: "로또 세금 계산기",
+    description: "로또 당첨금에서 세금을 공제한 실수령액을 계산합니다.",
+    href: "/calculators/lotto-tax",
+    emoji: "\uD83C\uDFB0",
+  },
+  // 혈액형
+  {
+    title: "혈액형 계산기",
+    description: "부모 혈액형으로 아기의 가능한 혈액형과 확률을 계산합니다.",
+    href: "/calculators/blood-type",
+    emoji: "\uD83E\uDE78",
+  },
   // 12위: 600
   {
     title: "전월세 전환 계산기",
@@ -246,6 +267,12 @@ const tools = [
     description: "CSV를 JSON으로, JSON을 CSV로 간편하게 변환합니다.",
     href: "/tools/csv-json",
     emoji: "\uD83D\uDCC4",
+  },
+  {
+    title: "닉네임 생성기",
+    description: "귀여운, 멋진, 웃긴, 게임용 스타일의 랜덤 닉네임을 생성합니다.",
+    href: "/tools/nickname-generator",
+    emoji: "\uD83C\uDFAD",
   },
   {
     title: "Markdown HTML 변환기",

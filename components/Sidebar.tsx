@@ -20,6 +20,8 @@ const categories = [
       { title: "전월세 전환", href: "/calculators/rent-conversion" },
       { title: "자동차세 계산기", href: "/calculators/car-tax" },
       { title: "전기요금 계산기", href: "/calculators/electricity" },
+      { title: "부가세 계산기", href: "/calculators/vat" },
+      { title: "로또 세금 계산기", href: "/calculators/lotto-tax" },
     ],
   },
   {
@@ -46,6 +48,7 @@ const categories = [
       { title: "음주 측정기", href: "/calculators/alcohol" },
       { title: "연차 계산기", href: "/calculators/annual-leave" },
       { title: "학점 계산기", href: "/calculators/gpa" },
+      { title: "혈액형 계산기", href: "/calculators/blood-type" },
     ],
   },
   {
@@ -64,6 +67,7 @@ const categories = [
       { title: "타이머 & 스톱워치", href: "/tools/timer" },
       { title: "JSON 포매터", href: "/tools/json-formatter" },
       { title: "QR 코드 생성기", href: "/tools/qr-code" },
+      { title: "닉네임 생성기", href: "/tools/nickname-generator" },
     ],
   },
 ];

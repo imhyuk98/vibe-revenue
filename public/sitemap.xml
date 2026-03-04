@@ -191,6 +191,26 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/lotto-tax</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/vat</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/blood-type</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/tools/nickname-generator</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vibe-revenue.pages.dev/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
