@@ -14,15 +14,15 @@ function ToolCard({ item, colorKey, index, featured }: { item: Item; colorKey: s
         className={`tool-card block bg-white rounded-2xl border ${colors.border} ${colors.hoverBg} p-4 h-full relative overflow-hidden`}
       >
         <div className={`absolute top-0 left-0 right-0 h-[2px] ${colors.iconBg} opacity-0 group-hover:opacity-100 transition-opacity`} />
-        <div className="flex items-center gap-3.5">
-          <span className={`text-[1.35rem] w-11 h-11 flex-shrink-0 ${colors.iconBg} rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-hover:shadow-sm`}>
+        <div className="flex items-center gap-2 sm:gap-3.5">
+          <span className={`text-lg sm:text-[1.35rem] w-9 h-9 sm:w-11 sm:h-11 flex-shrink-0 ${colors.iconBg} rounded-xl flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-hover:shadow-sm`}>
             {item.emoji}
           </span>
           <div className="min-w-0 flex-1">
-            <p className="text-[0.8125rem] font-bold text-gray-900 truncate group-hover:text-gray-800">{item.title}</p>
-            <p className="text-[0.6875rem] text-gray-400 mt-0.5 truncate group-hover:text-gray-500 transition-colors">{item.desc}</p>
+            <p className="text-xs sm:text-[0.8125rem] font-bold text-gray-900 truncate group-hover:text-gray-800">{item.title}</p>
+            <p className="hidden sm:block text-[0.6875rem] text-gray-400 mt-0.5 truncate group-hover:text-gray-500 transition-colors">{item.desc}</p>
           </div>
-          <svg className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 text-gray-300 group-hover:text-gray-500 group-hover:translate-x-0.5 transition-all duration-200 flex-shrink-0 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </div>
