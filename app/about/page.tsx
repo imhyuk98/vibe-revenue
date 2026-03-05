@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "사이트 소개",
-  description: "계산기나라 - 생활에 필요한 모든 계산기를 무료로 제공합니다.",
+  description: "계산기나라는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
+  keywords: ["계산기나라", "사이트 소개", "무료 계산기", "온라인 도구"],
+  openGraph: {
+    title: "사이트 소개 | 계산기나라",
+    description: "계산기나라는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
+    url: "https://vibe-revenue.pages.dev/about",
+  },
 };
 
 export default function AboutPage() {

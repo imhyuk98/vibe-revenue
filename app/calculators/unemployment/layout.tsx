@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "실업급여 계산기 - 예상 실업급여 자동 계산",
     description: "나이, 근속연수, 평균 월급을 입력하면 실업급여 일액과 수급 기간을 자동으로 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/unemployment",
   },
 };
 

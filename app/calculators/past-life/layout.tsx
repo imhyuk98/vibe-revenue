@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "전생 테스트 - 생년월일로 알아보는 나의 전생 직업",
     description:
       "생년월일을 입력하면 나의 전생 직업과 시대, 성격, 현생에 미치는 영향을 재미있게 알아볼 수 있습니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/past-life",
   },
 };
 

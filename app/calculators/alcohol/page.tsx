@@ -95,7 +95,7 @@ export default function AlcoholCalculator() {
             <div className="relative">
               <input type="number" value={weight} onChange={(e) => { setWeight(e.target.value); setError(""); }} placeholder="70"
                 onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">kg</span>
             </div>
           </div>
@@ -123,7 +123,8 @@ export default function AlcoholCalculator() {
           <label className="block text-sm font-medium text-gray-700 mb-1">음주 후 경과 시간</label>
           <div className="relative">
             <input type="number" step="0.5" value={hours} onChange={(e) => setHours(e.target.value)} placeholder="0"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">시간</span>
           </div>
         </div>

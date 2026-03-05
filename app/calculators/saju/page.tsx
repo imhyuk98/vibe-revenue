@@ -140,7 +140,13 @@ export default function SajuCalculator() {
 
   const years = Array.from({ length: 100 }, (_, i) => currentYear - i);
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
-  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const daysInMonth = new Date(year, month, 0).getDate();
+  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // 선택된 일이 해당 월의 최대일을 초과하면 조정
+  if (day > daysInMonth) {
+    setDay(daysInMonth);
+  }
 
   const handleCalculate = () => {
     setResult(calculateSaju(year, month, day, hour));

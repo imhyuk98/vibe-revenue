@@ -62,7 +62,7 @@ export default function SavingsCalculator() {
           <label className="block text-sm font-medium text-gray-700 mb-1">월 납입금</label>
           <div className="relative">
             <input type="text" value={monthly} onChange={handleMonthlyChange} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 500,000"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
           </div>
         </div>
@@ -71,7 +71,7 @@ export default function SavingsCalculator() {
             <label className="block text-sm font-medium text-gray-700 mb-1">연 이자율</label>
             <div className="relative">
               <input type="number" step="0.01" value={rate} onChange={(e) => { setRate(e.target.value); setError(""); }} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="4.0"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">%</span>
             </div>
           </div>
@@ -79,7 +79,7 @@ export default function SavingsCalculator() {
             <label className="block text-sm font-medium text-gray-700 mb-1">적금 기간</label>
             <div className="relative">
               <input type="number" value={months} onChange={(e) => { setMonths(e.target.value); setError(""); }} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="12"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">개월</span>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function SavingsCalculator() {
             <p className="text-blue-100 text-sm mb-1">만기 수령액 (세후)</p>
             <div className="flex items-center justify-center gap-2">
               <p className="text-3xl font-bold">{fmt(result.totalAmount)}원</p>
-              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사">
+              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사" aria-label="결과 복사">
                 {copied ? <span className="text-xs font-medium">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
               </button>
             </div>

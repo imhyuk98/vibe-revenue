@@ -300,6 +300,7 @@ export default function CarTaxCalculator() {
                 onClick={handleCopy}
                 className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
                 title="결과 복사"
+                aria-label="결과 복사"
               >
                 {copied ? (
                   <span className="text-xs text-white font-medium px-1">복사됨!</span>
@@ -654,6 +655,7 @@ export default function CarTaxCalculator() {
           </div>
         </div>
       </section>
+      <RelatedTools current="car-tax" />
     </div>
   );
 }
@@ -686,7 +688,6 @@ function Row({
       >
         {formatted}
       </span>
-          <RelatedTools current="car-tax" />
 </div>
   );
 }

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "나이 계산기 - 만나이 한국나이 계산",
     description: "생년월일을 입력하면 만 나이와 한국 나이를 계산하고 다음 생일까지 남은 일수를 알려줍니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/age",
   },
 };
 

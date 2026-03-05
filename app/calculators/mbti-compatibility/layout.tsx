@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     title: "MBTI 궁합 테스트 - 나와 상대의 MBTI 궁합 점수 확인",
     description:
       "16가지 MBTI 유형별 궁합 점수와 분석 코멘트를 확인하세요.",
+    url: "https://vibe-revenue.pages.dev/calculators/mbti-compatibility",
   },
 };
 

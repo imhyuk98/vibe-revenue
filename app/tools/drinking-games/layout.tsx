@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     title: "술게임 모음 - 라이어게임, 진실or거짓, 폭탄돌리기, 업다운, 랜덤지목",
     description:
       "술자리에서 즐길 수 있는 5가지 인기 술게임을 스마트폰으로 바로 플레이하세요!",
+    url: "https://vibe-revenue.pages.dev/tools/drinking-games",
   },
 };
 

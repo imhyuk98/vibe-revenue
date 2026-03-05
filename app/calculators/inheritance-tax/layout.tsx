@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     title: "상속세 계산기 - 상속재산 공제/세율/신고세액공제 자동 계산",
     description:
       "2025년 기준 기초공제, 인적공제, 배우자공제를 적용하여 상속세를 자동으로 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/inheritance-tax",
   },
 };
 

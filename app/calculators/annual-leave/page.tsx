@@ -61,7 +61,7 @@ export default function AnnualLeaveCalculator() {
           <label className="block text-sm font-medium text-gray-700 mb-1">입사일</label>
           <input type="date" value={startDate} onChange={(e) => { setStartDate(e.target.value); setError(""); }}
             onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
         </div>
 
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "예금이자 계산기 - 정기예금 세후 수령액 자동 계산",
     description:
       "정기예금 예치금액과 이율을 입력하면 세후 수령액을 자동으로 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/deposit",
   },
 };
 

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "이미지 변환기 - PNG, JPG, WebP 이미지 포맷 변환",
     description: "PNG, JPG, WebP, GIF 등 이미지 파일 포맷을 브라우저에서 무료로 변환할 수 있는 온라인 이미지 변환기입니다.",
+    url: "https://vibe-revenue.pages.dev/tools/image-converter",
   },
 };
 

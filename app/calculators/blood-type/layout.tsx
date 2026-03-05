@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "아기 혈액형 계산기 - 부모 혈액형으로 자녀 혈액형 확률 계산",
     description:
       "부모의 혈액형을 입력하면 유전학 기반으로 태어날 아기의 혈액형과 확률을 자동으로 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/blood-type",
   },
 };
 

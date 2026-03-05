@@ -475,7 +475,7 @@ export function calculateBAC(
   hoursSinceDrinking: number
 ): AlcoholResult {
   // Widmark 공식
-  const genderConstant = gender === "male" ? 0.7 : 0.6;
+  const genderConstant = gender === "male" ? 0.68 : 0.55;
 
   // 총 알코올 섭취량 (g)
   let totalAlcohol = 0;

@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     title: "심리테스트 - 성격 유형, 연애 스타일, 스트레스 지수 테스트",
     description:
       "나의 성격 유형, 연애 스타일, 스트레스 지수를 알아보는 재미있는 심리테스트 모음입니다.",
+    url: "https://vibe-revenue.pages.dev/tools/psychology-test",
   },
 };
 

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { calculateSalary, type SalaryResult } from "@/lib/calculations";
-import type { Metadata } from "next";
 import RelatedTools from "@/components/RelatedTools";
 
 export default function SalaryCalculator() {
@@ -123,6 +122,7 @@ export default function SalaryCalculator() {
                 onClick={handleCopy}
                 className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
                 title="결과 복사"
+                aria-label="결과 복사"
               >
                 {copied ? (
                   <span className="text-xs font-medium">복사됨!</span>
@@ -278,6 +278,7 @@ export default function SalaryCalculator() {
           </div>
         </div>
       </section>
+      <RelatedTools current="salary" />
     </div>
   );
 }
@@ -310,7 +311,6 @@ function Row({
       >
         {formatted}
       </span>
-          <RelatedTools current="salary" />
 </div>
   );
 }

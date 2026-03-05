@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     title: "사주팔자 계산기 - 생년월일 사주 오행 분석 무료",
     description:
       "생년월일과 태어난 시간으로 사주팔자를 계산하고 오행 분석, 일간 성격 분석을 무료로 제공합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/saju",
   },
 };
 

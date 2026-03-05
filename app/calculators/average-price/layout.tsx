@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "물타기 계산기 - 주식 평균단가 계산",
     description:
       "주식 물타기 시 평균단가, 총 매수금액, 각 차수별 비중을 자동으로 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/average-price",
   },
 };
 

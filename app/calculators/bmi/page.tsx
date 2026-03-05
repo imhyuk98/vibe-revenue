@@ -73,7 +73,7 @@ export default function BMICalculator() {
             <div className="relative">
               <input type="number" step="0.1" value={height} onChange={(e) => { setHeight(e.target.value); setError(""); }} placeholder="170"
                 onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">cm</span>
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function BMICalculator() {
             <div className="relative">
               <input type="number" step="0.1" value={weight} onChange={(e) => { setWeight(e.target.value); setError(""); }} placeholder="70"
                 onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">kg</span>
             </div>
           </div>

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     title: "전기요금 계산기 - 가정용 전기요금 계산",
     description:
       "월간 전력 사용량(kWh)으로 가정용 전기요금을 누진제 기준으로 계산할 수 있는 무료 온라인 전기요금 계산기입니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/electricity",
   },
 };
 

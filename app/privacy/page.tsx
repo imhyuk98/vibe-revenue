@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "계산기나라 개인정보처리방침",
+  description: "계산기나라 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
+  keywords: ["개인정보처리방침", "계산기나라", "쿠키정책", "개인정보보호"],
+  openGraph: {
+    title: "개인정보처리방침 | 계산기나라",
+    description: "계산기나라 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
+    url: "https://vibe-revenue.pages.dev/privacy",
+  },
 };
 
 export default function PrivacyPage() {
@@ -71,7 +77,7 @@ export default function PrivacyPage() {
         </section>
 
         <p className="text-sm text-gray-400 mt-8">
-          시행일자: 2024년 1월 1일
+          시행일자: 2025년 1월 1일
         </p>
       </div>
     </div>

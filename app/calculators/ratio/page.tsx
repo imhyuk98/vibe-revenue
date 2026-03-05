@@ -643,6 +643,7 @@ export default function RatioCalculator() {
           </div>
         </div>
       </section>
+      <RelatedTools current="ratio" />
     </div>
   );
 }
@@ -683,7 +684,6 @@ function PropInput({
           className="w-full px-3 py-3 border border-gray-300 rounded-lg text-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
         />
       )}
-          <RelatedTools current="ratio" />
 </div>
   );
 }

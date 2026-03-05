@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "로또 세금 계산기 - 당첨금 실수령액 자동 계산",
     description:
       "로또 당첨금에 대한 소득세와 지방소득세를 계산하고, 세후 실수령액을 확인하세요.",
+    url: "https://vibe-revenue.pages.dev/calculators/lotto-tax",
   },
 };
 

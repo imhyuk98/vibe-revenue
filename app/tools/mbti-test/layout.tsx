@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     title: "MBTI 성격유형 검사 - 20문항으로 알아보는 나의 MBTI",
     description:
       "20개의 질문에 답하고 나의 MBTI 성격유형을 알아보세요. 각 축별 비율과 성격 분석까지 제공합니다.",
+    url: "https://vibe-revenue.pages.dev/tools/mbti-test",
   },
 };
 

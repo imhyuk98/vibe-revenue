@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "오늘의 운세 - 띠별 무료 운세 (총운/애정/재물/건강/직장)",
     description:
       "나의 띠(12지)로 오늘의 운세를 확인하세요. 총운, 애정운, 재물운, 건강운, 직장운과 행운 정보를 매일 무료로 제공합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/daily-fortune",
   },
 };
 

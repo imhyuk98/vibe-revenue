@@ -166,7 +166,7 @@ export default function CharacterCountPage() {
             onClick={handleClear}
             className="px-5 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
           >
-            지우기
+            초기화
           </button>
           <button
             onClick={handleCopy}

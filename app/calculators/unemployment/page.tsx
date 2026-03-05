@@ -58,7 +58,7 @@ export default function UnemploymentCalculator() {
             <label className="block text-sm font-medium text-gray-700 mb-1">나이</label>
             <div className="relative">
               <input type="number" value={age} onChange={(e) => { setAge(e.target.value); setError(""); }} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="35"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">세</span>
             </div>
           </div>
@@ -66,7 +66,7 @@ export default function UnemploymentCalculator() {
             <label className="block text-sm font-medium text-gray-700 mb-1">근속연수</label>
             <div className="relative">
               <input type="number" value={years} onChange={(e) => { setYears(e.target.value); setError(""); }} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="3"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">년</span>
             </div>
           </div>
@@ -76,7 +76,7 @@ export default function UnemploymentCalculator() {
           <label className="block text-sm font-medium text-gray-700 mb-1">퇴직 전 3개월 평균 월급 (세전)</label>
           <div className="relative">
             <input type="text" value={pay} onChange={handlePayChange} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 3,000,000"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
           </div>
         </div>
@@ -100,7 +100,7 @@ export default function UnemploymentCalculator() {
             <p className="text-blue-100 text-sm mb-1">예상 총 수급액</p>
             <div className="flex items-center justify-center gap-2">
               <p className="text-3xl font-bold">{fmt(result.totalAmount)}원</p>
-              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사">
+              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사" aria-label="결과 복사">
                 {copied ? <span className="text-xs font-medium">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
               </button>
             </div>

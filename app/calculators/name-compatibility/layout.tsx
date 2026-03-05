@@ -16,6 +16,7 @@ export const metadata: Metadata = {
     title: "이름 궁합 계산기 - 한글 획수로 보는 이름 궁합 테스트",
     description:
       "한글 획수 기반으로 두 사람의 이름 궁합을 계산합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/name-compatibility",
   },
 };
 

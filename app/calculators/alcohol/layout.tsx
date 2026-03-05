@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "음주 측정기 - 혈중 알코올 농도 계산기",
     description: "음주량과 시간을 입력하면 예상 혈중알코올농도(BAC)를 계산하고 운전 가능 여부를 확인합니다.",
+    url: "https://vibe-revenue.pages.dev/calculators/alcohol",
   },
 };
 

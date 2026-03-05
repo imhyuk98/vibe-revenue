@@ -72,7 +72,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
   );
   if (isPerfect) {
     return {
-      score: 95 + Math.floor(Math.random() * 6), // 95-100
+      score: 95 + 0, // 95-100
       grade: "천생연분",
       color: "text-emerald-600",
       bgColor: "bg-emerald-500",
@@ -85,7 +85,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
   // Same type
   if (a === b) {
     return {
-      score: 70 + Math.floor(Math.random() * 6),
+      score: 70 + 0,
       grade: "보통",
       color: "text-yellow-600",
       bgColor: "bg-yellow-500",
@@ -100,7 +100,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
 
   if (diff === 1 && samePerception) {
     return {
-      score: 80 + Math.floor(Math.random() * 11),
+      score: 80 + 5,
       grade: "좋은 궁합",
       color: "text-green-600",
       bgColor: "bg-green-500",
@@ -112,7 +112,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
 
   if (diff === 1) {
     return {
-      score: 75 + Math.floor(Math.random() * 11),
+      score: 75 + 5,
       grade: "좋은 궁합",
       color: "text-green-600",
       bgColor: "bg-green-500",
@@ -124,7 +124,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
 
   if (diff === 2) {
     return {
-      score: 60 + Math.floor(Math.random() * 16),
+      score: 68,
       grade: "보통",
       color: "text-yellow-600",
       bgColor: "bg-yellow-500",
@@ -136,7 +136,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
 
   if (diff === 3) {
     return {
-      score: 40 + Math.floor(Math.random() * 16),
+      score: 48,
       grade: "노력 필요",
       color: "text-orange-600",
       bgColor: "bg-orange-500",
@@ -148,7 +148,7 @@ function calculateCompatibility(a: MbtiType, b: MbtiType): CompatibilityResult {
 
   // diff === 4
   return {
-    score: 20 + Math.floor(Math.random() * 16),
+    score: 28,
     grade: "상극",
     color: "text-red-600",
     bgColor: "bg-red-500",

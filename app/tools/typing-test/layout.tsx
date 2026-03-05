@@ -18,6 +18,7 @@ export const metadata: Metadata = {
     title: "타자 속도 측정기 - 한글 타자 연습, 타이핑 속도 테스트",
     description:
       "한글 타자 속도를 무료로 측정하세요. 다양한 난이도의 한국어 문장으로 분당 타수, 정확도, 등급을 확인할 수 있습니다.",
+    url: "https://vibe-revenue.pages.dev/tools/typing-test",
   },
 };
 

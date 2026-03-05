@@ -17,6 +17,7 @@ export const metadata: Metadata = {
     title: "랜덤 룰렛 돌리기 - 점심 메뉴, 벌칙 뽑기 온라인 룰렛",
     description:
       "항목을 직접 추가하고 랜덤 룰렛을 돌려보세요! 다양한 결정을 재미있게 할 수 있습니다.",
+    url: "https://vibe-revenue.pages.dev/tools/random-roulette",
   },
 };
 
