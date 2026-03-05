@@ -132,6 +132,16 @@ export default function JsonFormatterPage() {
           >
             검증하기 (Validate)
           </button>
+          <button
+            onClick={() => {
+              setInput("");
+              setOutput("");
+              clearMessages();
+            }}
+            className="px-5 py-2.5 bg-gray-500 text-white font-medium rounded-lg hover:bg-gray-600 transition-colors"
+          >
+            초기화 (Clear All)
+          </button>
 
           <div className="flex items-center gap-2 ml-auto">
             <label className="text-sm text-gray-600">들여쓰기:</label>

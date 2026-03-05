@@ -62,6 +62,8 @@ export default function StockReturnCalculator() {
   const [feeRate, setFeeRate] = useState("0.015");
   const [taxRate, setTaxRate] = useState("0.18");
   const [result, setResult] = useState<StockReturnResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
 
@@ -72,6 +74,7 @@ export default function StockReturnCalculator() {
     } else {
       setter("");
     }
+    setError("");
   };
 
   const parseNumber = (value: string) =>
@@ -83,8 +86,29 @@ export default function StockReturnCalculator() {
     const q = parseNumber(quantity);
     const fr = parseFloat(feeRate);
     const tr = parseFloat(taxRate);
-    if (!bp || bp <= 0 || !sp || sp <= 0 || !q || q <= 0) return;
+    if (!bp || bp <= 0) { setError("매수가를 입력해주세요"); return; }
+    if (!sp || sp <= 0) { setError("매도가를 입력해주세요"); return; }
+    if (!q || q <= 0) { setError("수량을 입력해주세요"); return; }
+    setError("");
     setResult(calculateStockReturn(bp, sp, q, fr || 0, tr || 0));
+  };
+
+  const handleReset = () => {
+    setBuyPrice("");
+    setSellPrice("");
+    setQuantity("");
+    setFeeRate("0.015");
+    setTaxRate("0.18");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`순수익: ${result.netProfit >= 0 ? "+" : ""}${formatNumber(result.netProfit)}원 (수익률: ${result.returnRate >= 0 ? "+" : ""}${result.returnRate}%)`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -109,6 +133,7 @@ export default function StockReturnCalculator() {
                 type="text"
                 value={buyPrice}
                 onChange={(e) => handleNumberInput(e.target.value, setBuyPrice)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 50,000"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -130,6 +155,7 @@ export default function StockReturnCalculator() {
                 onChange={(e) =>
                   handleNumberInput(e.target.value, setSellPrice)
                 }
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 55,000"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -151,6 +177,7 @@ export default function StockReturnCalculator() {
                 onChange={(e) =>
                   handleNumberInput(e.target.value, setQuantity)
                 }
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 100"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -235,12 +262,21 @@ export default function StockReturnCalculator() {
           </div>
         </div>
 
-        <button
-          onClick={handleCalculate}
-          className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={handleCalculate}
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            계산하기
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            초기화
+          </button>
+        </div>
       </div>
 
       {/* 결과 영역 */}
@@ -251,10 +287,15 @@ export default function StockReturnCalculator() {
             className={`p-6 text-center text-white ${result.netProfit >= 0 ? "bg-red-500" : "bg-blue-500"}`}
           >
             <p className="text-sm opacity-80 mb-1">순수익</p>
-            <p className="text-3xl font-bold">
-              {result.netProfit >= 0 ? "+" : ""}
-              {formatNumber(result.netProfit)}원
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">
+                {result.netProfit >= 0 ? "+" : ""}
+                {formatNumber(result.netProfit)}원
+              </p>
+              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사">
+                {copied ? <span className="text-xs font-medium">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+              </button>
+            </div>
             <p className="text-lg font-semibold mt-1 opacity-90">
               수익률{" "}
               {result.returnRate >= 0 ? "+" : ""}

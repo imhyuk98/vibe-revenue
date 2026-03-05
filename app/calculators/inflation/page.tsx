@@ -55,6 +55,8 @@ export default function InflationCalculator() {
   const [rate, setRate] = useState("3");
   const [years, setYears] = useState("");
   const [result, setResult] = useState<InflationResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
 
@@ -65,6 +67,7 @@ export default function InflationCalculator() {
     } else {
       setter("");
     }
+    setError("");
   };
 
   const parseNumber = (value: string) =>
@@ -74,8 +77,27 @@ export default function InflationCalculator() {
     const a = parseNumber(amount);
     const r = parseFloat(rate);
     const y = parseInt(years.replace(/,/g, ""), 10);
-    if (!a || a <= 0 || !r || r <= 0 || !y || y <= 0) return;
+    if (!a || a <= 0) { setError("금액을 입력해주세요"); return; }
+    if (!r || r <= 0) { setError("물가상승률을 입력해주세요"); return; }
+    if (!y || y <= 0) { setError("기간을 입력해주세요"); return; }
+    setError("");
     setResult(calculateInflation(a, r, y));
+  };
+
+  const handleReset = () => {
+    setAmount("");
+    setRate("3");
+    setYears("");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`${result.years}년 후 실질 구매력: ${formatNumber(result.realValue)}원 (구매력 감소: -${result.purchasePowerLossPercent}%)`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const quickAmounts = [1000, 5000, 10000, 50000];
@@ -103,6 +125,7 @@ export default function InflationCalculator() {
                 type="text"
                 value={amount}
                 onChange={(e) => handleNumberInput(e.target.value, setAmount)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 10,000,000"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -137,7 +160,9 @@ export default function InflationCalculator() {
                 onChange={(e) => {
                   const v = e.target.value.replace(/[^0-9.]/g, "");
                   setRate(v);
+                  setError("");
                 }}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 3"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -170,7 +195,9 @@ export default function InflationCalculator() {
                 onChange={(e) => {
                   const v = e.target.value.replace(/[^0-9]/g, "");
                   setYears(v);
+                  setError("");
                 }}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 10"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -192,12 +219,21 @@ export default function InflationCalculator() {
           </div>
         </div>
 
-        <button
-          onClick={handleCalculate}
-          className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={handleCalculate}
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            계산하기
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            초기화
+          </button>
+        </div>
       </div>
 
       {/* 결과 영역 */}
@@ -209,9 +245,14 @@ export default function InflationCalculator() {
               <p className="text-sm text-gray-500 mb-1">
                 {result.years}년 후 같은 물건 가격
               </p>
-              <p className="text-2xl font-bold text-red-600">
-                {formatNumber(result.futurePrice)}원
-              </p>
+              <div className="flex items-center gap-2">
+                <p className="text-2xl font-bold text-red-600">
+                  {formatNumber(result.futurePrice)}원
+                </p>
+                <button onClick={handleCopy} className="p-1.5 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors" title="결과 복사">
+                  {copied ? <span className="text-xs font-medium text-green-600">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+                </button>
+              </div>
               <p className="text-xs text-gray-400 mt-1">
                 현재 {formatNumber(result.currentAmount)}원짜리 물건이
                 {result.years}년 후에는 이 가격이 됩니다

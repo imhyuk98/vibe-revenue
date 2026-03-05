@@ -18,18 +18,54 @@ export default function AlcoholCalculator() {
   const [hours, setHours] = useState("");
   const [drinks, setDrinks] = useState<Record<string, number>>({});
   const [result, setResult] = useState<AlcoholResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleCalculate = () => {
+    setError("");
     const w = parseFloat(weight);
-    const h = parseFloat(hours);
-    if (!w || w <= 0) return;
+    if (!weight || !w || w <= 0) {
+      setError("체중을 입력해주세요.");
+      return;
+    }
 
     const drinkList = DRINK_PRESETS.filter((p) => (drinks[p.type] || 0) > 0).map((p) => ({
       type: p.type, volume: p.volume, percent: p.percent, count: drinks[p.type] || 0,
     }));
-    if (drinkList.length === 0) return;
+    if (drinkList.length === 0) {
+      setError("음주량을 1잔 이상 입력해주세요.");
+      return;
+    }
 
+    const h = parseFloat(hours);
     setResult(calculateBAC(gender, w, drinkList, h || 0));
+  };
+
+  const handleReset = () => {
+    setGender("male");
+    setWeight("");
+    setHours("");
+    setDrinks({});
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
   };
 
   const updateDrink = (type: string, delta: number) => {
@@ -57,7 +93,8 @@ export default function AlcoholCalculator() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">체중</label>
             <div className="relative">
-              <input type="number" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="70"
+              <input type="number" value={weight} onChange={(e) => { setWeight(e.target.value); setError(""); }} placeholder="70"
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">kg</span>
             </div>
@@ -91,17 +128,33 @@ export default function AlcoholCalculator() {
           </div>
         </div>
 
-        <button onClick={handleCalculate}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3">
+          <button onClick={handleCalculate}
+            className="flex-1 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            계산하기
+          </button>
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       {result && (
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className={`p-6 text-center ${result.canDrive ? "bg-green-600" : "bg-red-600"} text-white`}>
             <p className="text-sm opacity-80 mb-1">예상 혈중알코올농도</p>
-            <p className="text-4xl font-bold">{result.bac.toFixed(3)}%</p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-4xl font-bold">{result.bac.toFixed(3)}%</p>
+              <button
+                onClick={() => handleCopy(`혈중알코올농도: ${result.bac.toFixed(3)}% (${result.status})`)}
+                className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                title="복사"
+              >
+                {copied ? "복사됨!" : "복사"}
+              </button>
+            </div>
             <p className="text-lg font-semibold mt-2">{result.status}</p>
           </div>
           <div className="p-6 space-y-3">

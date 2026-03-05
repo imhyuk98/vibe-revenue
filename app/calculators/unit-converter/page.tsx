@@ -73,6 +73,31 @@ export default function UnitConverter() {
   const [fromIdx, setFromIdx] = useState(0);
   const [toIdx, setToIdx] = useState(1);
   const [value, setValue] = useState("");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
+  const handleReset = () => {
+    setValue("");
+    setFromIdx(0);
+    setToIdx(1);
+    setCopied(false);
+  };
 
   const cat = UNITS[category];
   const inputVal = parseFloat(value) || 0;
@@ -117,12 +142,27 @@ export default function UnitConverter() {
             </select>
           </div>
         </div>
+        <div className="mt-4">
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="bg-blue-600 text-white p-6 text-center">
           <p className="text-blue-100 text-sm mb-1">변환 결과</p>
-          <p className="text-3xl font-bold">{displayResult}</p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-3xl font-bold">{displayResult}</p>
+            <button
+              onClick={() => handleCopy(`${displayResult} ${cat.units[toIdx]?.label}`)}
+              className="text-sm text-blue-200 hover:text-white transition-colors"
+              title="복사"
+            >
+              {copied ? "복사됨!" : "복사"}
+            </button>
+          </div>
           <p className="text-blue-200 text-sm mt-1">{cat.units[toIdx]?.label}</p>
         </div>
       </div>

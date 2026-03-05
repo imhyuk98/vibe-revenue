@@ -14,28 +14,67 @@ export default function RentConversionCalculator() {
   const [currentDeposit, setCurrentDeposit] = useState("");
   const [convRate, setConvRate] = useState("4.5");
   const [result, setResult] = useState<{ monthlyRent: number; deposit: number } | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const fmt = (n: number) => n.toLocaleString("ko-KR");
   const parseNum = (s: string) => parseInt(s.replace(/,/g, ""), 10) || 0;
   const fmtInput = (e: React.ChangeEvent<HTMLInputElement>, setter: (v: string) => void) => {
     const raw = e.target.value.replace(/[^0-9]/g, "");
     setter(raw ? parseInt(raw, 10).toLocaleString("ko-KR") : "");
+    setError("");
   };
 
   const handleCalculate = () => {
     const rate = parseFloat(convRate);
-    if (!rate || rate <= 0) return;
+    if (!rate || rate <= 0) {
+      setError("전환율을 입력해주세요");
+      return;
+    }
     if (mode === "toMonthly") {
       const j = parseNum(jeonse);
       const d = parseNum(newDeposit);
-      if (!j || j <= d) return;
+      if (!j) {
+        setError("전세 보증금을 입력해주세요");
+        return;
+      }
+      if (j <= d) {
+        setError("전세 보증금이 변경 후 보증금보다 커야 합니다");
+        return;
+      }
+      setError("");
       setResult(convertJeonseToMonthly(j, d, rate));
     } else {
       const d = parseNum(currentDeposit);
       const r = parseNum(monthlyRent);
-      if (!r) return;
+      if (!r) {
+        setError("월세를 입력해주세요");
+        return;
+      }
+      setError("");
       setResult(convertMonthlyToJeonse(d, r, rate));
     }
+  };
+
+  const handleReset = () => {
+    setJeonse("");
+    setNewDeposit("");
+    setMonthlyRent("");
+    setCurrentDeposit("");
+    setConvRate("4.5");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    const text = mode === "toMonthly"
+      ? `${fmt(result.monthlyRent)}원`
+      : `${fmt(result.deposit)}원`;
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
@@ -61,7 +100,7 @@ export default function RentConversionCalculator() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">전세 보증금</label>
               <div className="relative">
-                <input type="text" value={jeonse} onChange={(e) => fmtInput(e, setJeonse)} placeholder="예: 300,000,000"
+                <input type="text" value={jeonse} onChange={(e) => fmtInput(e, setJeonse)} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 300,000,000"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
               </div>
@@ -69,7 +108,7 @@ export default function RentConversionCalculator() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">변경 후 보증금</label>
               <div className="relative">
-                <input type="text" value={newDeposit} onChange={(e) => fmtInput(e, setNewDeposit)} placeholder="예: 50,000,000"
+                <input type="text" value={newDeposit} onChange={(e) => fmtInput(e, setNewDeposit)} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 50,000,000"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
               </div>
@@ -80,7 +119,7 @@ export default function RentConversionCalculator() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">현재 보증금</label>
               <div className="relative">
-                <input type="text" value={currentDeposit} onChange={(e) => fmtInput(e, setCurrentDeposit)} placeholder="예: 50,000,000"
+                <input type="text" value={currentDeposit} onChange={(e) => fmtInput(e, setCurrentDeposit)} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 50,000,000"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
               </div>
@@ -88,7 +127,7 @@ export default function RentConversionCalculator() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">현재 월세</label>
               <div className="relative">
-                <input type="text" value={monthlyRent} onChange={(e) => fmtInput(e, setMonthlyRent)} placeholder="예: 800,000"
+                <input type="text" value={monthlyRent} onChange={(e) => fmtInput(e, setMonthlyRent)} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 800,000"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
                 <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
               </div>
@@ -106,10 +145,18 @@ export default function RentConversionCalculator() {
           <p className="text-xs text-gray-400 mt-1">2024년 법정 전환율 상한: 한국은행 기준금리 + 2%</p>
         </div>
 
-        <button onClick={handleCalculate}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2 mb-4">{error}</p>}
+
+        <div className="flex gap-3">
+          <button onClick={handleCalculate}
+            className="flex-1 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            계산하기
+          </button>
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       {result && (
@@ -118,13 +165,43 @@ export default function RentConversionCalculator() {
             {mode === "toMonthly" ? (
               <>
                 <p className="text-blue-100 text-sm mb-1">전환 후 월세</p>
-                <p className="text-3xl font-bold">{fmt(result.monthlyRent)}원 / 월</p>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-3xl font-bold">{fmt(result.monthlyRent)}원 / 월</p>
+                  <button
+                    onClick={handleCopy}
+                    className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
+                    title="결과 복사"
+                  >
+                    {copied ? (
+                      <span className="text-xs text-white font-medium px-1">복사됨!</span>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
                 <p className="text-blue-200 text-sm mt-2">보증금 {fmt(result.deposit)}원</p>
               </>
             ) : (
               <>
                 <p className="text-blue-100 text-sm mb-1">전환 후 전세 보증금</p>
-                <p className="text-3xl font-bold">{fmt(result.deposit)}원</p>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-3xl font-bold">{fmt(result.deposit)}원</p>
+                  <button
+                    onClick={handleCopy}
+                    className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
+                    title="결과 복사"
+                  >
+                    {copied ? (
+                      <span className="text-xs text-white font-medium px-1">복사됨!</span>
+                    ) : (
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
               </>
             )}
           </div>

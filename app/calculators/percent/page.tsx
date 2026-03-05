@@ -7,6 +7,7 @@ type Tab = "basic" | "ratio" | "discount" | "change";
 
 export default function PercentCalculator() {
   const [activeTab, setActiveTab] = useState<Tab>("basic");
+  const [copied, setCopied] = useState(false);
 
   // Tab 1: 기본 퍼센트
   const [basicA, setBasicA] = useState("");
@@ -103,6 +104,28 @@ export default function PercentCalculator() {
     }
   }, [changeBefore, changeAfter]);
 
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+
+  const handleResetBasic = () => { setBasicA(""); setBasicB(""); setBasicResult(null); };
+  const handleResetRatio = () => { setRatioA(""); setRatioB(""); setRatioResult(null); };
+  const handleResetDiscount = () => { setDiscountPrice(""); setDiscountRate(""); setIsDiscount(true); setDiscountResult(null); };
+  const handleResetChange = () => { setChangeBefore(""); setChangeAfter(""); setChangeResult(null); };
+
   const tabs: { key: Tab; label: string }[] = [
     { key: "basic", label: "A의 B%는?" },
     { key: "ratio", label: "A는 B의 몇%?" },
@@ -172,16 +195,22 @@ export default function PercentCalculator() {
                 </span>
               </div>
             </div>
-            <button
-              onClick={() => {
-                const a = parseNumber(basicA);
-                const b = parseNumber(basicB);
-                if (!isNaN(a) && !isNaN(b)) setBasicResult(a * b / 100);
-              }}
-              className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              계산하기
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  const a = parseNumber(basicA);
+                  const b = parseNumber(basicB);
+                  if (!isNaN(a) && !isNaN(b)) setBasicResult(a * b / 100);
+                }}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                계산하기
+              </button>
+              <button onClick={handleResetBasic}
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                초기화
+              </button>
+            </div>
           </div>
 
           {basicResult !== null && (
@@ -189,9 +218,18 @@ export default function PercentCalculator() {
               <p className="text-sm text-gray-600 mb-1">
                 {basicA}의 {basicB}%는
               </p>
-              <p className="text-3xl font-bold text-blue-600">
-                {formatNumber(Math.round(basicResult * 100) / 100)}
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-3xl font-bold text-blue-600">
+                  {formatNumber(Math.round(basicResult * 100) / 100)}
+                </p>
+                <button
+                  onClick={() => handleCopy(String(Math.round(basicResult * 100) / 100))}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -228,16 +266,22 @@ export default function PercentCalculator() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <button
-              onClick={() => {
-                const a = parseNumber(ratioA);
-                const b = parseNumber(ratioB);
-                if (!isNaN(a) && !isNaN(b) && b !== 0) setRatioResult((a / b) * 100);
-              }}
-              className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              계산하기
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  const a = parseNumber(ratioA);
+                  const b = parseNumber(ratioB);
+                  if (!isNaN(a) && !isNaN(b) && b !== 0) setRatioResult((a / b) * 100);
+                }}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                계산하기
+              </button>
+              <button onClick={handleResetRatio}
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                초기화
+              </button>
+            </div>
           </div>
 
           {ratioResult !== null && (
@@ -245,9 +289,18 @@ export default function PercentCalculator() {
               <p className="text-sm text-gray-600 mb-1">
                 {ratioA}은(는) {ratioB}의
               </p>
-              <p className="text-3xl font-bold text-blue-600">
-                {(Math.round(ratioResult * 100) / 100).toLocaleString("ko-KR")}%
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-3xl font-bold text-blue-600">
+                  {(Math.round(ratioResult * 100) / 100).toLocaleString("ko-KR")}%
+                </p>
+                <button
+                  onClick={() => handleCopy(`${(Math.round(ratioResult * 100) / 100).toLocaleString("ko-KR")}%`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
             </div>
           )}
         </div>
@@ -320,23 +373,29 @@ export default function PercentCalculator() {
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                const price = parseNumber(discountPrice);
-                const rate = parseNumber(discountRate);
-                if (!isNaN(price) && !isNaN(rate)) {
-                  const diff = price * rate / 100;
-                  if (isDiscount) {
-                    setDiscountResult({ finalPrice: price - diff, difference: diff });
-                  } else {
-                    setDiscountResult({ finalPrice: price + diff, difference: diff });
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  const price = parseNumber(discountPrice);
+                  const rate = parseNumber(discountRate);
+                  if (!isNaN(price) && !isNaN(rate)) {
+                    const diff = price * rate / 100;
+                    if (isDiscount) {
+                      setDiscountResult({ finalPrice: price - diff, difference: diff });
+                    } else {
+                      setDiscountResult({ finalPrice: price + diff, difference: diff });
+                    }
                   }
-                }
-              }}
-              className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              계산하기
-            </button>
+                }}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                계산하기
+              </button>
+              <button onClick={handleResetDiscount}
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                초기화
+              </button>
+            </div>
           </div>
 
           {discountResult !== null && (
@@ -344,9 +403,18 @@ export default function PercentCalculator() {
               <p className="text-sm text-gray-600 mb-1">
                 {isDiscount ? "할인된 가격" : "인상된 가격"}
               </p>
-              <p className="text-3xl font-bold text-blue-600">
-                {formatNumber(Math.round(discountResult.finalPrice))}원
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-3xl font-bold text-blue-600">
+                  {formatNumber(Math.round(discountResult.finalPrice))}원
+                </p>
+                <button
+                  onClick={() => handleCopy(`${formatNumber(Math.round(discountResult.finalPrice))}원`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
               <p className="text-sm text-gray-500 mt-2">
                 {isDiscount ? "할인 금액" : "인상 금액"}:{" "}
                 <span className={isDiscount ? "text-red-500" : "text-green-600"}>
@@ -390,34 +458,49 @@ export default function PercentCalculator() {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            <button
-              onClick={() => {
-                const before = parseNumber(changeBefore);
-                const after = parseNumber(changeAfter);
-                if (!isNaN(before) && !isNaN(after) && before !== 0) {
-                  const amount = after - before;
-                  const rate = (amount / before) * 100;
-                  setChangeResult({ rate, amount });
-                }
-              }}
-              className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-            >
-              계산하기
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  const before = parseNumber(changeBefore);
+                  const after = parseNumber(changeAfter);
+                  if (!isNaN(before) && !isNaN(after) && before !== 0) {
+                    const amount = after - before;
+                    const rate = (amount / before) * 100;
+                    setChangeResult({ rate, amount });
+                  }
+                }}
+                className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                계산하기
+              </button>
+              <button onClick={handleResetChange}
+                className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                초기화
+              </button>
+            </div>
           </div>
 
           {changeResult !== null && (
             <div className="mt-6 bg-blue-50 rounded-lg p-6 text-center">
               <p className="text-sm text-gray-600 mb-1">증감률</p>
-              <p
-                className={`text-3xl font-bold ${
-                  changeResult.rate >= 0 ? "text-red-500" : "text-blue-600"
-                }`}
-              >
-                {changeResult.rate >= 0 ? "+" : ""}
-                {(Math.round(changeResult.rate * 100) / 100).toLocaleString("ko-KR")}%
-                {changeResult.rate >= 0 ? " ↑" : " ↓"}
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p
+                  className={`text-3xl font-bold ${
+                    changeResult.rate >= 0 ? "text-red-500" : "text-blue-600"
+                  }`}
+                >
+                  {changeResult.rate >= 0 ? "+" : ""}
+                  {(Math.round(changeResult.rate * 100) / 100).toLocaleString("ko-KR")}%
+                  {changeResult.rate >= 0 ? " ↑" : " ↓"}
+                </p>
+                <button
+                  onClick={() => handleCopy(`${changeResult.rate >= 0 ? "+" : ""}${(Math.round(changeResult.rate * 100) / 100).toLocaleString("ko-KR")}%`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
               <p className="text-sm text-gray-500 mt-2">
                 증감량:{" "}
                 <span

@@ -17,6 +17,24 @@ function gcd(a: number, b: number): number {
 
 export default function RatioCalculator() {
   const [activeTab, setActiveTab] = useState<Tab>("simplify");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
 
   // Tab 1: 비율 단순화
   const [simplifyA, setSimplifyA] = useState("");
@@ -167,13 +185,28 @@ export default function RatioCalculator() {
               className="flex-1 px-4 py-3 border border-gray-300 rounded-lg text-lg text-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
+          <div className="mt-4">
+            <button onClick={() => { setSimplifyA(""); setSimplifyB(""); }}
+              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              초기화
+            </button>
+          </div>
 
           {simplifyResult && (
             <div className="mt-6 bg-blue-50 rounded-lg p-5 text-center">
               <p className="text-sm text-blue-600 mb-1">단순화된 비율</p>
-              <p className="text-3xl font-bold text-blue-700">
-                {formatNum(simplifyResult.a)} : {formatNum(simplifyResult.b)}
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-3xl font-bold text-blue-700">
+                  {formatNum(simplifyResult.a)} : {formatNum(simplifyResult.b)}
+                </p>
+                <button
+                  onClick={() => handleCopy(`${formatNum(simplifyResult.a)} : ${formatNum(simplifyResult.b)}`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
               <p className="text-sm text-gray-500 mt-2">
                 최대공약수(GCD):{" "}
                 {formatNum(
@@ -218,6 +251,12 @@ export default function RatioCalculator() {
           </div>
 
           {/* 입력 필드 */}
+          <div className="mb-4">
+            <button onClick={() => { setPropA(""); setPropB(""); setPropC(""); setPropD(""); setUnknown("D"); }}
+              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              초기화
+            </button>
+          </div>
           <div className="flex items-center gap-2 flex-wrap">
             <PropInput
               label="A"
@@ -255,9 +294,18 @@ export default function RatioCalculator() {
           {proportionResult && (
             <div className="mt-6 bg-blue-50 rounded-lg p-5">
               <p className="text-sm text-blue-600 mb-1">결과</p>
-              <p className="text-3xl font-bold text-blue-700 text-center">
-                {unknown} = {formatNum(proportionResult.result)}
-              </p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-3xl font-bold text-blue-700">
+                  {unknown} = {formatNum(proportionResult.result)}
+                </p>
+                <button
+                  onClick={() => handleCopy(`${unknown} = ${formatNum(proportionResult.result)}`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
               <div className="mt-3 text-sm text-gray-600 space-y-1">
                 <p>
                   <span className="font-medium">공식:</span>{" "}
@@ -300,6 +348,12 @@ export default function RatioCalculator() {
           </div>
 
           {/* 입력 */}
+          <div className="mb-4">
+            <button onClick={() => { setAspectW(""); setAspectH(""); }}
+              className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              초기화
+            </button>
+          </div>
           <div className="flex items-center gap-3">
             <div className="flex-1">
               <label className="block text-xs text-gray-500 mb-1">
@@ -338,9 +392,18 @@ export default function RatioCalculator() {
             <div className="mt-6">
               <div className="bg-blue-50 rounded-lg p-5 text-center">
                 <p className="text-sm text-blue-600 mb-1">화면 비율</p>
-                <p className="text-3xl font-bold text-blue-700">
-                  {aspectResult.ratioW} : {aspectResult.ratioH}
-                </p>
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-3xl font-bold text-blue-700">
+                    {aspectResult.ratioW} : {aspectResult.ratioH}
+                  </p>
+                  <button
+                    onClick={() => handleCopy(`${aspectResult.ratioW} : ${aspectResult.ratioH}`)}
+                    className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                    title="복사"
+                  >
+                    {copied ? "복사됨!" : "복사"}
+                  </button>
+                </div>
                 <p className="text-sm text-gray-500 mt-2">
                   {aspectResult.width.toLocaleString()} ×{" "}
                   {aspectResult.height.toLocaleString()} px

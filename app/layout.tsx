@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import ScrollToTop from "@/components/ScrollToTop";
+import Breadcrumb from "@/components/Breadcrumb";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -51,8 +53,14 @@ export default function RootLayout({
       >
         <GoogleAnalytics />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <div className="max-w-5xl mx-auto px-4 pt-4">
+            <Breadcrumb />
+          </div>
+          {children}
+        </main>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

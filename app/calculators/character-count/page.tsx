@@ -69,11 +69,14 @@ export default function CharacterCountPage() {
     textareaRef.current?.focus();
   };
 
+  const [copiedText, setCopiedText] = useState(false);
+
   const handleCopy = async () => {
     if (!text) return;
     try {
       await navigator.clipboard.writeText(text);
-      alert("텍스트가 복사되었습니다.");
+      setCopiedText(true);
+      setTimeout(() => setCopiedText(false), 1500);
     } catch {
       // fallback
       const textarea = document.createElement("textarea");
@@ -82,7 +85,25 @@ export default function CharacterCountPage() {
       textarea.select();
       document.execCommand("copy");
       document.body.removeChild(textarea);
-      alert("텍스트가 복사되었습니다.");
+      setCopiedText(true);
+      setTimeout(() => setCopiedText(false), 1500);
+    }
+  };
+
+  const handleCopyResult = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedText(true);
+      setTimeout(() => setCopiedText(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopiedText(true);
+      setTimeout(() => setCopiedText(false), 1500);
     }
   };
 
@@ -105,14 +126,25 @@ export default function CharacterCountPage() {
 
       {/* 통계 카드 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        {statCards.map((card) => (
+        {statCards.map((card, idx) => (
           <div
             key={card.label}
-            className="bg-white rounded-xl border border-gray-200 p-4 text-center"
+            className="bg-white rounded-xl border border-gray-200 p-4 text-center relative group"
           >
-            <p className="text-2xl font-bold text-blue-600">
-              {card.value.toLocaleString("ko-KR")}
-            </p>
+            <div className="flex items-center justify-center gap-1">
+              <p className="text-2xl font-bold text-blue-600">
+                {card.value.toLocaleString("ko-KR")}
+              </p>
+              {idx === 0 && (
+                <button
+                  onClick={() => handleCopyResult(`${card.value.toLocaleString("ko-KR")}자`)}
+                  className="text-xs text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copiedText ? "복사됨!" : "복사"}
+                </button>
+              )}
+            </div>
             <p className="text-xs text-gray-500 mt-1">{card.label}</p>
           </div>
         ))}
@@ -140,7 +172,7 @@ export default function CharacterCountPage() {
             onClick={handleCopy}
             className="px-5 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
-            복사하기
+            {copiedText ? "복사됨!" : "복사하기"}
           </button>
         </div>
       </div>

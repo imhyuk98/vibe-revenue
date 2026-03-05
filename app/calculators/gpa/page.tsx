@@ -3,6 +3,27 @@
 import { useState, useCallback } from "react";
 import RelatedTools from "@/components/RelatedTools";
 
+function useCopyToClipboard() {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
+  };
+  return { copied, handleCopy };
+}
+
 interface Subject {
   id: number;
   name: string;
@@ -58,6 +79,7 @@ function initialSubjects(): Subject[] {
 export default function GpaCalculator() {
   const [scale, setScale] = useState<"4.5" | "4.3">("4.5");
   const [subjects, setSubjects] = useState<Subject[]>(initialSubjects);
+  const { copied, handleCopy } = useCopyToClipboard();
 
   const grades = scale === "4.5" ? GRADES_45 : GRADES_43;
 
@@ -242,12 +264,21 @@ export default function GpaCalculator() {
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="bg-blue-600 text-white p-6 text-center">
           <p className="text-blue-100 text-sm mb-1">평균 학점 (GPA)</p>
-          <p className="text-4xl font-bold">
-            {gpa.toFixed(2)}{" "}
-            <span className="text-lg font-normal text-blue-200">
-              / {maxScale}
-            </span>
-          </p>
+          <div className="flex items-center justify-center gap-2">
+            <p className="text-4xl font-bold">
+              {gpa.toFixed(2)}{" "}
+              <span className="text-lg font-normal text-blue-200">
+                / {maxScale}
+              </span>
+            </p>
+            <button
+              onClick={() => handleCopy(`GPA: ${gpa.toFixed(2)} / ${maxScale}`)}
+              className="text-sm text-blue-200 hover:text-white transition-colors"
+              title="복사"
+            >
+              {copied ? "복사됨!" : "복사"}
+            </button>
+          </div>
         </div>
         <div className="p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

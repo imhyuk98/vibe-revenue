@@ -143,6 +143,21 @@ function TimerTab() {
     return clearTimer;
   }, [clearTimer]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== "Space") return;
+      if (document.activeElement?.tagName === "INPUT") return;
+      e.preventDefault();
+      if (isRunning) {
+        handlePause();
+      } else {
+        handleStart();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isRunning, handleStart, handlePause]);
+
   const presets = [
     { label: "1분", mins: 1 },
     { label: "3분", mins: 3 },
@@ -290,6 +305,7 @@ function TimerTab() {
           리셋
         </button>
       </div>
+      <p className="text-xs text-gray-400 mt-2 text-center">스페이스바로 시작/정지</p>
     </div>
   );
 }
@@ -350,6 +366,21 @@ function StopwatchTab() {
     return clearStopwatch;
   }, [clearStopwatch]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== "Space") return;
+      if (document.activeElement?.tagName === "INPUT") return;
+      e.preventDefault();
+      if (isRunning) {
+        handlePause();
+      } else {
+        handleStart();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isRunning, handleStart, handlePause]);
+
   // Find fastest / slowest laps (only if 2+ laps)
   let fastestIdx = -1;
   let slowestIdx = -1;
@@ -409,6 +440,7 @@ function StopwatchTab() {
           리셋
         </button>
       </div>
+      <p className="text-xs text-gray-400 mt-2 text-center">스페이스바로 시작/정지</p>
 
       {/* Laps */}
       {laps.length > 0 && (

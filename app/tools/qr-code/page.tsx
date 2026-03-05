@@ -269,12 +269,28 @@ export default function QrCodeGenerator() {
         </div>
 
         {/* 생성 버튼 */}
-        <div className="mt-6">
+        <div className="mt-6 flex gap-3">
           <button
             onClick={handleGenerate}
-            className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             생성하기
+          </button>
+          <button
+            onClick={() => {
+              setTextInput("");
+              setSsid("");
+              setWifiPassword("");
+              setEncryption("WPA");
+              setEmailAddress("");
+              setEmailSubject("");
+              setEmailBody("");
+              setQrUrl("");
+              setError("");
+            }}
+            className="px-6 py-3 bg-gray-500 text-white font-medium rounded-lg hover:bg-gray-600 transition-colors"
+          >
+            초기화
           </button>
         </div>
 

@@ -16,12 +16,47 @@ export default function BMICalculator() {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
   const [result, setResult] = useState<BMIResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleCalculate = () => {
+    setError("");
     const h = parseFloat(height);
     const w = parseFloat(weight);
-    if (!h || !w || h <= 0 || w <= 0) return;
+    if (!height || !weight) {
+      setError("키와 몸무게를 모두 입력해주세요.");
+      return;
+    }
+    if (!h || !w || h <= 0 || w <= 0) {
+      setError("올바른 값을 입력해주세요.");
+      return;
+    }
     setResult(calculateBMI(h, w));
+  };
+
+  const handleReset = () => {
+    setHeight("");
+    setWeight("");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
   };
 
   return (
@@ -36,7 +71,8 @@ export default function BMICalculator() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">키</label>
             <div className="relative">
-              <input type="number" step="0.1" value={height} onChange={(e) => setHeight(e.target.value)} placeholder="170"
+              <input type="number" step="0.1" value={height} onChange={(e) => { setHeight(e.target.value); setError(""); }} placeholder="170"
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">cm</span>
             </div>
@@ -44,24 +80,41 @@ export default function BMICalculator() {
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">몸무게</label>
             <div className="relative">
-              <input type="number" step="0.1" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="70"
+              <input type="number" step="0.1" value={weight} onChange={(e) => { setWeight(e.target.value); setError(""); }} placeholder="70"
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
               <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">kg</span>
             </div>
           </div>
         </div>
 
-        <button onClick={handleCalculate}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3">
+          <button onClick={handleCalculate}
+            className="flex-1 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            계산하기
+          </button>
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       {result && (
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
           <div className="bg-blue-600 text-white p-6 text-center">
             <p className="text-blue-100 text-sm mb-1">당신의 BMI</p>
-            <p className="text-4xl font-bold">{result.bmi}</p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-4xl font-bold">{result.bmi}</p>
+              <button
+                onClick={() => handleCopy(`BMI: ${result.bmi} (${result.category})`)}
+                className="text-sm text-blue-200 hover:text-white transition-colors"
+                title="복사"
+              >
+                {copied ? "복사됨!" : "복사"}
+              </button>
+            </div>
             <p className={`text-xl font-semibold mt-2 ${result.color.replace("text-", "text-")}`}>
               {result.category}
             </p>

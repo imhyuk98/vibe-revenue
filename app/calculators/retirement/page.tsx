@@ -10,18 +10,40 @@ export default function RetirementCalculator() {
   const [pay, setPay] = useState("");
   const [days, setDays] = useState("90");
   const [result, setResult] = useState<RetirementResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleCalculate = () => {
-    if (!startDate || !endDate) return;
+    if (!startDate) { setError("입사일을 입력해주세요"); return; }
+    if (!endDate) { setError("퇴사일을 입력해주세요"); return; }
     const payNum = parseInt(pay.replace(/,/g, ""), 10);
     const daysNum = parseInt(days, 10);
-    if (!payNum || !daysNum || payNum <= 0 || daysNum <= 0) return;
+    if (!payNum || payNum <= 0) { setError("급여를 입력해주세요"); return; }
+    if (!daysNum || daysNum <= 0) { setError("총 일수를 입력해주세요"); return; }
 
     const start = new Date(startDate);
     const end = new Date(endDate);
-    if (end <= start) return;
+    if (end <= start) { setError("퇴사일은 입사일 이후여야 합니다"); return; }
 
+    setError("");
     setResult(calculateRetirement(start, end, payNum, daysNum));
+  };
+
+  const handleReset = () => {
+    setStartDate("");
+    setEndDate("");
+    setPay("");
+    setDays("90");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`예상 퇴직금: ${formatNumber(result.retirementPay)}원`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
@@ -29,6 +51,7 @@ export default function RetirementCalculator() {
   const handlePayChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value.replace(/[^0-9]/g, "");
     setPay(raw ? parseInt(raw, 10).toLocaleString("ko-KR") : "");
+    setError("");
   };
 
   return (
@@ -42,12 +65,12 @@ export default function RetirementCalculator() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">입사일</label>
-            <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)}
+            <input type="date" value={startDate} onChange={(e) => { setStartDate(e.target.value); setError(""); }}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">퇴사일</label>
-            <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)}
+            <input type="date" value={endDate} onChange={(e) => { setEndDate(e.target.value); setError(""); }}
               className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
         </div>
@@ -57,7 +80,7 @@ export default function RetirementCalculator() {
             최근 3개월 총 급여 (세전)
           </label>
           <div className="relative">
-            <input type="text" value={pay} onChange={handlePayChange} placeholder="예: 9,000,000"
+            <input type="text" value={pay} onChange={handlePayChange} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="예: 9,000,000"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">원</span>
           </div>
@@ -69,24 +92,36 @@ export default function RetirementCalculator() {
             최근 3개월 총 일수
           </label>
           <div className="relative">
-            <input type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="90"
+            <input type="number" value={days} onChange={(e) => { setDays(e.target.value); setError(""); }} onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }} placeholder="90"
               className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
             <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">일</span>
           </div>
           <p className="text-xs text-gray-400 mt-1">보통 89~92일 (3개월의 실제 달력 일수)</p>
         </div>
 
-        <button onClick={handleCalculate}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3">
+          <button onClick={handleCalculate}
+            className="flex-1 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            계산하기
+          </button>
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       {result && (
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
           <div className="bg-blue-600 text-white p-6 text-center">
             <p className="text-blue-100 text-sm mb-1">예상 퇴직금</p>
-            <p className="text-3xl font-bold">{formatNumber(result.retirementPay)}원</p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">{formatNumber(result.retirementPay)}원</p>
+              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사">
+                {copied ? <span className="text-xs font-medium">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+              </button>
+            </div>
           </div>
           <div className="p-6 space-y-3">
             <div className="flex justify-between py-1">

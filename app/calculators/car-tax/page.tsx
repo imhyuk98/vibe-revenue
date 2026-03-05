@@ -116,6 +116,8 @@ export default function CarTaxCalculator() {
   const [displacement, setDisplacement] = useState("");
   const [registrationYear, setRegistrationYear] = useState("");
   const [result, setResult] = useState<CarTaxResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, i) => currentYear - i);
@@ -125,9 +127,32 @@ export default function CarTaxCalculator() {
   const handleCalculate = () => {
     const cc = parseInt(displacement.replace(/,/g, ""), 10);
     const year = parseInt(registrationYear, 10);
-    if (!isElectric && (!cc || cc <= 0)) return;
-    if (!year) return;
+    if (!isElectric && (!cc || cc <= 0)) {
+      setError("배기량을 입력해주세요");
+      return;
+    }
+    if (!year) {
+      setError("최초등록연도를 선택해주세요");
+      return;
+    }
+    setError("");
     setResult(calculateCarTax(vehicleType, isElectric ? 0 : cc, year));
+  };
+
+  const handleReset = () => {
+    setVehicleType("non-business");
+    setDisplacement("");
+    setRegistrationYear("");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`${formatNumber(result.annualTotal)}원`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleDisplacementChange = (
@@ -139,6 +164,7 @@ export default function CarTaxCalculator() {
     } else {
       setDisplacement("");
     }
+    setError("");
   };
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
@@ -187,6 +213,7 @@ export default function CarTaxCalculator() {
                 type="text"
                 value={displacement}
                 onChange={handleDisplacementChange}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 1,999"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -240,13 +267,23 @@ export default function CarTaxCalculator() {
           </select>
         </div>
 
+        {error && <p className="text-red-500 text-sm mt-2 mb-4">{error}</p>}
+
         {/* 계산 버튼 */}
-        <button
-          onClick={handleCalculate}
-          className="w-full px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          계산하기
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={handleCalculate}
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            계산하기
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            초기화
+          </button>
+        </div>
       </div>
 
       {/* 결과 영역 */}
@@ -255,9 +292,24 @@ export default function CarTaxCalculator() {
           {/* 연간 총 납부액 하이라이트 */}
           <div className="bg-blue-600 text-white p-6 text-center">
             <p className="text-blue-100 text-sm mb-1">연간 총 납부액</p>
-            <p className="text-3xl font-bold">
-              {formatNumber(result.annualTotal)}원
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">
+                {formatNumber(result.annualTotal)}원
+              </p>
+              <button
+                onClick={handleCopy}
+                className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
+                title="결과 복사"
+              >
+                {copied ? (
+                  <span className="text-xs text-white font-medium px-1">복사됨!</span>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+              </button>
+            </div>
             {result.reductionRate > 0 && (
               <p className="text-blue-200 text-sm mt-2">
                 차령 {result.vehicleAge}년 / {result.reductionRate}% 감면 적용

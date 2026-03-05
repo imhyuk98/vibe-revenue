@@ -7,13 +7,46 @@ import RelatedTools from "@/components/RelatedTools";
 export default function AgeCalculator() {
   const [birthDate, setBirthDate] = useState("");
   const [result, setResult] = useState<AgeResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleCalculate = () => {
-    if (!birthDate) return;
+    setError("");
+    if (!birthDate) {
+      setError("생년월일을 입력해주세요.");
+      return;
+    }
     const birth = new Date(birthDate);
     const today = new Date();
-    if (birth > today) return;
+    if (birth > today) {
+      setError("미래 날짜는 입력할 수 없습니다.");
+      return;
+    }
     setResult(calculateAge(birth, today));
+  };
+
+  const handleReset = () => {
+    setBirthDate("");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    }
   };
 
   return (
@@ -24,13 +57,21 @@ export default function AgeCalculator() {
       <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6 space-y-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">생년월일</label>
-          <input type="date" value={birthDate} onChange={(e) => setBirthDate(e.target.value)}
+          <input type="date" value={birthDate} onChange={(e) => { setBirthDate(e.target.value); setError(""); }}
+            onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
-        <button onClick={handleCalculate}
-          className="w-full py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3">
+          <button onClick={handleCalculate}
+            className="flex-1 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors">
+            계산하기
+          </button>
+          <button onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            초기화
+          </button>
+        </div>
       </div>
 
       {result && (
@@ -38,7 +79,16 @@ export default function AgeCalculator() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="bg-white rounded-xl border border-gray-200 p-6 text-center">
               <p className="text-sm text-gray-500 mb-1">만 나이</p>
-              <p className="text-4xl font-bold text-blue-600">{result.internationalAge}세</p>
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-4xl font-bold text-blue-600">{result.internationalAge}세</p>
+                <button
+                  onClick={() => handleCopy(`만 나이: ${result.internationalAge}세`)}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition-colors"
+                  title="복사"
+                >
+                  {copied ? "복사됨!" : "복사"}
+                </button>
+              </div>
               <p className="text-xs text-gray-400 mt-1">국제 표준 / 법적 나이</p>
             </div>
             <div className="bg-white rounded-xl border border-gray-200 p-6 text-center">

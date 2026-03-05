@@ -48,6 +48,8 @@ export default function DepositCalculator() {
   const [months, setMonths] = useState("");
   const [taxType, setTaxType] = useState<TaxType>("normal");
   const [result, setResult] = useState<DepositResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
 
@@ -61,6 +63,7 @@ export default function DepositCalculator() {
     } else {
       setter("");
     }
+    setError("");
   };
 
   const parseNumber = (value: string) =>
@@ -70,8 +73,28 @@ export default function DepositCalculator() {
     const p = parseNumber(principal);
     const r = parseFloat(rate);
     const m = parseInt(months.replace(/,/g, ""), 10);
-    if (!p || p <= 0 || !r || r <= 0 || !m || m <= 0) return;
+    if (!p || p <= 0) { setError("예치금액을 입력해주세요"); return; }
+    if (!r || r <= 0) { setError("연이율을 입력해주세요"); return; }
+    if (!m || m <= 0) { setError("예치기간을 입력해주세요"); return; }
+    setError("");
     setResult(calculateDeposit(p, r, m, taxType));
+  };
+
+  const handleReset = () => {
+    setPrincipal("");
+    setRate("");
+    setMonths("");
+    setTaxType("normal");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`세후 수령액: ${formatNumber(result.totalAmount)}원`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const quickAmounts = [1000, 3000, 5000, 10000];
@@ -99,6 +122,7 @@ export default function DepositCalculator() {
                 type="text"
                 value={principal}
                 onChange={(e) => handleNumberInput(e.target.value, setPrincipal)}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 10,000,000"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -133,7 +157,9 @@ export default function DepositCalculator() {
                 onChange={(e) => {
                   const v = e.target.value.replace(/[^0-9.]/g, "");
                   setRate(v);
+                  setError("");
                 }}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 3.5"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -166,7 +192,9 @@ export default function DepositCalculator() {
                 onChange={(e) => {
                   const v = e.target.value.replace(/[^0-9]/g, "");
                   setMonths(v);
+                  setError("");
                 }}
+                onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
                 placeholder="예: 12"
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
@@ -217,12 +245,21 @@ export default function DepositCalculator() {
           </div>
         </div>
 
-        <button
-          onClick={handleCalculate}
-          className="w-full mt-6 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          계산하기
-        </button>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={handleCalculate}
+            className="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            계산하기
+          </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            초기화
+          </button>
+        </div>
       </div>
 
       {/* 결과 영역 */}
@@ -230,9 +267,14 @@ export default function DepositCalculator() {
         <div className="bg-white rounded-xl border border-gray-200 overflow-hidden mb-6">
           <div className="bg-blue-600 text-white p-6 text-center">
             <p className="text-blue-100 text-sm mb-1">세후 수령액</p>
-            <p className="text-3xl font-bold">
-              {formatNumber(result.totalAmount)}원
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">
+                {formatNumber(result.totalAmount)}원
+              </p>
+              <button onClick={handleCopy} className="p-1.5 rounded-lg bg-white/20 hover:bg-white/30 transition-colors" title="결과 복사">
+                {copied ? <span className="text-xs font-medium">복사됨!</span> : <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>}
+              </button>
+            </div>
             <p className="text-blue-200 text-sm mt-2">
               원금 {formatNumber(result.principal)}원 + 세후이자{" "}
               {formatNumber(result.netInterest)}원

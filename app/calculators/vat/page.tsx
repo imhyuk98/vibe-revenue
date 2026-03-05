@@ -36,6 +36,8 @@ export default function VatCalculator() {
   const [mode, setMode] = useState<Mode>("supply");
   const [amount, setAmount] = useState("");
   const [result, setResult] = useState<VatResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const formatNumber = (num: number) => num.toLocaleString("ko-KR");
 
@@ -46,18 +48,42 @@ export default function VatCalculator() {
     } else {
       setAmount("");
     }
+    setError("");
   };
 
   const handleCalculate = () => {
     const num = parseInt(amount.replace(/,/g, ""), 10);
-    if (!num || num <= 0) return;
+    if (!num || num <= 0) {
+      setError("금액을 입력해주세요");
+      return;
+    }
+    setError("");
     setResult(calculateVat(num, mode));
+  };
+
+  const handleReset = () => {
+    setAmount("");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    const text = mode === "supply"
+      ? `${formatNumber(result.totalAmount)}원`
+      : `${formatNumber(result.supplyAmount)}원`;
+    await navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const switchMode = (newMode: Mode) => {
     setMode(newMode);
     setAmount("");
     setResult(null);
+    setError("");
+    setCopied(false);
   };
 
   const quickAmounts = [
@@ -113,6 +139,7 @@ export default function VatCalculator() {
               type="text"
               value={amount}
               onChange={handleInputChange}
+              onKeyDown={(e) => { if (e.key === "Enter") handleCalculate(); }}
               placeholder={
                 mode === "supply"
                   ? "예: 1,000,000"
@@ -130,7 +157,14 @@ export default function VatCalculator() {
           >
             계산하기
           </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
+          >
+            초기화
+          </button>
         </div>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
         {/* 빠른 선택 */}
         <div className="flex flex-wrap gap-2 mt-4">
@@ -157,12 +191,27 @@ export default function VatCalculator() {
             <p className="text-blue-100 text-sm mb-1">
               {mode === "supply" ? "합계금액 (부가세 포함)" : "공급가액 (부가세 별도)"}
             </p>
-            <p className="text-3xl font-bold">
-              {mode === "supply"
-                ? formatNumber(result.totalAmount)
-                : formatNumber(result.supplyAmount)}
-              원
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">
+                {mode === "supply"
+                  ? formatNumber(result.totalAmount)
+                  : formatNumber(result.supplyAmount)}
+                원
+              </p>
+              <button
+                onClick={handleCopy}
+                className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
+                title="결과 복사"
+              >
+                {copied ? (
+                  <span className="text-xs text-white font-medium px-1">복사됨!</span>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+              </button>
+            </div>
           </div>
 
           {/* 상세 내역 */}

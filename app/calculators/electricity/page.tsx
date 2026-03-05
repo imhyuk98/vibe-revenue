@@ -148,11 +148,33 @@ export default function ElectricityCalculator() {
   const [season, setSeason] = useState<Season>("other");
   const [housingType, setHousingType] = useState<HousingType>("low");
   const [result, setResult] = useState<ElectricityResult | null>(null);
+  const [error, setError] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const handleCalculate = () => {
     const kwh = parseInt(usage.replace(/,/g, ""), 10);
-    if (!kwh || kwh <= 0) return;
+    if (!kwh || kwh <= 0) {
+      setError("사용량을 입력해주세요");
+      return;
+    }
+    setError("");
     setResult(calculateElectricity(kwh, season, housingType));
+  };
+
+  const handleReset = () => {
+    setUsage("");
+    setSeason("other");
+    setHousingType("low");
+    setResult(null);
+    setError("");
+    setCopied(false);
+  };
+
+  const handleCopy = async () => {
+    if (!result) return;
+    await navigator.clipboard.writeText(`${formatNumber(result.total)}원`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -162,6 +184,7 @@ export default function ElectricityCalculator() {
     } else {
       setUsage("");
     }
+    setError("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -254,7 +277,14 @@ export default function ElectricityCalculator() {
           >
             계산하기
           </button>
+          <button
+            onClick={handleReset}
+            className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors whitespace-nowrap"
+          >
+            초기화
+          </button>
         </div>
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
         {/* 빠른 선택 */}
         <div className="flex flex-wrap gap-2 mt-4">
@@ -279,9 +309,24 @@ export default function ElectricityCalculator() {
           {/* 합계 하이라이트 */}
           <div className="bg-blue-600 text-white p-6 text-center">
             <p className="text-blue-100 text-sm mb-1">월 전기요금 합계</p>
-            <p className="text-3xl font-bold">
-              {formatNumber(result.total)}원
-            </p>
+            <div className="flex items-center justify-center gap-2">
+              <p className="text-3xl font-bold">
+                {formatNumber(result.total)}원
+              </p>
+              <button
+                onClick={handleCopy}
+                className="p-1.5 rounded-md bg-blue-500 hover:bg-blue-400 transition-colors"
+                title="결과 복사"
+              >
+                {copied ? (
+                  <span className="text-xs text-white font-medium px-1">복사됨!</span>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                )}
+              </button>
+            </div>
             <p className="text-blue-200 text-sm mt-2">
               월 {formatNumber(result.usage)}kWh 사용 기준 (10원 미만 절사)
             </p>
