@@ -249,6 +249,36 @@ const funCalcs = [
     href: "/calculators/blood-type",
     emoji: "\uD83E\uDE78",
   },
+  {
+    title: "사주팔자 계산기",
+    description: "생년월일과 태어난 시간으로 사주팔자와 오행 분석을 확인합니다.",
+    href: "/calculators/saju",
+    emoji: "\u262F\uFE0F",
+  },
+  {
+    title: "전생 테스트",
+    description: "생년월일로 전생에서 어떤 삶을 살았는지 재미있게 알아봅니다.",
+    href: "/calculators/past-life",
+    emoji: "\uD83D\uDD2E",
+  },
+  {
+    title: "오늘의 운세",
+    description: "나의 띠로 오늘의 총운, 애정운, 재물운, 건강운, 직장운을 확인합니다.",
+    href: "/calculators/daily-fortune",
+    emoji: "\uD83C\uDF1F",
+  },
+  {
+    title: "커플 D-day 계산기",
+    description: "사귄 날짜부터 100일, 200일, 1000일 등 기념일을 계산합니다.",
+    href: "/calculators/couple-dday",
+    emoji: "\uD83D\uDC91",
+  },
+  {
+    title: "심리테스트",
+    description: "성격 유형, 연애 스타일, 스트레스 지수를 알아보는 심리테스트입니다.",
+    href: "/tools/psychology-test",
+    emoji: "\uD83E\uDDE0",
+  },
 ];
 
 const tools = [
@@ -317,6 +347,24 @@ const tools = [
     description: "한글 타이핑 속도와 정확도를 실시간으로 측정합니다.",
     href: "/tools/typing-test",
     emoji: "\u2328\uFE0F",
+  },
+  {
+    title: "반응속도 테스트",
+    description: "화면이 초록색으로 바뀌는 순간 클릭! 반응 속도를 측정합니다.",
+    href: "/tools/reaction-test",
+    emoji: "\u26A1",
+  },
+  {
+    title: "색맹 테스트",
+    description: "이시하라 스타일의 색각 검사로 색각 이상 여부를 확인합니다.",
+    href: "/tools/color-blind-test",
+    emoji: "\uD83C\uDFA8",
+  },
+  {
+    title: "기억력 테스트",
+    description: "카드 뒤집기 게임으로 기억력을 테스트합니다.",
+    href: "/tools/memory-game",
+    emoji: "\uD83C\uDFAE",
   },
   {
     title: "랜덤 룰렛 돌리기",

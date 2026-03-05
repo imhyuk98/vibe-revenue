@@ -58,6 +58,11 @@ const categories = [
       { title: "별자리 계산기", href: "/calculators/constellation" },
       { title: "띠 계산기", href: "/calculators/zodiac" },
       { title: "혈액형 계산기", href: "/calculators/blood-type" },
+      { title: "사주팔자", href: "/calculators/saju" },
+      { title: "전생 테스트", href: "/calculators/past-life" },
+      { title: "오늘의 운세", href: "/calculators/daily-fortune" },
+      { title: "커플 D-day", href: "/calculators/couple-dday" },
+      { title: "심리테스트", href: "/tools/psychology-test" },
     ],
   },
   {
@@ -80,6 +85,9 @@ const categories = [
       { title: "랜덤 룰렛", href: "/tools/random-roulette" },
       { title: "랜덤 숫자 생성기", href: "/tools/random-number" },
       { title: "타자 속도 측정", href: "/tools/typing-test" },
+      { title: "반응속도 테스트", href: "/tools/reaction-test" },
+      { title: "색맹 테스트", href: "/tools/color-blind-test" },
+      { title: "기억력 테스트", href: "/tools/memory-game" },
     ],
   },
 ];

@@ -49,6 +49,14 @@ const allItems: Record<string, { title: string; href: string; category: string }
   "random-number": { title: "랜덤 숫자 생성기", href: "/tools/random-number", category: "도구" },
   "random-roulette": { title: "랜덤 룰렛", href: "/tools/random-roulette", category: "도구" },
   zodiac: { title: "띠 계산기", href: "/calculators/zodiac", category: "생활" },
+  "reaction-test": { title: "반응속도 테스트", href: "/tools/reaction-test", category: "도구" },
+  "color-blind-test": { title: "색맹 테스트", href: "/tools/color-blind-test", category: "도구" },
+  "memory-game": { title: "기억력 테스트", href: "/tools/memory-game", category: "도구" },
+  "couple-dday": { title: "커플 D-day 계산기", href: "/calculators/couple-dday", category: "재미" },
+  "psychology-test": { title: "심리테스트", href: "/tools/psychology-test", category: "재미" },
+  saju: { title: "사주팔자 계산기", href: "/calculators/saju", category: "재미" },
+  "past-life": { title: "전생 테스트", href: "/calculators/past-life", category: "재미" },
+  "daily-fortune": { title: "오늘의 운세", href: "/calculators/daily-fortune", category: "재미" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -101,6 +109,14 @@ const relatedMap: Record<string, string[]> = {
   "random-number": ["lotto-tax", "nickname-generator", "timer", "constellation"],
   "random-roulette": ["random-number", "nickname-generator", "timer", "zodiac"],
   zodiac: ["constellation", "blood-type", "age", "random-roulette"],
+  "reaction-test": ["typing-test", "memory-game", "timer", "color-blind-test"],
+  "color-blind-test": ["bmi", "reaction-test", "memory-game", "age"],
+  "memory-game": ["reaction-test", "typing-test", "color-blind-test", "timer"],
+  "couple-dday": ["dday", "name-compatibility", "mbti-compatibility", "constellation"],
+  "psychology-test": ["mbti-compatibility", "name-compatibility", "couple-dday", "blood-type"],
+  saju: ["daily-fortune", "zodiac", "constellation", "past-life"],
+  "past-life": ["saju", "daily-fortune", "constellation", "mbti-compatibility"],
+  "daily-fortune": ["saju", "zodiac", "constellation", "past-life"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {
