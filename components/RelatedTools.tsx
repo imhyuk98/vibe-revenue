@@ -72,6 +72,12 @@ const allItems: Record<string, { title: string; href: string; category: string }
   minesweeper: { title: "지뢰찾기", href: "/tools/minesweeper", category: "게임" },
   "snake-game": { title: "스네이크 게임", href: "/tools/snake-game", category: "게임" },
   omok: { title: "오목", href: "/tools/omok", category: "게임" },
+  "baskin-robbins-31": { title: "베스킨라빈스 31", href: "/tools/baskin-robbins-31", category: "게임" },
+  "chosung-quiz": { title: "초성 퀴즈", href: "/tools/chosung-quiz", category: "게임" },
+  "image-game": { title: "이미지 게임", href: "/tools/image-game", category: "게임" },
+  "never-have-i-ever": { title: "손병호 게임", href: "/tools/never-have-i-ever", category: "게임" },
+  "nunchi-game": { title: "눈치 게임", href: "/tools/nunchi-game", category: "게임" },
+  "telepathy-game": { title: "텔레파시 게임", href: "/tools/telepathy-game", category: "게임" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -134,7 +140,7 @@ const relatedMap: Record<string, string[]> = {
   "daily-fortune": ["saju", "zodiac", "constellation", "past-life"],
   "mbti-test": ["mbti-compatibility", "psychology-test", "name-compatibility", "blood-type"],
   "ladder-game": ["random-roulette", "random-number", "timer", "nickname-generator"],
-  "drinking-games": ["liar-game", "truth-or-dare", "bomb-game", "updown-game"],
+  "drinking-games": ["baskin-robbins-31", "image-game", "never-have-i-ever", "chosung-quiz"],
   "liar-game": ["truth-or-dare", "bomb-game", "drinking-games", "ladder-game"],
   "truth-or-dare": ["liar-game", "random-pick", "drinking-games", "bomb-game"],
   "bomb-game": ["updown-game", "liar-game", "random-pick", "drinking-games"],
@@ -147,6 +153,12 @@ const relatedMap: Record<string, string[]> = {
   "snake-game": ["game-2048", "minesweeper", "reaction-test", "memory-game"],
   omok: ["sudoku", "block-escape", "ladder-game", "game-2048"],
   scientific: ["percent", "unit-converter", "ratio", "gpa"],
+  "baskin-robbins-31": ["nunchi-game", "updown-game", "drinking-games", "liar-game"],
+  "chosung-quiz": ["telepathy-game", "typing-test", "image-game", "drinking-games"],
+  "image-game": ["never-have-i-ever", "truth-or-dare", "chosung-quiz", "drinking-games"],
+  "never-have-i-ever": ["image-game", "truth-or-dare", "liar-game", "drinking-games"],
+  "nunchi-game": ["baskin-robbins-31", "bomb-game", "random-pick", "drinking-games"],
+  "telepathy-game": ["chosung-quiz", "image-game", "name-compatibility", "drinking-games"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {
