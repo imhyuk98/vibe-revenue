@@ -27,8 +27,19 @@ const CURRENCIES: CurrencyInfo[] = [
 // Quick rates to display against KRW
 const QUICK_RATE_CURRENCIES = ["USD", "JPY", "EUR", "CNY", "GBP", "CAD", "AUD", "CHF"];
 
+function getPrevBusinessDay(): string {
+  const d = new Date();
+  // Go back 3 days to ensure we get a previous business day different from latest
+  d.setDate(d.getDate() - 3);
+  const day = d.getDay();
+  if (day === 0) d.setDate(d.getDate() - 2); // Sunday -> Friday
+  if (day === 6) d.setDate(d.getDate() - 1); // Saturday -> Friday
+  return d.toISOString().split("T")[0];
+}
+
 export default function ExchangeRateCalculator() {
   const [rates, setRates] = useState<Record<string, number> | null>(null);
+  const [prevRates, setPrevRates] = useState<Record<string, number> | null>(null);
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -43,17 +54,22 @@ export default function ExchangeRateCalculator() {
   const [availableCurrencies, setAvailableCurrencies] = useState<CurrencyInfo[]>(CURRENCIES);
 
   useEffect(() => {
-    fetch("https://api.frankfurter.app/latest?base=USD")
-      .then((res) => res.json())
-      .then((data) => {
-        const allRates: Record<string, number> = { USD: 1, ...data.rates };
+    // Fetch latest and previous day rates for change calculation
+    Promise.all([
+      fetch("https://api.frankfurter.app/latest?base=USD").then((r) => r.json()),
+      // Fetch rates from 2 business days ago to ensure we get a different date
+      fetch(`https://api.frankfurter.app/${getPrevBusinessDay()}?base=USD`).then((r) => r.json()),
+    ])
+      .then(([latest, prev]) => {
+        const allRates: Record<string, number> = { USD: 1, ...latest.rates };
         setRates(allRates);
-        setDate(data.date);
+        setDate(latest.date);
 
-        // Filter currencies to only those available in API
+        const allPrevRates: Record<string, number> = { USD: 1, ...prev.rates };
+        setPrevRates(allPrevRates);
+
         const available = CURRENCIES.filter((c) => c.code in allRates);
         setAvailableCurrencies(available);
-
         setLoading(false);
       })
       .catch(() => {
@@ -137,14 +153,25 @@ export default function ExchangeRateCalculator() {
     setLastEdited("from");
   };
 
-  const getQuickRateKRW = (code: string): string => {
-    if (!rates || !rates[code] || !rates["KRW"]) return "-";
+  const getQuickRateKRW = (code: string): number => {
+    if (!rates || !rates[code] || !rates["KRW"]) return 0;
     const krwPerUnit = rates["KRW"] / rates[code];
-    if (code === "JPY") {
-      // Show per 100 JPY
-      return `${Math.round(krwPerUnit * 100).toLocaleString("ko-KR")}원`;
-    }
-    return `${Math.round(krwPerUnit).toLocaleString("ko-KR")}원`;
+    return code === "JPY" ? krwPerUnit * 100 : krwPerUnit;
+  };
+
+  const getQuickRateKRWFormatted = (code: string): string => {
+    const val = getQuickRateKRW(code);
+    return val === 0 ? "-" : `${Math.round(val).toLocaleString("ko-KR")}원`;
+  };
+
+  const getChange = (code: string): { diff: number; percent: number } | null => {
+    if (!rates || !prevRates || !rates[code] || !prevRates[code] || !rates["KRW"] || !prevRates["KRW"]) return null;
+    const current = rates["KRW"] / rates[code];
+    const prev = prevRates["KRW"] / prevRates[code];
+    const multiplier = code === "JPY" ? 100 : 1;
+    const diff = (current - prev) * multiplier;
+    const percent = ((current - prev) / prev) * 100;
+    return { diff: Math.round(diff * 100) / 100, percent: Math.round(percent * 100) / 100 };
   };
 
   const getCurrencyInfo = (code: string): CurrencyInfo | undefined => {
@@ -185,11 +212,6 @@ export default function ExchangeRateCalculator() {
       <h1 className="text-2xl font-bold text-gray-900 mb-2">환율 계산기</h1>
       <p className="text-gray-500 mb-8">
         실시간 환율 기반으로 주요 외화 간 환율을 계산합니다.
-        {date && (
-          <span className="ml-2 text-sm text-gray-400">
-            마지막 업데이트: {date}
-          </span>
-        )}
       </p>
 
       {/* 환율 변환기 */}
@@ -279,13 +301,21 @@ export default function ExchangeRateCalculator() {
       {/* 주요 환율 현황 */}
       {rates && rates["KRW"] && (
         <div className="bg-white rounded-xl border border-gray-200 p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
-            주요 환율 현황 (원화 기준)
-          </h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">
+              주요 환율 현황 (원화 기준)
+            </h2>
+            {date && (
+              <span className="text-xs text-gray-400">
+                기준일: {date}
+              </span>
+            )}
+          </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {QUICK_RATE_CURRENCIES.filter((code) => rates[code]).map((code) => {
               const info = getCurrencyInfo(code);
               const label = code === "JPY" ? "100 JPY" : `1 ${code}`;
+              const change = getChange(code);
               return (
                 <div
                   key={code}
@@ -294,8 +324,17 @@ export default function ExchangeRateCalculator() {
                   <div className="text-lg mb-1">{info?.flag}</div>
                   <div className="text-xs text-gray-500 mb-1">{label}</div>
                   <div className="text-sm font-semibold text-gray-900">
-                    {getQuickRateKRW(code)}
+                    {getQuickRateKRWFormatted(code)}
                   </div>
+                  {change && change.diff !== 0 && (
+                    <div className={`text-xs mt-1 font-medium ${change.diff > 0 ? "text-red-500" : "text-blue-500"}`}>
+                      {change.diff > 0 ? "▲" : "▼"} {Math.abs(change.diff).toLocaleString("ko-KR")}원
+                      <span className="text-gray-400 ml-1">({change.diff > 0 ? "+" : ""}{change.percent}%)</span>
+                    </div>
+                  )}
+                  {change && change.diff === 0 && (
+                    <div className="text-xs mt-1 text-gray-400">- 변동없음</div>
+                  )}
                 </div>
               );
             })}

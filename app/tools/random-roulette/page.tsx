@@ -17,6 +17,8 @@ export default function RandomRoulette() {
   const [result, setResult] = useState<string | null>(null);
   const [showCelebration, setShowCelebration] = useState(false);
   const [rotation, setRotation] = useState(0);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editValue, setEditValue] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const currentRotationRef = useRef(0);
 
@@ -34,6 +36,31 @@ export default function RandomRoulette() {
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") addItem();
+  };
+
+  const startEdit = (index: number) => {
+    setEditingIndex(index);
+    setEditValue(items[index]);
+  };
+
+  const confirmEdit = () => {
+    if (editingIndex === null) return;
+    const trimmed = editValue.trim();
+    if (trimmed) {
+      const updated = [...items];
+      updated[editingIndex] = trimmed;
+      setItems(updated);
+    }
+    setEditingIndex(null);
+    setEditValue("");
+  };
+
+  const handleEditKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") confirmEdit();
+    if (e.key === "Escape") {
+      setEditingIndex(null);
+      setEditValue("");
+    }
   };
 
   const drawRoulette = useCallback(
@@ -204,21 +231,51 @@ export default function RandomRoulette() {
                   className="flex items-center justify-between px-3 py-2 rounded-lg"
                   style={{ backgroundColor: COLORS[i % COLORS.length] + "20" }}
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
                     <span
                       className="w-3 h-3 rounded-full flex-shrink-0"
                       style={{ backgroundColor: COLORS[i % COLORS.length] }}
                     />
-                    <span className="text-sm text-gray-800">{item}</span>
+                    {editingIndex === i ? (
+                      <input
+                        type="text"
+                        value={editValue}
+                        onChange={(e) => setEditValue(e.target.value)}
+                        onKeyDown={handleEditKeyDown}
+                        onBlur={confirmEdit}
+                        maxLength={20}
+                        autoFocus
+                        className="flex-1 px-2 py-0.5 text-sm border border-blue-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                    ) : (
+                      <span
+                        className="text-sm text-gray-800 cursor-pointer hover:text-blue-600 truncate"
+                        onClick={() => startEdit(i)}
+                        title="클릭하여 수정"
+                      >
+                        {item}
+                      </span>
+                    )}
                   </div>
-                  <button
-                    onClick={() => removeItem(i)}
-                    disabled={items.length <= 2}
-                    className="text-gray-400 hover:text-red-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-lg leading-none px-1"
-                    title="삭제"
-                  >
-                    &times;
-                  </button>
+                  <div className="flex items-center gap-1 flex-shrink-0 ml-2">
+                    {editingIndex !== i && (
+                      <button
+                        onClick={() => startEdit(i)}
+                        className="text-gray-400 hover:text-blue-500 transition-colors text-xs px-1"
+                        title="수정"
+                      >
+                        &#9998;
+                      </button>
+                    )}
+                    <button
+                      onClick={() => removeItem(i)}
+                      disabled={items.length <= 2}
+                      className="text-gray-400 hover:text-red-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-lg leading-none px-1"
+                      title="삭제"
+                    >
+                      &times;
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
