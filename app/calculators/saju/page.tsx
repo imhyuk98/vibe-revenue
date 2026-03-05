@@ -50,10 +50,11 @@ const 월간시작 = [2, 4, 6, 8, 0]; // 년간%5 인덱스
 // 갑/기일 → 갑자시(0), 을/경일 → 병자시(2), 병/신일 → 무자시(4), 정/임일 → 경자시(6), 무/계일 → 임자시(8)
 const 시간시작 = [0, 2, 4, 6, 8]; // 일간%5 인덱스
 
-function simpleHash(year: number, month: number, day: number): number {
-  let h = year * 31 + month * 17 + day * 13;
-  h = ((h >>> 0) * 2654435761) >>> 0;
-  return h;
+// 정확한 일주 계산: 기준일(1900-01-01 = 경자일, 천간6 지지0)에서 날짜 차이로 계산
+function getDaysSinceReference(year: number, month: number, day: number): number {
+  const ref = new Date(1900, 0, 1); // 1900년 1월 1일
+  const target = new Date(year, month - 1, day);
+  return Math.floor((target.getTime() - ref.getTime()) / (1000 * 60 * 60 * 24));
 }
 
 const 일간성격: Record<string, string> = {
@@ -87,10 +88,10 @@ function calculateSaju(year: number, month: number, day: number, hour: number): 
   const 월간 = (월간시작값 + (month - 1)) % 10;
   const 월지 = (month + 1) % 12; // 인=2 for 1월
 
-  // 일주 (해시 기반 근사값)
-  const hash = simpleHash(year, month, day);
-  const 일간 = hash % 10;
-  const 일지 = hash % 12;
+  // 일주 (만세력 기준 정확 계산: 1900-01-01 = 경자일, 천간6 지지0)
+  const daysDiff = getDaysSinceReference(year, month, day);
+  const 일간 = ((daysDiff % 10) + 6) % 10; // 경(6)부터 시작
+  const 일지 = ((daysDiff % 12) + 0) % 12; // 자(0)부터 시작
 
   // 시주
   let 시간idx = 0;
@@ -323,7 +324,7 @@ export default function SajuCalculator() {
           {/* 안내 */}
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 text-center">
             <p className="text-sm text-amber-700">
-              본 결과는 간이 계산으로 재미 목적입니다. 정확한 사주는 만세력 기반 전문 상담을 권장합니다.
+              본 결과는 양력 기준 만세력 계산을 기반으로 하며, 참고용입니다. 보다 정확한 해석은 전문 역학인 상담을 권장합니다.
             </p>
           </div>
         </div>

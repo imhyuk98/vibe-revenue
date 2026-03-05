@@ -57,6 +57,9 @@ const allItems: Record<string, { title: string; href: string; category: string }
   saju: { title: "사주팔자 계산기", href: "/calculators/saju", category: "재미" },
   "past-life": { title: "전생 테스트", href: "/calculators/past-life", category: "재미" },
   "daily-fortune": { title: "오늘의 운세", href: "/calculators/daily-fortune", category: "재미" },
+  "mbti-test": { title: "MBTI 성격유형 검사", href: "/tools/mbti-test", category: "재미" },
+  "ladder-game": { title: "사다리 타기", href: "/tools/ladder-game", category: "도구" },
+  "drinking-games": { title: "술게임 모음", href: "/tools/drinking-games", category: "재미" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -117,6 +120,9 @@ const relatedMap: Record<string, string[]> = {
   saju: ["daily-fortune", "zodiac", "constellation", "past-life"],
   "past-life": ["saju", "daily-fortune", "constellation", "mbti-compatibility"],
   "daily-fortune": ["saju", "zodiac", "constellation", "past-life"],
+  "mbti-test": ["mbti-compatibility", "psychology-test", "name-compatibility", "blood-type"],
+  "ladder-game": ["random-roulette", "random-number", "timer", "nickname-generator"],
+  "drinking-games": ["random-roulette", "ladder-game", "random-number", "nickname-generator"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {

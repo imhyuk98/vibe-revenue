@@ -63,6 +63,8 @@ const categories = [
       { title: "오늘의 운세", href: "/calculators/daily-fortune" },
       { title: "커플 D-day", href: "/calculators/couple-dday" },
       { title: "심리테스트", href: "/tools/psychology-test" },
+      { title: "MBTI 검사기", href: "/tools/mbti-test" },
+      { title: "술게임 모음", href: "/tools/drinking-games" },
     ],
   },
   {
@@ -88,6 +90,7 @@ const categories = [
       { title: "반응속도 테스트", href: "/tools/reaction-test" },
       { title: "색맹 테스트", href: "/tools/color-blind-test" },
       { title: "기억력 테스트", href: "/tools/memory-game" },
+      { title: "사다리 타기", href: "/tools/ladder-game" },
     ],
   },
 ];

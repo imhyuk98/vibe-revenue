@@ -279,6 +279,18 @@ const funCalcs = [
     href: "/tools/psychology-test",
     emoji: "\uD83E\uDDE0",
   },
+  {
+    title: "MBTI 성격유형 검사",
+    description: "20가지 질문으로 나의 MBTI 성격유형을 알아봅니다.",
+    href: "/tools/mbti-test",
+    emoji: "\uD83E\uDDE9",
+  },
+  {
+    title: "술게임 모음",
+    description: "라이어 게임, 진실or도전, 폭탄돌리기, 업다운, 랜덤지목 등 5가지 술게임을 즐겨보세요.",
+    href: "/tools/drinking-games",
+    emoji: "\uD83C\uDF7B",
+  },
 ];
 
 const tools = [
@@ -371,6 +383,12 @@ const tools = [
     description: "항목을 추가하고 룰렛을 돌려 점심 메뉴, 벌칙 등을 정합니다.",
     href: "/tools/random-roulette",
     emoji: "\uD83C\uDFB0",
+  },
+  {
+    title: "사다리 타기",
+    description: "2~8명이 참여하는 사다리 타기 게임을 즐겨보세요.",
+    href: "/tools/ladder-game",
+    emoji: "\uD83E\uDDEA",
   },
 ];
 

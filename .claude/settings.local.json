@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx create-next-app@latest:*)",
+      "Bash(printf n\\\\nn\\\\n:*)",
+      "Bash(yes:*)",
+      "Bash(npx next:*)",
+      "Bash(npm run:*)",
+      "Bash(taskkill:*)",
+      "WebSearch",
+      "WebFetch(domain:trends.google.co.kr)",
+      "WebFetch(domain:keywordsearch.pluszero.co.kr)",
+      "WebFetch(domain:surffing.net)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(find:*)",
+      "Bash(sed:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(python3:*)",
+      "Bash(node:*)",
+      "WebFetch(domain:knowingasset.com)",
+      "WebFetch(domain:www.dailyest.co.kr)",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}
