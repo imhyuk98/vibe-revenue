@@ -42,6 +42,10 @@ const lifeCalcs = [
   { title: "연차 계산기", href: "/calculators/annual-leave" },
   { title: "학점 계산기", href: "/calculators/gpa" },
   { title: "혈액형 계산기", href: "/calculators/blood-type" },
+  { title: "별자리 계산기", href: "/calculators/constellation" },
+  { title: "띠 계산기", href: "/calculators/zodiac" },
+  { title: "MBTI 궁합", href: "/calculators/mbti-compatibility" },
+  { title: "이름 궁합", href: "/calculators/name-compatibility" },
 ];
 
 const converterItems = [
@@ -57,6 +61,9 @@ const toolItems = [
   { title: "JSON 포매터", href: "/tools/json-formatter" },
   { title: "QR 코드 생성기", href: "/tools/qr-code" },
   { title: "닉네임 생성기", href: "/tools/nickname-generator" },
+  { title: "랜덤 룰렛", href: "/tools/random-roulette" },
+  { title: "랜덤 숫자 생성기", href: "/tools/random-number" },
+  { title: "타자 속도 측정", href: "/tools/typing-test" },
 ];
 
 function DropdownMenu({

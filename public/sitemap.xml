@@ -211,6 +211,41 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://vibe-revenue.pages.dev/tools/random-roulette</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/zodiac</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/mbti-compatibility</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/name-compatibility</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/calculators/constellation</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/tools/random-number</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vibe-revenue.pages.dev/tools/typing-test</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://vibe-revenue.pages.dev/about</loc>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>

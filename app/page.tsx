@@ -190,6 +190,30 @@ const calculators = [
     href: "/calculators/rent-conversion",
     emoji: "\uD83C\uDFE0",
   },
+  {
+    title: "별자리 계산기",
+    description: "생일로 나의 별자리, 성격, 궁합, 행운의 숫자를 알아봅니다.",
+    href: "/calculators/constellation",
+    emoji: "\u2B50",
+  },
+  {
+    title: "MBTI 궁합 테스트",
+    description: "두 MBTI 유형의 궁합 점수와 상세 분석을 확인합니다.",
+    href: "/calculators/mbti-compatibility",
+    emoji: "\uD83D\uDC95",
+  },
+  {
+    title: "이름 궁합 계산기",
+    description: "두 이름의 획수로 궁합 퍼센트를 계산합니다.",
+    href: "/calculators/name-compatibility",
+    emoji: "\uD83D\uDC98",
+  },
+  {
+    title: "띠 계산기 (12간지)",
+    description: "출생년도로 나의 띠, 천간, 오행, 성격, 궁합을 알아봅니다.",
+    href: "/calculators/zodiac",
+    emoji: "\uD83D\uDC09",
+  },
 ];
 
 const realEstateCalcs = [
@@ -279,6 +303,24 @@ const tools = [
     description: "마크다운을 HTML로 변환하고 미리보기할 수 있습니다.",
     href: "/tools/markdown-html",
     emoji: "\uD83D\uDCE8",
+  },
+  {
+    title: "랜덤 숫자 생성기",
+    description: "숫자 범위 지정, 여러 개 뽑기, 로또 번호 생성을 지원합니다.",
+    href: "/tools/random-number",
+    emoji: "\uD83C\uDFB2",
+  },
+  {
+    title: "타자 속도 측정기",
+    description: "한글 타이핑 속도와 정확도를 실시간으로 측정합니다.",
+    href: "/tools/typing-test",
+    emoji: "\u2328\uFE0F",
+  },
+  {
+    title: "랜덤 룰렛 돌리기",
+    description: "항목을 추가하고 룰렛을 돌려 점심 메뉴, 벌칙 등을 정합니다.",
+    href: "/tools/random-roulette",
+    emoji: "\uD83C\uDFB0",
   },
 ];
 

@@ -42,6 +42,13 @@ const allItems: Record<string, { title: string; href: string; category: string }
   "color-converter": { title: "색상 변환기", href: "/tools/color-converter", category: "변환기" },
   "blood-type": { title: "혈액형 계산기", href: "/calculators/blood-type", category: "생활" },
   "nickname-generator": { title: "닉네임 생성기", href: "/tools/nickname-generator", category: "도구" },
+  "mbti-compatibility": { title: "MBTI 궁합 테스트", href: "/calculators/mbti-compatibility", category: "재미" },
+  "name-compatibility": { title: "이름 궁합 계산기", href: "/calculators/name-compatibility", category: "재미" },
+  "typing-test": { title: "타자 속도 측정기", href: "/tools/typing-test", category: "도구" },
+  constellation: { title: "별자리 계산기", href: "/calculators/constellation", category: "재미" },
+  "random-number": { title: "랜덤 숫자 생성기", href: "/tools/random-number", category: "도구" },
+  "random-roulette": { title: "랜덤 룰렛", href: "/tools/random-roulette", category: "도구" },
+  zodiac: { title: "띠 계산기", href: "/calculators/zodiac", category: "생활" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -87,6 +94,13 @@ const relatedMap: Record<string, string[]> = {
   "color-converter": ["image-converter", "base64", "unit-converter", "qr-code"],
   "blood-type": ["bmi", "age", "alcohol", "nickname-generator"],
   "nickname-generator": ["character-count", "qr-code", "blood-type", "timer"],
+  "mbti-compatibility": ["name-compatibility", "blood-type", "nickname-generator", "bmi"],
+  "name-compatibility": ["mbti-compatibility", "blood-type", "nickname-generator", "dday"],
+  "typing-test": ["timer", "character-count", "nickname-generator", "json-formatter"],
+  constellation: ["blood-type", "mbti-compatibility", "name-compatibility", "age"],
+  "random-number": ["lotto-tax", "nickname-generator", "timer", "constellation"],
+  "random-roulette": ["random-number", "nickname-generator", "timer", "zodiac"],
+  zodiac: ["constellation", "blood-type", "age", "random-roulette"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {
