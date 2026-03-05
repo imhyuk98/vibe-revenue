@@ -100,6 +100,15 @@ export default function LadderGamePage() {
       }
     }
 
+    // Ensure every adjacent column pair has at least one rung
+    for (let col = 0; col < cols - 1; col++) {
+      const hasRung = newRungs.some((r) => r.col === col);
+      if (!hasRung) {
+        const row = Math.floor(Math.random() * totalRows);
+        newRungs.push({ row, col });
+      }
+    }
+
     setRungs(newRungs);
     setLadderReady(true);
     setAnimPath([]);
@@ -258,7 +267,38 @@ export default function LadderGamePage() {
     [participants.length, rungs, totalRows]
   );
 
-  /* ─── Animate single path (time-based, ~2.5s duration) ─── */
+  /* ─── Compute cumulative distances for a path (for constant-speed animation) ─── */
+  const computeCumulativeDist = useCallback(
+    (path: { x: number; y: number }[]) => {
+      const dists = [0];
+      for (let i = 1; i < path.length; i++) {
+        const dx = path[i].x - path[i - 1].x;
+        const dy = path[i].y - path[i - 1].y;
+        dists.push(dists[i - 1] + Math.sqrt(dx * dx + dy * dy));
+      }
+      return dists;
+    },
+    []
+  );
+
+  /* ─── Convert distance fraction to path index (fractional) ─── */
+  const distToPathIdx = useCallback(
+    (dists: number[], fraction: number) => {
+      const totalDist = dists[dists.length - 1];
+      const targetDist = fraction * totalDist;
+      for (let i = 1; i < dists.length; i++) {
+        if (dists[i] >= targetDist) {
+          const segLen = dists[i] - dists[i - 1];
+          const f = segLen > 0 ? (targetDist - dists[i - 1]) / segLen : 0;
+          return i - 1 + f;
+        }
+      }
+      return dists.length - 1;
+    },
+    []
+  );
+
+  /* ─── Animate single path (time-based, ~2.5s duration, constant speed) ─── */
   const animatePath = useCallback(
     (playerIdx: number) => {
       if (animating) return;
@@ -271,15 +311,15 @@ export default function LadderGamePage() {
       setShowAllPaths(false);
 
       const duration = 2500; // ms
-      const maxIdx = path.length - 1;
+      const dists = computeCumulativeDist(path);
       const startTime = performance.now();
 
       const step = (now: number) => {
         const elapsed = now - startTime;
         const t = Math.min(elapsed / duration, 1);
-        // Ease-in-out for smooth feel
+        // Ease-in-out
         const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        const currentIdx = eased * maxIdx;
+        const currentIdx = distToPathIdx(dists, eased);
 
         setAnimIdx(Math.floor(currentIdx));
 
@@ -297,7 +337,7 @@ export default function LadderGamePage() {
 
       animFrameRef.current = requestAnimationFrame(step);
     },
-    [animating, tracePath, drawLadder]
+    [animating, tracePath, drawLadder, computeCumulativeDist, distToPathIdx]
   );
 
   /* ─── Show all results (staggered animation) ─── */
@@ -309,12 +349,12 @@ export default function LadderGamePage() {
     setShowAllPaths(true);
 
     const mapping: Record<number, number> = {};
-    const pathData: { path: { x: number; y: number }[]; color: string; endCol: number }[] = [];
+    const pathData: { path: { x: number; y: number }[]; color: string; endCol: number; dists: number[] }[] = [];
 
     for (let i = 0; i < participants.length; i++) {
       const { path, endCol } = tracePath(i);
       mapping[i] = endCol;
-      pathData.push({ path, color: COLORS[i % COLORS.length], endCol });
+      pathData.push({ path, color: COLORS[i % COLORS.length], endCol, dists: computeCumulativeDist(path) });
     }
 
     const duration = 2500; // ms per path
@@ -331,17 +371,15 @@ export default function LadderGamePage() {
         const playerStart = i * stagger;
         const playerElapsed = elapsed - playerStart;
         if (playerElapsed < 0) {
-          // Not started yet - don't draw
           highlightPaths.push({ path: pathData[i].path, color: pathData[i].color, upTo: -1 });
           continue;
         }
         const t = Math.min(playerElapsed / duration, 1);
         const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-        const maxIdx = pathData[i].path.length - 1;
         highlightPaths.push({
           path: pathData[i].path,
           color: pathData[i].color,
-          upTo: eased * maxIdx,
+          upTo: distToPathIdx(pathData[i].dists, eased),
         });
       }
 
@@ -364,7 +402,7 @@ export default function LadderGamePage() {
     };
 
     animFrameRef.current = requestAnimationFrame(step);
-  }, [animating, participants.length, tracePath, drawLadder]);
+  }, [animating, participants.length, tracePath, drawLadder, computeCumulativeDist, distToPathIdx]);
 
   /* ─── Canvas sizing ─── */
   useEffect(() => {

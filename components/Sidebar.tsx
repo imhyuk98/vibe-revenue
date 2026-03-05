@@ -17,7 +17,6 @@ const categories = [
       { title: "주식 수익률 계산기", href: "/calculators/stock-return" },
       { title: "물타기 계산기", href: "/calculators/average-price" },
       { title: "인플레이션 계산기", href: "/calculators/inflation" },
-      { title: "전월세 전환", href: "/calculators/rent-conversion" },
       { title: "자동차세 계산기", href: "/calculators/car-tax" },
       { title: "전기요금 계산기", href: "/calculators/electricity" },
       { title: "부가세 계산기", href: "/calculators/vat" },
@@ -32,6 +31,7 @@ const categories = [
       { title: "양도소득세 계산기", href: "/calculators/capital-gains-tax" },
       { title: "증여세 계산기", href: "/calculators/gift-tax" },
       { title: "상속세 계산기", href: "/calculators/inheritance-tax" },
+      { title: "전월세 전환", href: "/calculators/rent-conversion" },
     ],
   },
   {
@@ -68,7 +68,7 @@ const categories = [
     ],
   },
   {
-    label: "게임",
+    label: "술게임",
     items: [
       { title: "라이어 게임", href: "/tools/liar-game" },
       { title: "진실 or 도전", href: "/tools/truth-or-dare" },
@@ -81,8 +81,12 @@ const categories = [
       { title: "손병호 게임", href: "/tools/never-have-i-ever" },
       { title: "눈치 게임", href: "/tools/nunchi-game" },
       { title: "텔레파시 게임", href: "/tools/telepathy-game" },
-      { title: "술게임 모음", href: "/tools/drinking-games" },
       { title: "사다리 타기", href: "/tools/ladder-game" },
+    ],
+  },
+  {
+    label: "게임",
+    items: [
       { title: "반응속도 테스트", href: "/tools/reaction-test" },
       { title: "기억력 테스트", href: "/tools/memory-game" },
       { title: "색맹 테스트", href: "/tools/color-blind-test" },
@@ -122,7 +126,7 @@ export default function Sidebar({ type }: { type: "calculators" | "tools" }) {
   const pathname = usePathname();
 
   // Show current type's categories first
-  const toolLabels = ["변환기", "도구", "게임"];
+  const toolLabels = ["변환기", "도구", "술게임", "게임"];
   const sorted = type === "tools"
     ? [...categories].sort((a, b) => {
         const aIsTool = toolLabels.includes(a.label) ? -1 : 0;

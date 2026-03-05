@@ -568,8 +568,8 @@ export default function Game2048() {
             {tiles.map((tile) => {
               // Position: col * (100% + gap) / 4, row * (100% + gap) / 4
               // Uses CSS var(--g) so it stays in sync with the background grid gap.
-              const tx = `calc(${tile.col} * (100% + var(--g)) / 4)`;
-              const ty = `calc(${tile.row} * (100% + var(--g)) / 4)`;
+              const tx = `calc(${tile.col} * (100% + var(--g)))`;
+              const ty = `calc(${tile.row} * (100% + var(--g)))`;
               const transform = `translate(${tx}, ${ty})`;
 
               const colorClass = getTileColor(tile.value);
