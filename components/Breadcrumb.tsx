@@ -51,7 +51,17 @@ const categoryMap: Record<string, { label: string; href?: string }> = {
   "couple-dday": { label: "재미/운세" },
   "psychology-test": { label: "재미/운세" },
   "mbti-test": { label: "재미/운세" },
-  "drinking-games": { label: "재미/운세" },
+  // Games
+  "liar-game": { label: "게임" },
+  "truth-or-dare": { label: "게임" },
+  "bomb-game": { label: "게임" },
+  "updown-game": { label: "게임" },
+  "random-pick": { label: "게임" },
+  "drinking-games": { label: "게임" },
+  "ladder-game": { label: "게임" },
+  "reaction-test": { label: "게임" },
+  "memory-game": { label: "게임" },
+  "color-blind-test": { label: "게임" },
   // Converters
   "image-converter": { label: "변환기" },
   "csv-json": { label: "변환기" },
@@ -66,10 +76,6 @@ const categoryMap: Record<string, { label: string; href?: string }> = {
   "random-roulette": { label: "도구" },
   "random-number": { label: "도구" },
   "typing-test": { label: "도구" },
-  "reaction-test": { label: "도구" },
-  "color-blind-test": { label: "도구" },
-  "memory-game": { label: "도구" },
-  "ladder-game": { label: "도구" },
 };
 
 const titleMap: Record<string, string> = {
@@ -133,6 +139,11 @@ const titleMap: Record<string, string> = {
   "color-blind-test": "색맹 테스트",
   "memory-game": "기억력 테스트",
   "ladder-game": "사다리 타기",
+  "liar-game": "라이어 게임",
+  "truth-or-dare": "진실 or 도전",
+  "bomb-game": "폭탄 돌리기",
+  "updown-game": "업다운 게임",
+  "random-pick": "랜덤 지목",
 };
 
 export default function Breadcrumb() {

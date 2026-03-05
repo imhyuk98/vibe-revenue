@@ -56,7 +56,19 @@ const funCalcs = [
   { title: "커플 D-day", href: "/calculators/couple-dday" },
   { title: "심리테스트", href: "/tools/psychology-test" },
   { title: "MBTI 검사기", href: "/tools/mbti-test" },
+];
+
+const gameItems = [
+  { title: "라이어 게임", href: "/tools/liar-game" },
+  { title: "진실 or 도전", href: "/tools/truth-or-dare" },
+  { title: "폭탄 돌리기", href: "/tools/bomb-game" },
+  { title: "업다운 게임", href: "/tools/updown-game" },
+  { title: "랜덤 지목", href: "/tools/random-pick" },
   { title: "술게임 모음", href: "/tools/drinking-games" },
+  { title: "사다리 타기", href: "/tools/ladder-game" },
+  { title: "반응속도 테스트", href: "/tools/reaction-test" },
+  { title: "기억력 테스트", href: "/tools/memory-game" },
+  { title: "색맹 테스트", href: "/tools/color-blind-test" },
 ];
 
 const converterItems = [
@@ -75,10 +87,6 @@ const toolItems = [
   { title: "랜덤 룰렛", href: "/tools/random-roulette" },
   { title: "랜덤 숫자 생성기", href: "/tools/random-number" },
   { title: "타자 속도 측정", href: "/tools/typing-test" },
-  { title: "반응속도 테스트", href: "/tools/reaction-test" },
-  { title: "색맹 테스트", href: "/tools/color-blind-test" },
-  { title: "기억력 테스트", href: "/tools/memory-game" },
-  { title: "사다리 타기", href: "/tools/ladder-game" },
 ];
 
 function DropdownMenu({
@@ -238,6 +246,18 @@ export default function Header() {
             ))}
           </DropdownMenu>
 
+          <DropdownMenu label="게임">
+            {gameItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors"
+              >
+                {item.title}
+              </Link>
+            ))}
+          </DropdownMenu>
+
           <DropdownMenu label="변환기">
             {converterItems.map((item) => (
               <Link
@@ -325,6 +345,14 @@ export default function Header() {
             items={funCalcs}
             expanded={mobileExpanded === "fun"}
             onToggle={() => setMobileExpanded(mobileExpanded === "fun" ? null : "fun")}
+            onClose={closeMobile}
+          />
+
+          <MobileSection
+            label="게임"
+            items={gameItems}
+            expanded={mobileExpanded === "games"}
+            onToggle={() => setMobileExpanded(mobileExpanded === "games" ? null : "games")}
             onClose={closeMobile}
           />
 

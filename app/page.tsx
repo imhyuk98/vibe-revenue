@@ -60,7 +60,6 @@ const funCalcs: Item[] = [
   { title: "커플 D-day 계산기", description: "사귄 날짜부터 100일, 200일, 1000일 등 기념일을 계산합니다.", href: "/calculators/couple-dday", emoji: "\uD83D\uDC91" },
   { title: "심리테스트", description: "성격 유형, 연애 스타일, 스트레스 지수를 알아보는 심리테스트입니다.", href: "/tools/psychology-test", emoji: "\uD83E\uDDE0" },
   { title: "MBTI 성격유형 검사", description: "20가지 질문으로 나의 MBTI 성격유형을 알아봅니다.", href: "/tools/mbti-test", emoji: "\uD83E\uDDE9" },
-  { title: "술게임 모음", description: "라이어 게임, 진실or도전, 폭탄돌리기, 업다운, 랜덤지목 등 5가지 술게임을 즐겨보세요.", href: "/tools/drinking-games", emoji: "\uD83C\uDF7B" },
 ];
 
 const tools: Item[] = [
@@ -75,17 +74,27 @@ const tools: Item[] = [
   { title: "Markdown HTML 변환기", description: "마크다운을 HTML로 변환하고 미리보기할 수 있습니다.", href: "/tools/markdown-html", emoji: "\uD83D\uDCE8" },
   { title: "랜덤 숫자 생성기", description: "숫자 범위 지정, 여러 개 뽑기, 로또 번호 생성을 지원합니다.", href: "/tools/random-number", emoji: "\uD83C\uDFB2" },
   { title: "타자 속도 측정기", description: "한글 타이핑 속도와 정확도를 실시간으로 측정합니다.", href: "/tools/typing-test", emoji: "\u2328\uFE0F" },
-  { title: "반응속도 테스트", description: "화면이 초록색으로 바뀌는 순간 클릭! 반응 속도를 측정합니다.", href: "/tools/reaction-test", emoji: "\u26A1" },
-  { title: "색맹 테스트", description: "이시하라 스타일의 색각 검사로 색각 이상 여부를 확인합니다.", href: "/tools/color-blind-test", emoji: "\uD83C\uDFA8" },
-  { title: "기억력 테스트", description: "카드 뒤집기 게임으로 기억력을 테스트합니다.", href: "/tools/memory-game", emoji: "\uD83C\uDFAE" },
   { title: "랜덤 룰렛 돌리기", description: "항목을 추가하고 룰렛을 돌려 점심 메뉴, 벌칙 등을 정합니다.", href: "/tools/random-roulette", emoji: "\uD83C\uDFB0" },
+];
+
+const games: Item[] = [
+  { title: "라이어 게임", description: "참가자 중 라이어를 찾아내는 대화형 추리 게임입니다.", href: "/tools/liar-game", emoji: "\uD83E\uDD25" },
+  { title: "진실 or 도전", description: "진실을 말하거나 도전 미션을 수행하는 파티 게임입니다.", href: "/tools/truth-or-dare", emoji: "\uD83C\uDFAF" },
+  { title: "폭탄 돌리기", description: "랜덤 타이머 폭탄을 돌리며 긴장감을 즐기세요!", href: "/tools/bomb-game", emoji: "\uD83D\uDCA3" },
+  { title: "업다운 게임", description: "1~100 숫자를 맞추는 스릴 넘치는 게임입니다.", href: "/tools/updown-game", emoji: "\uD83D\uDD22" },
+  { title: "랜덤 지목", description: "룰렛처럼 돌려서 한 명을 뽑고 미션을 수행하세요!", href: "/tools/random-pick", emoji: "\uD83C\uDFB0" },
+  { title: "술게임 모음", description: "5가지 인기 술게임을 한 곳에서 즐겨보세요.", href: "/tools/drinking-games", emoji: "\uD83C\uDF7B" },
   { title: "사다리 타기", description: "2~8명이 참여하는 사다리 타기 게임을 즐겨보세요.", href: "/tools/ladder-game", emoji: "\uD83E\uDDEA" },
+  { title: "반응속도 테스트", description: "화면이 초록색으로 바뀌는 순간 클릭! 반응 속도를 측정합니다.", href: "/tools/reaction-test", emoji: "\u26A1" },
+  { title: "기억력 테스트", description: "카드 뒤집기 게임으로 기억력을 테스트합니다.", href: "/tools/memory-game", emoji: "\uD83C\uDFAE" },
+  { title: "색맹 테스트", description: "이시하라 스타일의 색각 검사로 색각 이상 여부를 확인합니다.", href: "/tools/color-blind-test", emoji: "\uD83C\uDFA8" },
 ];
 
 const allSections = [
   { label: "생활 계산기", items: calculators, hoverColor: "hover:border-blue-300" },
   { label: "부동산 계산기", items: realEstateCalcs, hoverColor: "hover:border-purple-300" },
   { label: "재미/운세", items: funCalcs, hoverColor: "hover:border-pink-300" },
+  { label: "게임", items: games, hoverColor: "hover:border-orange-300" },
   { label: "온라인 도구", items: tools, hoverColor: "hover:border-green-300" },
 ];
 
