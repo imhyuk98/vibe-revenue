@@ -4,6 +4,7 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import RelatedTools from "@/components/RelatedTools";
 
 type EffectType = "pixelate" | "blur";
+type DrawMode = "rect" | "brush";
 
 interface MosaicArea {
   x: number;
@@ -12,15 +13,24 @@ interface MosaicArea {
   h: number;
 }
 
+interface BrushStroke {
+  points: { x: number; y: number }[];
+  radius: number;
+}
+
 export default function ImageMosaic() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
   const [originalImage, setOriginalImage] = useState<HTMLImageElement | null>(null);
   const [effectType, setEffectType] = useState<EffectType>("pixelate");
+  const [drawMode, setDrawMode] = useState<DrawMode>("brush");
   const [blockSize, setBlockSize] = useState(15);
+  const [brushRadius, setBrushRadius] = useState(20);
   const [mosaicAreas, setMosaicAreas] = useState<MosaicArea[]>([]);
+  const [brushStrokes, setBrushStrokes] = useState<BrushStroke[]>([]);
   const [isDrawing, setIsDrawing] = useState(false);
   const [drawStart, setDrawStart] = useState<{ x: number; y: number } | null>(null);
   const [currentRect, setCurrentRect] = useState<MosaicArea | null>(null);
+  const [currentBrush, setCurrentBrush] = useState<BrushStroke | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -44,11 +54,12 @@ export default function ImageMosaic() {
       setOriginalImage(img);
       setImageSrc(url);
       setMosaicAreas([]);
+      setBrushStrokes([]);
     };
     img.src = url;
   }, []);
 
-  // Draw canvas whenever image, areas, or current drawing rect changes
+  // Draw canvas whenever image, areas, or current drawing changes
   useEffect(() => {
     if (!originalImage || !canvasRef.current) return;
     const canvas = canvasRef.current;
@@ -61,16 +72,18 @@ export default function ImageMosaic() {
     // Draw original image
     ctx.drawImage(originalImage, 0, 0);
 
-    // Apply mosaic/blur to all saved areas
+    const sx = scaleRef.current.sx;
+    const sy = scaleRef.current.sy;
+
+    // Apply mosaic/blur to all saved rect areas
     const allAreas = [...mosaicAreas];
     if (currentRect) allAreas.push(currentRect);
 
     for (const area of allAreas) {
-      // Convert from display coords to image coords
-      const ix = Math.round(area.x * scaleRef.current.sx);
-      const iy = Math.round(area.y * scaleRef.current.sy);
-      const iw = Math.round(area.w * scaleRef.current.sx);
-      const ih = Math.round(area.h * scaleRef.current.sy);
+      const ix = Math.round(area.x * sx);
+      const iy = Math.round(area.y * sy);
+      const iw = Math.round(area.w * sx);
+      const ih = Math.round(area.h * sy);
 
       if (iw <= 0 || ih <= 0) continue;
 
@@ -88,19 +101,27 @@ export default function ImageMosaic() {
       }
     }
 
-    // Draw selection rectangles outline
+    // Apply mosaic/blur to brush strokes
+    const allStrokes = [...brushStrokes];
+    if (currentBrush && currentBrush.points.length > 0) allStrokes.push(currentBrush);
+
+    for (const stroke of allStrokes) {
+      applyBrushMosaic(ctx, canvas, stroke, sx, sy);
+    }
+
+    // Draw selection rect outline
     if (currentRect) {
-      const ix = Math.round(currentRect.x * scaleRef.current.sx);
-      const iy = Math.round(currentRect.y * scaleRef.current.sy);
-      const iw = Math.round(currentRect.w * scaleRef.current.sx);
-      const ih = Math.round(currentRect.h * scaleRef.current.sy);
+      const ix = Math.round(currentRect.x * sx);
+      const iy = Math.round(currentRect.y * sy);
+      const iw = Math.round(currentRect.w * sx);
+      const ih = Math.round(currentRect.h * sy);
       ctx.strokeStyle = "#3b82f6";
       ctx.lineWidth = 2;
       ctx.setLineDash([6, 3]);
       ctx.strokeRect(ix, iy, iw, ih);
       ctx.setLineDash([]);
     }
-  }, [originalImage, mosaicAreas, currentRect, effectType, blockSize]);
+  }, [originalImage, mosaicAreas, brushStrokes, currentRect, currentBrush, effectType, blockSize]);
 
   // Update scale ref when canvas is resized
   useEffect(() => {
@@ -234,6 +255,92 @@ export default function ImageMosaic() {
     }
   }
 
+  function applyBrushMosaic(
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    stroke: BrushStroke,
+    sx: number,
+    sy: number
+  ) {
+    if (stroke.points.length === 0) return;
+
+    // Create a mask from the brush stroke
+    const maskCanvas = document.createElement("canvas");
+    maskCanvas.width = canvas.width;
+    maskCanvas.height = canvas.height;
+    const maskCtx = maskCanvas.getContext("2d");
+    if (!maskCtx) return;
+
+    // Draw brush path on mask
+    maskCtx.lineCap = "round";
+    maskCtx.lineJoin = "round";
+    maskCtx.lineWidth = stroke.radius * 2 * sx;
+    maskCtx.strokeStyle = "#fff";
+    maskCtx.fillStyle = "#fff";
+
+    maskCtx.beginPath();
+    const p0 = stroke.points[0];
+    maskCtx.moveTo(p0.x * sx, p0.y * sy);
+    if (stroke.points.length === 1) {
+      maskCtx.arc(p0.x * sx, p0.y * sy, stroke.radius * sx, 0, Math.PI * 2);
+      maskCtx.fill();
+    } else {
+      for (let i = 1; i < stroke.points.length; i++) {
+        maskCtx.lineTo(stroke.points[i].x * sx, stroke.points[i].y * sy);
+      }
+      maskCtx.stroke();
+    }
+
+    // Get bounding box of the stroke for efficiency
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const p of stroke.points) {
+      minX = Math.min(minX, p.x * sx - stroke.radius * sx);
+      minY = Math.min(minY, p.y * sy - stroke.radius * sy);
+      maxX = Math.max(maxX, p.x * sx + stroke.radius * sx);
+      maxY = Math.max(maxY, p.y * sy + stroke.radius * sy);
+    }
+    const bx = Math.max(0, Math.floor(minX));
+    const by = Math.max(0, Math.floor(minY));
+    const bw = Math.min(canvas.width - bx, Math.ceil(maxX - bx));
+    const bh = Math.min(canvas.height - by, Math.ceil(maxY - by));
+    if (bw <= 0 || bh <= 0) return;
+
+    // Create mosaic version of the bounding box
+    const mosaicCanvas = document.createElement("canvas");
+    mosaicCanvas.width = bw;
+    mosaicCanvas.height = bh;
+    const mosaicCtx = mosaicCanvas.getContext("2d");
+    if (!mosaicCtx) return;
+    mosaicCtx.drawImage(canvas, bx, by, bw, bh, 0, 0, bw, bh);
+
+    if (effectType === "pixelate") {
+      applyPixelate(mosaicCtx, 0, 0, bw, bh, blockSize);
+    } else {
+      applyBlur(mosaicCtx, 0, 0, bw, bh, blockSize);
+    }
+
+    // Apply mask: only draw mosaic where brush was
+    ctx.save();
+    ctx.globalCompositeOperation = "source-over";
+
+    // Use mask as clip
+    const maskData = maskCtx.getImageData(bx, by, bw, bh);
+    const mosaicData = mosaicCtx.getImageData(0, 0, bw, bh);
+    const origData = ctx.getImageData(bx, by, bw, bh);
+
+    for (let i = 0; i < maskData.data.length; i += 4) {
+      const alpha = maskData.data[i] / 255; // mask is white where brushed
+      if (alpha > 0) {
+        origData.data[i] = Math.round(origData.data[i] * (1 - alpha) + mosaicData.data[i] * alpha);
+        origData.data[i + 1] = Math.round(origData.data[i + 1] * (1 - alpha) + mosaicData.data[i + 1] * alpha);
+        origData.data[i + 2] = Math.round(origData.data[i + 2] * (1 - alpha) + mosaicData.data[i + 2] * alpha);
+      }
+    }
+
+    ctx.putImageData(origData, bx, by);
+    ctx.restore();
+  }
+
   const getPointerPos = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ): { x: number; y: number } => {
@@ -259,41 +366,73 @@ export default function ImageMosaic() {
     e.preventDefault();
     const pos = getPointerPos(e);
     setIsDrawing(true);
-    setDrawStart(pos);
-    setCurrentRect(null);
+
+    if (drawMode === "brush") {
+      setCurrentBrush({ points: [pos], radius: brushRadius });
+    } else {
+      setDrawStart(pos);
+      setCurrentRect(null);
+    }
   };
 
   const handlePointerMove = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
-    if (!isDrawing || !drawStart) return;
+    if (!isDrawing) return;
     e.preventDefault();
     const pos = getPointerPos(e);
-    const x = Math.min(drawStart.x, pos.x);
-    const y = Math.min(drawStart.y, pos.y);
-    const w = Math.abs(pos.x - drawStart.x);
-    const h = Math.abs(pos.y - drawStart.y);
-    setCurrentRect({ x, y, w, h });
+
+    if (drawMode === "brush") {
+      setCurrentBrush((prev) =>
+        prev ? { ...prev, points: [...prev.points, pos] } : null
+      );
+    } else {
+      if (!drawStart) return;
+      const x = Math.min(drawStart.x, pos.x);
+      const y = Math.min(drawStart.y, pos.y);
+      const w = Math.abs(pos.x - drawStart.x);
+      const h = Math.abs(pos.y - drawStart.y);
+      setCurrentRect({ x, y, w, h });
+    }
   };
 
   const handlePointerUp = (
     e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
   ) => {
     e.preventDefault();
-    if (currentRect && currentRect.w > 3 && currentRect.h > 3) {
-      setMosaicAreas((prev) => [...prev, currentRect]);
+
+    if (drawMode === "brush") {
+      if (currentBrush && currentBrush.points.length > 0) {
+        setBrushStrokes((prev) => [...prev, currentBrush]);
+      }
+      setCurrentBrush(null);
+    } else {
+      if (currentRect && currentRect.w > 3 && currentRect.h > 3) {
+        setMosaicAreas((prev) => [...prev, currentRect]);
+      }
+      setCurrentRect(null);
+      setDrawStart(null);
     }
+
     setIsDrawing(false);
-    setDrawStart(null);
-    setCurrentRect(null);
   };
 
   const handleUndo = () => {
-    setMosaicAreas((prev) => prev.slice(0, -1));
+    // Undo the most recent action (rect or brush)
+    if (brushStrokes.length > 0 && mosaicAreas.length === 0) {
+      setBrushStrokes((prev) => prev.slice(0, -1));
+    } else if (mosaicAreas.length > 0 && brushStrokes.length === 0) {
+      setMosaicAreas((prev) => prev.slice(0, -1));
+    } else if (brushStrokes.length > 0) {
+      setBrushStrokes((prev) => prev.slice(0, -1));
+    } else {
+      setMosaicAreas((prev) => prev.slice(0, -1));
+    }
   };
 
   const handleResetAll = () => {
     setMosaicAreas([]);
+    setBrushStrokes([]);
   };
 
   const handleDownload = () => {
@@ -309,7 +448,9 @@ export default function ImageMosaic() {
     setImageSrc(null);
     setOriginalImage(null);
     setMosaicAreas([]);
+    setBrushStrokes([]);
     setCurrentRect(null);
+    setCurrentBrush(null);
   };
 
   // Drag & drop handlers
@@ -399,6 +540,35 @@ export default function ImageMosaic() {
           <div className="calc-card p-6 mb-6">
             <h2 className="font-semibold text-gray-900 mb-4">효과 설정</h2>
 
+            {/* Draw Mode */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                그리기 모드
+              </label>
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setDrawMode("brush")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    drawMode === "brush"
+                      ? "border-blue-600 bg-blue-50 text-blue-700"
+                      : "border-gray-200 text-gray-600 hover:border-blue-300"
+                  }`}
+                >
+                  🖌️ 브러시 (자유 영역)
+                </button>
+                <button
+                  onClick={() => setDrawMode("rect")}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium border transition-colors ${
+                    drawMode === "rect"
+                      ? "border-blue-600 bg-blue-50 text-blue-700"
+                      : "border-gray-200 text-gray-600 hover:border-blue-300"
+                  }`}
+                >
+                  ▭ 사각형
+                </button>
+              </div>
+            </div>
+
             {/* Effect Type */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -428,6 +598,28 @@ export default function ImageMosaic() {
               </div>
             </div>
 
+            {/* Brush Size (only in brush mode) */}
+            {drawMode === "brush" && (
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  브러시 크기: {brushRadius}px
+                </label>
+                <input
+                  type="range"
+                  min="5"
+                  max="80"
+                  step="1"
+                  value={brushRadius}
+                  onChange={(e) => setBrushRadius(parseInt(e.target.value))}
+                  className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+                />
+                <div className="flex justify-between text-xs text-gray-400 mt-1">
+                  <span>작게</span>
+                  <span>크게</span>
+                </div>
+              </div>
+            )}
+
             {/* Intensity */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -452,7 +644,7 @@ export default function ImageMosaic() {
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={handleUndo}
-                disabled={mosaicAreas.length === 0}
+                disabled={mosaicAreas.length === 0 && brushStrokes.length === 0}
                 className="calc-btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -462,14 +654,14 @@ export default function ImageMosaic() {
               </button>
               <button
                 onClick={handleResetAll}
-                disabled={mosaicAreas.length === 0}
+                disabled={mosaicAreas.length === 0 && brushStrokes.length === 0}
                 className="calc-btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 모자이크 초기화
               </button>
               <button
                 onClick={handleDownload}
-                disabled={mosaicAreas.length === 0}
+                disabled={mosaicAreas.length === 0 && brushStrokes.length === 0}
                 className="calc-btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -490,7 +682,7 @@ export default function ImageMosaic() {
           <div className="calc-card p-4 mb-6">
             <div className="flex items-center justify-between mb-3">
               <p className="text-sm text-gray-500">
-                모자이크 처리할 영역을 드래그하세요 (영역: {mosaicAreas.length}개)
+                모자이크 처리할 영역을 {drawMode === "brush" ? "칠하세요" : "드래그하세요"} (영역: {mosaicAreas.length + brushStrokes.length}개)
               </p>
             </div>
             <div
