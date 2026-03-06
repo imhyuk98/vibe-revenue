@@ -32,7 +32,7 @@ function getAspectValue(ratio: AspectRatio): number | null {
   }
 }
 
-type DragMode = "move" | "nw" | "ne" | "sw" | "se" | "n" | "s" | "e" | "w" | null;
+type DragMode = "move" | "nw" | "ne" | "sw" | "se" | "n" | "s" | "e" | "w" | "new" | null;
 
 export default function ImageCrop() {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
@@ -220,9 +220,18 @@ export default function ImageCrop() {
   const handlePointerDown = (e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     const { mx, my } = getMousePos(e);
-    const mode = getDragMode(mx, my);
-    if (!mode) return;
-    dragRef.current = { mode, startX: mx, startY: my, startCrop: { ...crop } };
+    let mode = getDragMode(mx, my);
+
+    // If clicking outside crop area, start drawing a new crop from that point
+    if (!mode) {
+      const startXNat = mx / scale;
+      const startYNat = my / scale;
+      setCrop({ x: startXNat, y: startYNat, w: 0, h: 0 });
+      mode = "new";
+      dragRef.current = { mode, startX: mx, startY: my, startCrop: { x: startXNat, y: startYNat, w: 0, h: 0 } };
+    } else {
+      dragRef.current = { mode, startX: mx, startY: my, startCrop: { ...crop } };
+    }
 
     const handleMove = (ev: MouseEvent | TouchEvent) => {
       const canvas = canvasRef.current;
@@ -242,6 +251,17 @@ export default function ImageCrop() {
       let newCrop: CropArea;
 
       switch (dragRef.current.mode) {
+        case "new": {
+          // Draw new crop area from start point
+          const curXNat = mx2 / scale;
+          const curYNat = my2 / scale;
+          const nx = Math.min(sc.x, curXNat);
+          const ny = Math.min(sc.y, curYNat);
+          let nw = Math.abs(curXNat - sc.x);
+          let nh = ar ? nw / ar : Math.abs(curYNat - sc.y);
+          newCrop = { x: nx, y: ar ? (curYNat < sc.y ? sc.y - nh : sc.y) : ny, w: nw, h: nh };
+          break;
+        }
         case "move":
           newCrop = { x: sc.x + dxNat, y: sc.y + dyNat, w: sc.w, h: sc.h };
           break;
