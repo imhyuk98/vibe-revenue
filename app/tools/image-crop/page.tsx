@@ -71,7 +71,9 @@ export default function ImageCrop() {
   // Calculate display dimensions & initial crop when image loads
   useEffect(() => {
     if (!imageEl || !containerRef.current) return;
-    const containerW = containerRef.current.clientWidth;
+    // Read width from the parent card, not the inline-block container itself
+    const parentW = containerRef.current.parentElement?.clientWidth ?? containerRef.current.clientWidth;
+    const containerW = parentW > 0 ? parentW - 32 : 600; // subtract padding
     const maxH = 500;
     const natW = imageEl.naturalWidth;
     const natH = imageEl.naturalHeight;
@@ -469,8 +471,8 @@ export default function ImageCrop() {
           <div className="calc-card p-4 mb-4">
             <div
               ref={containerRef}
-              className="relative inline-block mx-auto w-full"
-              style={{ maxWidth: imgDisplayW }}
+              className="relative mx-auto"
+              style={{ width: imgDisplayW || "100%", maxWidth: "100%" }}
             >
               <img
                 src={imageSrc!}
