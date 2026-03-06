@@ -61,6 +61,8 @@ const lifeCalcs: Item[] = [
   { title: "TDEE 계산기", href: "/calculators/tdee", emoji: "🔥", desc: "일일 소비 칼로리" },
   { title: "체지방률 계산기", href: "/calculators/body-fat", emoji: "🏋️", desc: "US Navy 체지방률 측정" },
   { title: "물 섭취량 계산기", href: "/calculators/water-intake", emoji: "💧", desc: "하루 권장 물 섭취량" },
+  { title: "AI 식단 추천", href: "/calculators/macro-diet", emoji: "🥗", desc: "AI 맞춤 식단 추천" },
+  { title: "AI 운동 추천", href: "/calculators/exercise", emoji: "💪", desc: "AI 맞춤 운동 루틴" },
 ];
 
 const funCalcs: Item[] = [
@@ -69,13 +71,15 @@ const funCalcs: Item[] = [
   { title: "별자리 계산기", href: "/calculators/constellation", emoji: "⭐", desc: "생일 별자리 확인" },
   { title: "띠 계산기", href: "/calculators/zodiac", emoji: "🐉", desc: "태어난 해 띠" },
   { title: "혈액형 계산기", href: "/calculators/blood-type", emoji: "🩸", desc: "자녀 혈액형 확률" },
-  { title: "사주팔자", href: "/calculators/saju", emoji: "☯️", desc: "사주 분석" },
-  { title: "전생 테스트", href: "/calculators/past-life", emoji: "🔮", desc: "전생 알아보기" },
-  { title: "오늘의 운세", href: "/calculators/daily-fortune", emoji: "🌟", desc: "오늘의 운세 확인" },
+  { title: "AI 사주 분석", href: "/calculators/saju", emoji: "☯️", desc: "AI 사주팔자 분석" },
+  { title: "AI 전생 테스트", href: "/calculators/past-life", emoji: "🔮", desc: "AI 전생 알아보기" },
+  { title: "AI 오늘의 운세", href: "/calculators/daily-fortune", emoji: "🌟", desc: "AI 운세 확인" },
   { title: "커플 D-day", href: "/calculators/couple-dday", emoji: "💑", desc: "사귄 날 기념일" },
-  { title: "심리테스트", href: "/tools/psychology-test", emoji: "🧠", desc: "나의 심리 분석" },
+  { title: "AI 심리 분석", href: "/tools/psychology-test", emoji: "🧠", desc: "AI 심리테스트" },
   { title: "MBTI 검사", href: "/tools/mbti-test", emoji: "🧩", desc: "MBTI 유형 검사" },
   { title: "아재개그 생성기", href: "/tools/dad-joke", emoji: "😂", desc: "매일 새로운 아재개그" },
+  { title: "AI 꿈 해몽", href: "/tools/dream-interpretation", emoji: "🌙", desc: "AI 꿈풀이 해석" },
+  { title: "AI 타로", href: "/tools/tarot", emoji: "🃏", desc: "AI 타로 카드 운세" },
 ];
 
 const drinkingGames: Item[] = [
@@ -120,7 +124,7 @@ const tools: Item[] = [
   { title: "이미지 자르기", href: "/tools/image-crop", emoji: "✂️", desc: "이미지 크롭" },
   { title: "이미지 회전", href: "/tools/image-rotate", emoji: "🔄", desc: "회전 & 뒤집기" },
   { title: "CSV JSON 변환기", href: "/tools/csv-json", emoji: "📄", desc: "CSV↔JSON 변환" },
-  { title: "닉네임 생성기", href: "/tools/nickname-generator", emoji: "🎭", desc: "랜덤 닉네임 생성" },
+  { title: "AI 닉네임 생성기", href: "/tools/nickname-generator", emoji: "🎭", desc: "AI 닉네임 생성" },
   { title: "Markdown HTML", href: "/tools/markdown-html", emoji: "📨", desc: "MD↔HTML 변환" },
   { title: "랜덤 숫자 생성기", href: "/tools/random-number", emoji: "🎲", desc: "무작위 숫자 생성" },
   { title: "타자 속도 측정", href: "/tools/typing-test", emoji: "⌨️", desc: "타이핑 속도 측정" },
@@ -128,6 +132,14 @@ const tools: Item[] = [
   { title: "이미지 PDF 변환", href: "/tools/image-to-pdf", emoji: "📄", desc: "이미지를 PDF로 합치기" },
   { title: "이미지 색상 추출", href: "/tools/image-color-picker", emoji: "🎨", desc: "이미지에서 색상 코드 추출" },
   { title: "주유소 최저가", href: "/tools/fuel-map", emoji: "⛽", desc: "전국 주유소 가격 지도" },
+  { title: "AI 작명기", href: "/tools/name-generator", emoji: "✍️", desc: "AI 이름 짓기" },
+  { title: "AI 선물 추천", href: "/tools/gift-recommendation", emoji: "🎁", desc: "AI 맞춤 선물 추천" },
+  { title: "AI 인스타 해시태그", href: "/tools/hashtag-generator", emoji: "#️⃣", desc: "인스타 해시태그 생성" },
+  { title: "AI 책 추천", href: "/tools/book-recommendation", emoji: "📚", desc: "AI 기분별 맞춤 도서 추천" },
+  { title: "AI 오늘 뭐 먹지", href: "/tools/food-recommendation", emoji: "🍽️", desc: "AI 메뉴 추천" },
+  { title: "AI 영화 추천", href: "/tools/movie-recommendation", emoji: "🎬", desc: "AI 기분별 영화 추천" },
+  { title: "AI 여행지 추천", href: "/tools/travel-recommendation", emoji: "✈️", desc: "AI 맞춤 여행지 추천" },
+  { title: "AI 패션 코디", href: "/tools/fashion-recommendation", emoji: "👗", desc: "AI 상황별 코디 추천" },
 ];
 
 export const sections: Section[] = [

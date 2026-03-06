@@ -308,9 +308,17 @@ export default function Header() {
             ))}
           </DropdownMenu>
 
-          <Link href="/about" className="hover:text-blue-600 transition-colors">
-            소개
-          </Link>
+          <DropdownMenu label="안내">
+            <Link href="/about" className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+              사이트 소개
+            </Link>
+            <Link href="/faq" className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+              자주 묻는 질문
+            </Link>
+            <Link href="/privacy" className="block px-4 py-1.5 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors">
+              개인정보처리방침
+            </Link>
+          </DropdownMenu>
         </nav>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -408,13 +416,17 @@ export default function Header() {
             onClose={closeMobile}
           />
 
-          <Link
-            href="/about"
-            className="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 border-t border-gray-100"
-            onClick={closeMobile}
-          >
-            소개
-          </Link>
+          <MobileSection
+            label="안내"
+            items={[
+              { title: "사이트 소개", href: "/about" },
+              { title: "자주 묻는 질문", href: "/faq" },
+              { title: "개인정보처리방침", href: "/privacy" },
+            ]}
+            expanded={mobileExpanded === "info"}
+            onToggle={() => setMobileExpanded(mobileExpanded === "info" ? null : "info")}
+            onClose={closeMobile}
+          />
         </div>
       )}
     </header>

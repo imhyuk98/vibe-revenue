@@ -88,6 +88,18 @@ const allItems: Record<string, { title: string; href: string; category: string }
   "image-mosaic": { title: "이미지 모자이크", href: "/tools/image-mosaic", category: "도구" },
   "image-watermark": { title: "이미지 워터마크", href: "/tools/image-watermark", category: "도구" },
   "body-fat": { title: "체지방률 계산기", href: "/calculators/body-fat", category: "생활" },
+  "macro-diet": { title: "매크로 식단 계산기", href: "/calculators/macro-diet", category: "생활" },
+  tarot: { title: "AI 타로 카드", href: "/tools/tarot", category: "재미" },
+  exercise: { title: "AI 운동 추천", href: "/calculators/exercise", category: "생활" },
+  "name-generator": { title: "AI 작명기", href: "/tools/name-generator", category: "도구" },
+  "dream-interpretation": { title: "AI 꿈 해몽", href: "/tools/dream-interpretation", category: "재미" },
+  "gift-recommendation": { title: "AI 선물 추천", href: "/tools/gift-recommendation", category: "도구" },
+  "hashtag-generator": { title: "AI 인스타 해시태그", href: "/tools/hashtag-generator", category: "도구" },
+  "book-recommendation": { title: "AI 책 추천", href: "/tools/book-recommendation", category: "도구" },
+  "food-recommendation": { title: "AI 오늘 뭐 먹지", href: "/tools/food-recommendation", category: "도구" },
+  "movie-recommendation": { title: "AI 영화 추천", href: "/tools/movie-recommendation", category: "도구" },
+  "travel-recommendation": { title: "AI 여행지 추천", href: "/tools/travel-recommendation", category: "도구" },
+  "fashion-recommendation": { title: "AI 패션 코디", href: "/tools/fashion-recommendation", category: "도구" },
 };
 
 // Manual related mappings — shows same-category items + specific cross-links
@@ -179,6 +191,18 @@ const relatedMap: Record<string, string[]> = {
   "image-mosaic": ["image-watermark", "image-converter", "image-compress", "image-resize"],
   "image-watermark": ["image-mosaic", "image-converter", "image-compress", "image-resize"],
   "body-fat": ["bmi", "alcohol", "age", "ratio"],
+  "macro-diet": ["tdee", "bmr", "bmi", "body-fat"],
+  tarot: ["daily-fortune", "saju", "constellation", "zodiac"],
+  exercise: ["bmi", "tdee", "bmr", "macro-diet"],
+  "name-generator": ["nickname-generator", "name-compatibility", "mbti-compatibility", "character-count"],
+  "dream-interpretation": ["daily-fortune", "saju", "tarot", "constellation"],
+  "gift-recommendation": ["name-compatibility", "couple-dday", "nickname-generator", "dday"],
+  "hashtag-generator": ["nickname-generator", "character-count", "name-generator", "image-converter"],
+  "book-recommendation": ["gift-recommendation", "dream-interpretation", "psychology-test", "name-generator"],
+  "food-recommendation": ["random-roulette", "gift-recommendation", "bmi", "macro-diet"],
+  "movie-recommendation": ["book-recommendation", "gift-recommendation", "food-recommendation", "psychology-test"],
+  "travel-recommendation": ["gift-recommendation", "dday", "exchange-rate", "couple-dday"],
+  "fashion-recommendation": ["gift-recommendation", "bmi", "couple-dday", "psychology-test"],
 };
 
 export default function RelatedTools({ current }: { current: string }) {

@@ -10,6 +10,9 @@ export default function Footer() {
             <Link href="/about" className="hover:text-blue-600 transition-colors">
               사이트 소개
             </Link>
+            <Link href="/faq" className="hover:text-blue-600 transition-colors">
+              자주 묻는 질문
+            </Link>
             <Link href="/privacy" className="hover:text-blue-600 transition-colors">
               개인정보처리방침
             </Link>

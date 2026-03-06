@@ -188,9 +188,9 @@ export default function SajuCalculator() {
 
   return (
     <div className="py-6">
-      <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">사주팔자 계산기</h1>
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-2 tracking-tight">AI 사주 분석</h1>
       <p className="text-gray-500 mb-8">
-        생년월일과 태어난 시간을 입력하면 사주팔자와 오행 분석 결과를 확인할 수 있습니다.
+        AI가 생년월일과 태어난 시간을 분석하여 사주팔자와 오행 분석 결과를 알려드립니다.
       </p>
 
       {/* 입력 영역 */}
