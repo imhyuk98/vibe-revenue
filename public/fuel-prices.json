@@ -1,7 +1,7 @@
 {
   "updatedAt": "2026-03-06",
-  "tradeDate": "2026-03-05",
-  "gasoline": { "price": 1834, "diff": 5.2 },
-  "diesel": { "price": 1757, "diff": 4.8 },
-  "lpg": { "price": 1010, "diff": 1.3 }
+  "tradeDate": "2026-03-06",
+  "gasoline": { "price": 1856, "diff": 22.0 },
+  "diesel": { "price": 1864, "diff": 33.4 },
+  "lpg": { "price": 1012, "diff": -0.1 }
 }
