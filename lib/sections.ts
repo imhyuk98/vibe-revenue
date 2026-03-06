@@ -54,6 +54,8 @@ const lifeCalcs: Item[] = [
   { title: "연차 계산기", href: "/calculators/annual-leave", emoji: "🏖️", desc: "연차 발생·잔여" },
   { title: "학점 계산기", href: "/calculators/gpa", emoji: "🎓", desc: "학점 평균 계산" },
   { title: "공학용 계산기", href: "/calculators/scientific", emoji: "🔬", desc: "공학·과학 계산" },
+  { title: "도시가스 요금", href: "/calculators/gas-bill", emoji: "🔥", desc: "도시가스 요금 계산" },
+  { title: "유류비 계산기", href: "/calculators/fuel-cost", emoji: "⛽", desc: "자동차 주유비 계산" },
 ];
 
 const funCalcs: Item[] = [
