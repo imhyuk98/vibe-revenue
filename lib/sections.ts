@@ -31,6 +31,7 @@ const financeCalcs: Item[] = [
   { title: "전기요금", href: "/calculators/electricity", emoji: "⚡", desc: "전기요금 계산" },
   { title: "부가세 계산기", href: "/calculators/vat", emoji: "🧾", desc: "부가가치세 계산" },
   { title: "로또 세금", href: "/calculators/lotto-tax", emoji: "🎰", desc: "당첨금 실수령액" },
+  { title: "연말정산 계산기", href: "/calculators/year-end-tax", emoji: "🧾", desc: "환급액·추가납부 계산" },
 ];
 
 const realEstateCalcs: Item[] = [
@@ -40,6 +41,7 @@ const realEstateCalcs: Item[] = [
   { title: "증여세 계산기", href: "/calculators/gift-tax", emoji: "🎁", desc: "증여 시 세금" },
   { title: "상속세 계산기", href: "/calculators/inheritance-tax", emoji: "📜", desc: "상속 시 세금" },
   { title: "전월세 전환", href: "/calculators/rent-conversion", emoji: "🏠", desc: "전세↔월세 전환" },
+  { title: "청약 점수 계산기", href: "/calculators/housing-subscription", emoji: "🏗️", desc: "청약 가점 계산" },
 ];
 
 const lifeCalcs: Item[] = [
