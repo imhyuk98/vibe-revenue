@@ -5,7 +5,7 @@
   --foreground: #1e293b;
   --card-bg: #ffffff;
   --card-border: #e5e7eb;
-  --muted: #6b7280;
+  --muted: #4b5563;
   --input-bg: #f9fafb;
   --input-border: #e5e7eb;
   --section-bg: #f8fafc;
@@ -16,7 +16,7 @@ html.dark {
   --foreground: #e2e8f0;
   --card-bg: #1e293b;
   --card-border: #334155;
-  --muted: #94a3b8;
+  --muted: #a8b8cc;
   --input-bg: #1e293b;
   --input-border: #475569;
   --section-bg: #1e293b;
@@ -166,8 +166,8 @@ html.dark {
 html.dark .text-gray-900 { color: #e2e8f0; }
 html.dark .text-gray-800 { color: #cbd5e1; }
 html.dark .text-gray-700 { color: #cbd5e1; }
-html.dark .text-gray-600 { color: #94a3b8; }
-html.dark .text-gray-500 { color: #94a3b8; }
+html.dark .text-gray-600 { color: #a1b0c7; }
+html.dark .text-gray-500 { color: #a1b0c7; }
 html.dark .text-gray-400 { color: #64748b; }
 html.dark .text-gray-300 { color: #475569; }
 html.dark .bg-white { background-color: var(--card-bg); }
@@ -508,7 +508,7 @@ html.dark .bg-white\/95 { background-color: rgba(15, 23, 42, 0.95); }
 .calc-faq-a {
   padding: 0 16px 14px;
   font-size: 0.8125rem;
-  color: #6b7280;
+  color: #4b5563;
   line-height: 1.6;
 }
 
