@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "스도쿠 - 온라인 스도쿠 퍼즐 무료 플레이",
     description: "스도쿠 퍼즐을 온라인으로 무료 플레이! 3단계 난이도, 메모, 힌트 기능 지원.",
-    url: "https://vibe-revenue.pages.dev/tools/sudoku",
+    url: "https://modu-dogu.pages.dev/tools/sudoku",
   },
 };
 
@@ -23,7 +23,7 @@ export default function SudokuLayout({ children }: { children: React.ReactNode }
             "@type": "WebApplication",
             name: "스도쿠",
             description: "3단계 난이도의 온라인 스도쿠 퍼즐 게임",
-            url: "https://vibe-revenue.pages.dev/tools/sudoku",
+            url: "https://modu-dogu.pages.dev/tools/sudoku",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

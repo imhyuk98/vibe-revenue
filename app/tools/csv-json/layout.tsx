@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "CSV JSON 변환기 - CSV를 JSON으로, JSON을 CSV로 변환",
     description:
       "CSV 데이터를 JSON으로, JSON 데이터를 CSV로 간편하게 변환할 수 있는 무료 온라인 도구입니다.",
-    url: "https://vibe-revenue.pages.dev/tools/csv-json",
+    url: "https://modu-dogu.pages.dev/tools/csv-json",
   },
 };
 
@@ -32,7 +32,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "CSV JSON 변환기",
             description:
               "CSV 데이터를 JSON으로, JSON 데이터를 CSV로 간편하게 변환할 수 있는 무료 온라인 도구입니다.",
-            url: "https://vibe-revenue.pages.dev/tools/csv-json",
+            url: "https://modu-dogu.pages.dev/tools/csv-json",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

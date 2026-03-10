@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "주식 수익률 계산기 - 매수 매도 수수료 세금 포함 순수익 계산",
     description:
       "주식 매수가와 매도가를 입력하면 수수료, 증권거래세를 포함한 순수익과 수익률을 자동으로 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/stock-return",
+    url: "https://modu-dogu.pages.dev/calculators/stock-return",
   },
 };
 
@@ -37,7 +37,7 @@ export default function StockReturnLayout({
             name: "주식 수익률 계산기",
             description:
               "주식 매수가와 매도가를 입력하면 수수료, 증권거래세를 포함한 순수익과 수익률을 자동으로 계산합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/stock-return",
+            url: "https://modu-dogu.pages.dev/calculators/stock-return",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

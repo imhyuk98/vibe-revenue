@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "날짜 계산기 - D-day 디데이 계산",
     description: "D-day 카운트다운, 두 날짜 사이의 일수 차이를 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/dday",
+    url: "https://modu-dogu.pages.dev/calculators/dday",
   },
 };
 
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "날짜 계산기",
             description:
               "D-day 카운트다운, 두 날짜 사이의 일수 차이를 계산합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/dday",
+            url: "https://modu-dogu.pages.dev/calculators/dday",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

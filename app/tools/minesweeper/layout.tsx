@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "지뢰찾기 - 온라인 지뢰찾기 무료 플레이",
     description: "클래식 지뢰찾기 게임을 온라인으로 무료 플레이! 3단계 난이도 지원.",
-    url: "https://vibe-revenue.pages.dev/tools/minesweeper",
+    url: "https://modu-dogu.pages.dev/tools/minesweeper",
   },
 };
 
@@ -23,7 +23,7 @@ export default function MinesweeperLayout({ children }: { children: React.ReactN
             "@type": "WebApplication",
             name: "지뢰찾기",
             description: "3단계 난이도의 클래식 지뢰찾기 게임",
-            url: "https://vibe-revenue.pages.dev/tools/minesweeper",
+            url: "https://modu-dogu.pages.dev/tools/minesweeper",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

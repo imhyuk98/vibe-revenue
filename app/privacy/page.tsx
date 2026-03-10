@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: "계산기나라 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
-  keywords: ["개인정보처리방침", "계산기나라", "쿠키정책", "개인정보보호"],
+  description: "모두의도구 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
+  keywords: ["개인정보처리방침", "모두의도구", "쿠키정책", "개인정보보호"],
   openGraph: {
-    title: "개인정보처리방침 | 계산기나라",
-    description: "계산기나라 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
-    url: "https://vibe-revenue.pages.dev/privacy",
+    title: "개인정보처리방침 | 모두의도구",
+    description: "모두의도구 개인정보처리방침 - 쿠키, Google Analytics, Google AdSense 등 제3자 서비스 이용에 대한 안내입니다.",
+    url: "https://modu-dogu.pages.dev/privacy",
   },
 };
 
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
             1. 개인정보의 수집 및 이용 목적
           </h2>
           <p>
-            계산기나라(이하 &quot;사이트&quot;)는 별도의 회원가입 없이 이용 가능한
+            모두의도구(이하 &quot;사이트&quot;)는 별도의 회원가입 없이 이용 가능한
             서비스로, 이용자의 개인정보를 직접 수집하지 않습니다.
           </p>
         </section>

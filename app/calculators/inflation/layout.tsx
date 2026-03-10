@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "인플레이션 계산기 - 물가상승률에 따른 화폐가치 변화 계산",
     description:
       "인플레이션에 따른 미래 물가와 현재 돈의 실질 구매력을 자동으로 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/inflation",
+    url: "https://modu-dogu.pages.dev/calculators/inflation",
   },
 };
 
@@ -37,7 +37,7 @@ export default function InflationLayout({
             name: "인플레이션 계산기",
             description:
               "연간 물가상승률(인플레이션)에 따른 미래 물가와 현재 돈의 실질 구매력 변화를 계산합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/inflation",
+            url: "https://modu-dogu.pages.dev/calculators/inflation",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

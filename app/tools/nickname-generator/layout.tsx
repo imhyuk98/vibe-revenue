@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "AI 닉네임 생성기 - 랜덤 닉네임 만들기 (귀여운/멋진/웃긴/게임용)",
     description:
       "AI가 스타일별 닉네임을 자동으로 생성합니다. 귀여운, 멋진, 웃긴, 게임용 닉네임을 클릭 한 번으로!",
-    url: "https://vibe-revenue.pages.dev/tools/nickname-generator",
+    url: "https://modu-dogu.pages.dev/tools/nickname-generator",
   },
 };
 
@@ -38,7 +38,7 @@ export default function NicknameGeneratorLayout({
             name: "AI 닉네임 생성기",
             description:
               "AI가 귀여운, 멋진, 웃긴, 게임용 스타일별 닉네임을 자동으로 생성합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/nickname-generator",
+            url: "https://modu-dogu.pages.dev/tools/nickname-generator",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

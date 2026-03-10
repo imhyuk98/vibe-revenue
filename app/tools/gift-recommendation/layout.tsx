@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "AI 선물 추천 - 상황별 맞춤 선물 추천",
     description:
       "AI가 받는 사람, 상황, 예산, 취향을 분석하여 최적의 선물을 추천합니다. 모든 상황에 맞는 선물을 찾아보세요.",
-    url: "https://vibe-revenue.pages.dev/tools/gift-recommendation",
+    url: "https://modu-dogu.pages.dev/tools/gift-recommendation",
   },
 };
 
@@ -38,7 +38,7 @@ export default function GiftRecommendationLayout({
             name: "AI 선물 추천",
             description:
               "AI가 받는 사람, 상황, 예산, 취향을 분석하여 최적의 선물을 추천합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/gift-recommendation",
+            url: "https://modu-dogu.pages.dev/tools/gift-recommendation",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

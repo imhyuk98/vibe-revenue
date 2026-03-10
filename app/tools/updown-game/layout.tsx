@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "업다운 게임 - 온라인 숫자 맞추기 무료 플레이",
     description:
       "업다운 게임을 스마트폰으로 바로 즐기세요! 1~100 사이 숫자를 맞추는 스릴 넘치는 게임입니다.",
-    url: "https://vibe-revenue.pages.dev/tools/updown-game",
+    url: "https://modu-dogu.pages.dev/tools/updown-game",
   },
 };
 
@@ -37,7 +37,7 @@ export default function UpdownGameLayout({
             name: "업다운 게임",
             description:
               "1~100 사이 숫자를 맞추는 스릴 넘치는 업다운 게임을 스마트폰으로 즐기세요.",
-            url: "https://vibe-revenue.pages.dev/tools/updown-game",
+            url: "https://modu-dogu.pages.dev/tools/updown-game",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

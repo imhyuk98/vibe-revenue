@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "증여세 계산기 - 증여재산 공제/세율/신고세액공제 자동 계산",
     description:
       "2025년 기준 관계별 공제액과 증여세율을 적용하여 증여세를 자동으로 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/gift-tax",
+    url: "https://modu-dogu.pages.dev/calculators/gift-tax",
   },
 };
 
@@ -37,7 +37,7 @@ export default function GiftTaxLayout({
             name: "증여세 계산기",
             description:
               "2025년 기준 증여세를 자동으로 계산합니다. 관계별 공제액과 증여세율, 신고세액공제를 적용합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/gift-tax",
+            url: "https://modu-dogu.pages.dev/calculators/gift-tax",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

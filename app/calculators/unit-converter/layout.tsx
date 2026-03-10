@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "단위 변환기 - 길이 무게 온도 단위 변환",
     description: "길이(cm, inch, ft), 무게(kg, lb, oz), 온도(℃, ℉) 등 다양한 단위를 간편하게 변환합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/unit-converter",
+    url: "https://modu-dogu.pages.dev/calculators/unit-converter",
   },
 };
 
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "단위 변환기",
             description:
               "길이(cm, inch, ft), 무게(kg, lb, oz), 온도(℃, ℉) 등 다양한 단위를 간편하게 변환합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/unit-converter",
+            url: "https://modu-dogu.pages.dev/calculators/unit-converter",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

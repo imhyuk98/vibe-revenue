@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "AI 여행지 추천 - 맞춤 국내외 여행지 추천",
     description:
       "AI가 여행 스타일, 동행, 계절, 기간, 예산을 분석하여 최적의 국내외 여행지를 추천합니다.",
-    url: "https://vibe-revenue.pages.dev/tools/travel-recommendation",
+    url: "https://modu-dogu.pages.dev/tools/travel-recommendation",
   },
 };
 
@@ -39,7 +39,7 @@ export default function TravelRecommendationLayout({
             name: "AI 여행지 추천",
             description:
               "AI가 여행 스타일, 동행, 계절, 기간, 예산을 분석하여 최적의 국내외 여행지를 추천합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/travel-recommendation",
+            url: "https://modu-dogu.pages.dev/tools/travel-recommendation",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "사이트 소개",
-  description: "계산기나라는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
-  keywords: ["계산기나라", "사이트 소개", "무료 계산기", "온라인 도구"],
+  description: "모두의도구는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
+  keywords: ["모두의도구", "사이트 소개", "무료 계산기", "온라인 도구"],
   openGraph: {
-    title: "사이트 소개 | 계산기나라",
-    description: "계산기나라는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
-    url: "https://vibe-revenue.pages.dev/about",
+    title: "사이트 소개 | 모두의도구",
+    description: "모두의도구는 연봉 계산기, 대출이자, 환율, 부동산 세금, MBTI 궁합 등 60가지 이상의 무료 온라인 계산기와 도구를 제공하는 사이트입니다.",
+    url: "https://modu-dogu.pages.dev/about",
   },
 };
 
@@ -18,10 +18,10 @@ export default function AboutPage() {
       <div className="prose prose-gray max-w-none space-y-6 text-gray-600">
         <section>
           <h2 className="text-lg font-semibold text-gray-900">
-            계산기나라란?
+            모두의도구란?
           </h2>
           <p>
-            계산기나라는 연봉 실수령액, 대출이자, BMI, 퇴직금, 연차 등 일상
+            모두의도구는 연봉 실수령액, 대출이자, BMI, 퇴직금, 연차 등 일상
             생활에서 자주 필요한 계산을 빠르고 정확하게 도와주는 무료 온라인
             계산기 서비스입니다.
           </p>

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "QR 코드 생성기 - 무료 온라인 QR 코드 만들기",
     description:
       "텍스트, URL, 연락처 등을 QR 코드로 변환할 수 있는 무료 온라인 QR 코드 생성기입니다.",
-    url: "https://vibe-revenue.pages.dev/tools/qr-code",
+    url: "https://modu-dogu.pages.dev/tools/qr-code",
   },
 };
 
@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             name: "QR 코드 생성기",
             description:
               "텍스트, URL, 연락처 등을 QR 코드로 변환할 수 있는 무료 온라인 QR 코드 생성기입니다.",
-            url: "https://vibe-revenue.pages.dev/tools/qr-code",
+            url: "https://modu-dogu.pages.dev/tools/qr-code",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

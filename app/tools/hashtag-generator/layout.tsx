@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "AI 인스타 해시태그 생성기 - 인스타그램 해시태그 추천",
     description:
       "카테고리와 분위기를 선택하면 인스타그램 인기 해시태그를 자동으로 추천합니다. 500개 이상의 해시태그 DB에서 최적의 조합을 생성!",
-    url: "https://vibe-revenue.pages.dev/tools/hashtag-generator",
+    url: "https://modu-dogu.pages.dev/tools/hashtag-generator",
   },
 };
 
@@ -38,7 +38,7 @@ export default function HashtagGeneratorLayout({
             name: "AI 인스타 해시태그 생성기",
             description:
               "카테고리와 분위기를 선택하면 인스타그램 인기 해시태그를 자동으로 추천합니다. 500개 이상의 해시태그 데이터베이스.",
-            url: "https://vibe-revenue.pages.dev/tools/hashtag-generator",
+            url: "https://modu-dogu.pages.dev/tools/hashtag-generator",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

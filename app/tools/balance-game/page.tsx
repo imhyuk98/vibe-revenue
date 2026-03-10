@@ -188,7 +188,7 @@ export default function BalanceGamePage() {
       const picked = a.choice === "A" ? a.question.optionA : a.question.optionB;
       return `${i + 1}. ${picked}`;
     });
-    return `[밸런스 게임 결과]\n${lines.join("\n")}\n\nhttps://vibe-revenue.pages.dev/tools/balance-game`;
+    return `[밸런스 게임 결과]\n${lines.join("\n")}\n\nhttps://modu-dogu.pages.dev/tools/balance-game`;
   }, [answers]);
 
   const handleShare = useCallback(async () => {

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "비율 계산기 - 비율, 비례식, 화면 비율 계산",
     description:
       "비율 계산, 비례식 풀기, 화면 해상도 비율 계산을 간편하게 할 수 있는 무료 온라인 비율 계산기입니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/ratio",
+    url: "https://modu-dogu.pages.dev/calculators/ratio",
   },
 };
 
@@ -36,7 +36,7 @@ export default function RatioLayout({
             name: "비율 계산기",
             description:
               "비율 계산, 비례식 풀기, 화면 해상도 비율 계산을 간편하게 할 수 있는 무료 온라인 비율 계산기입니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/ratio",
+            url: "https://modu-dogu.pages.dev/calculators/ratio",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

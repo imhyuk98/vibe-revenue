@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "폭탄 돌리기 게임 - 온라인 폭탄돌리기 무료 플레이",
     description:
       "폭탄 돌리기 게임을 스마트폰으로 즐기세요! 랜덤 타이머로 긴장감 넘치는 폭탄돌리기를 무료로 플레이하세요.",
-    url: "https://vibe-revenue.pages.dev/tools/bomb-game",
+    url: "https://modu-dogu.pages.dev/tools/bomb-game",
   },
 };
 
@@ -37,7 +37,7 @@ export default function BombGameLayout({
             name: "폭탄 돌리기 게임",
             description:
               "랜덤 타이머로 긴장감 넘치는 폭탄돌리기를 스마트폰으로 즐기세요.",
-            url: "https://vibe-revenue.pages.dev/tools/bomb-game",
+            url: "https://modu-dogu.pages.dev/tools/bomb-game",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

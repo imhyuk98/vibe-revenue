@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "랜덤 지목 - 온라인 랜덤 뽑기 무료 플레이",
     description:
       "랜덤 지목 게임으로 술자리를 더 재미있게! 참가자 중 한 명을 랜덤으로 선택하고 미션을 부여하세요.",
-    url: "https://vibe-revenue.pages.dev/tools/random-pick",
+    url: "https://modu-dogu.pages.dev/tools/random-pick",
   },
 };
 
@@ -37,7 +37,7 @@ export default function RandomPickLayout({
             name: "랜덤 지목",
             description:
               "참가자 중 한 명을 랜덤으로 선택하고 미션을 부여하는 술자리 게임.",
-            url: "https://vibe-revenue.pages.dev/tools/random-pick",
+            url: "https://modu-dogu.pages.dev/tools/random-pick",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

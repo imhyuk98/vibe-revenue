@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "AI 오늘 뭐 먹지 - 메뉴 추천, 점심 메뉴 고민 해결",
     description:
       "AI가 기분, 날씨, 인원, 예산을 분석하여 오늘의 메뉴를 추천합니다. 150가지 이상의 메뉴에서 맞춤 추천!",
-    url: "https://vibe-revenue.pages.dev/tools/food-recommendation",
+    url: "https://modu-dogu.pages.dev/tools/food-recommendation",
   },
 };
 
@@ -40,7 +40,7 @@ export default function FoodRecommendationLayout({
             name: "AI 오늘 뭐 먹지 - 메뉴 추천",
             description:
               "AI가 기분, 날씨, 인원, 예산을 분석하여 오늘의 메뉴를 추천합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/food-recommendation",
+            url: "https://modu-dogu.pages.dev/tools/food-recommendation",
             applicationCategory: "LifestyleApplication",
             operatingSystem: "All",
             offers: {

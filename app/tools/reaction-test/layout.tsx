@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     title: "반응속도 테스트 - 나의 반응 속도를 측정해보세요",
     description:
       "화면이 초록색으로 바뀌면 클릭! 5회 측정으로 평균 반응속도를 확인하고 등급을 받아보세요.",
-    url: "https://vibe-revenue.pages.dev/tools/reaction-test",
+    url: "https://modu-dogu.pages.dev/tools/reaction-test",
   },
 };
 
@@ -35,7 +35,7 @@ export default function ReactionTestLayout({
             name: "반응속도 테스트",
             description:
               "화면이 초록색으로 바뀌면 클릭! 5회 측정으로 평균 반응속도를 확인하고 등급을 받아보세요.",
-            url: "https://vibe-revenue.pages.dev/tools/reaction-test",
+            url: "https://modu-dogu.pages.dev/tools/reaction-test",
             applicationCategory: "GameApplication",
             operatingSystem: "All",
             offers: {

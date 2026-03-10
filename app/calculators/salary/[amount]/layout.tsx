@@ -27,7 +27,7 @@ export async function generateMetadata({
   const monthlyNet = formatWon(result.monthlyNet);
   const amountLabel = formatMan(amountNum);
 
-  const title = `연봉 ${amountLabel}원 실수령액 월 ${monthlyNet}원 (2026) | 계산기나라`;
+  const title = `연봉 ${amountLabel}원 실수령액 월 ${monthlyNet}원 (2026) | 모두의도구`;
   const description = `2026년 기준 연봉 ${amountLabel}원의 월 실수령액은 약 ${monthlyNet}원입니다. 4대보험 ${formatWon(result.nationalPension + result.healthInsurance + result.longTermCare + result.employmentInsurance)}원, 소득세 ${formatWon(result.incomeTax)}원 공제 후 계산 결과입니다.`;
 
   return {
@@ -43,7 +43,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://vibe-revenue.pages.dev/calculators/salary/${amount}`,
+      url: `https://modu-dogu.pages.dev/calculators/salary/${amount}`,
     },
   };
 }

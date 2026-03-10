@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "부동산 중개수수료 계산기 - 매매/전세/월세 중개보수 자동 계산",
     description:
       "2025년 기준 매매, 전세, 월세 거래 유형별 부동산 중개수수료를 자동으로 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/brokerage-fee",
+    url: "https://modu-dogu.pages.dev/calculators/brokerage-fee",
   },
 };
 
@@ -38,7 +38,7 @@ export default function BrokerageFeeLayout({
             name: "부동산 중개수수료 계산기",
             description:
               "2025년 기준 부동산 중개수수료(중개보수)를 자동으로 계산합니다. 매매, 전세, 월세 거래 유형별 요율과 한도를 적용합니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/brokerage-fee",
+            url: "https://modu-dogu.pages.dev/calculators/brokerage-fee",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

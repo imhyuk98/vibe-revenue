@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "블록 탈출 - 온라인 슬라이딩 블록 퍼즐 무료 플레이",
     description: "블록을 밀어서 빨간 블록을 출구로 이동시키는 퍼즐 게임!",
-    url: "https://vibe-revenue.pages.dev/tools/block-escape",
+    url: "https://modu-dogu.pages.dev/tools/block-escape",
   },
 };
 
@@ -23,7 +23,7 @@ export default function BlockEscapeLayout({ children }: { children: React.ReactN
             "@type": "WebApplication",
             name: "블록 탈출",
             description: "블록을 밀어서 빨간 블록을 출구로 이동시키는 슬라이딩 퍼즐 게임",
-            url: "https://vibe-revenue.pages.dev/tools/block-escape",
+            url: "https://modu-dogu.pages.dev/tools/block-escape",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

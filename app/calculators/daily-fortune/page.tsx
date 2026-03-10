@@ -747,7 +747,7 @@ export default function DailyFortune() {
       ``,
       `오늘의 한마디: "${result.오늘의조언}"`,
       ``,
-      `나도 운세 보러가기 -> 계산기나라`,
+      `나도 운세 보러가기 -> 모두의도구`,
     ].join("\n");
 
     try {

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "기억력 테스트 (카드 뒤집기) - 카드 짝 맞추기 게임",
     description:
       "카드 짝 맞추기 게임으로 기억력을 테스트해보세요. 3단계 난이도로 즐길 수 있습니다.",
-    url: "https://vibe-revenue.pages.dev/tools/memory-game",
+    url: "https://modu-dogu.pages.dev/tools/memory-game",
   },
 };
 
@@ -36,7 +36,7 @@ export default function MemoryGameLayout({
             name: "기억력 테스트 (카드 뒤집기)",
             description:
               "카드 짝 맞추기 게임으로 기억력을 테스트해보세요. 3단계 난이도로 즐길 수 있습니다.",
-            url: "https://vibe-revenue.pages.dev/tools/memory-game",
+            url: "https://modu-dogu.pages.dev/tools/memory-game",
             applicationCategory: "GameApplication",
             operatingSystem: "All",
             offers: {

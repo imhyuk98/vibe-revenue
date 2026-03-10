@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "타이머 & 스톱워치 - 온라인 타이머, 카운트다운",
     description:
       "온라인 타이머와 스톱워치를 무료로 사용하세요. 카운트다운 타이머, 스톱워치, 랩 타임 기록이 가능합니다.",
-    url: "https://vibe-revenue.pages.dev/tools/timer",
+    url: "https://modu-dogu.pages.dev/tools/timer",
   },
 };
 
@@ -36,7 +36,7 @@ export default function TimerLayout({
             name: "타이머 & 스톱워치",
             description:
               "온라인 타이머와 스톱워치를 무료로 사용하세요. 카운트다운 타이머, 스톱워치, 랩 타임 기록이 가능합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/timer",
+            url: "https://modu-dogu.pages.dev/tools/timer",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "진실 or 도전 - 온라인 진실게임 무료 플레이",
     description:
       "진실 or 도전 게임을 스마트폰으로 바로 즐기세요! 50개 이상의 진실 질문과 도전 미션이 준비되어 있습니다.",
-    url: "https://vibe-revenue.pages.dev/tools/truth-or-dare",
+    url: "https://modu-dogu.pages.dev/tools/truth-or-dare",
   },
 };
 
@@ -37,7 +37,7 @@ export default function TruthOrDareLayout({
             name: "진실 or 도전",
             description:
               "50개 이상의 진실 질문과 도전 미션이 준비된 온라인 진실게임.",
-            url: "https://vibe-revenue.pages.dev/tools/truth-or-dare",
+            url: "https://modu-dogu.pages.dev/tools/truth-or-dare",
             applicationCategory: "GameApplication",
             operatingSystem: "Any",
             offers: { "@type": "Offer", price: "0", priceCurrency: "KRW" },

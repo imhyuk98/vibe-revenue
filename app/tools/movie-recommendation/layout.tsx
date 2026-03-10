@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "AI 영화 추천 - 기분별 맞춤 영화 추천",
     description:
       "AI가 기분, 장르, 국가, 플랫폼을 분석하여 맞춤 영화를 추천합니다. 넷플릭스, 왓챠, 디즈니+ 등 플랫폼별 영화 추천을 무료로 이용하세요.",
-    url: "https://vibe-revenue.pages.dev/tools/movie-recommendation",
+    url: "https://modu-dogu.pages.dev/tools/movie-recommendation",
   },
 };
 
@@ -39,7 +39,7 @@ export default function MovieRecommendationLayout({
             name: "AI 영화 추천",
             description:
               "AI가 기분, 장르, 국가, 플랫폼을 분석하여 맞춤 영화를 추천합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/movie-recommendation",
+            url: "https://modu-dogu.pages.dev/tools/movie-recommendation",
             applicationCategory: "EntertainmentApplication",
             operatingSystem: "All",
             offers: {

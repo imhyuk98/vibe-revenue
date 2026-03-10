@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "AI 심리 분석 - 성격 유형, 연애 스타일, 스트레스 지수 테스트",
     description:
       "AI가 나의 성격 유형, 연애 스타일, 스트레스 지수를 분석합니다.",
-    url: "https://vibe-revenue.pages.dev/tools/psychology-test",
+    url: "https://modu-dogu.pages.dev/tools/psychology-test",
   },
 };
 
@@ -38,7 +38,7 @@ export default function PsychologyTestLayout({
             name: "AI 심리 분석",
             description:
               "AI가 나의 성격 유형, 연애 스타일, 스트레스 지수를 분석합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/psychology-test",
+            url: "https://modu-dogu.pages.dev/tools/psychology-test",
             applicationCategory: "EntertainmentApplication",
             operatingSystem: "All",
             offers: {

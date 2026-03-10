@@ -41,7 +41,7 @@ export async function generateMetadata({
   const monthlyPayment = result.monthlyPayments[0]?.payment ?? 0;
   const amountLabel = formatAmountLabel(amount);
 
-  const title = `${amountLabel}원 대출 ${rate}% ${years}년 월 ${formatWon(monthlyPayment)}원 | 계산기나라`;
+  const title = `${amountLabel}원 대출 ${rate}% ${years}년 월 ${formatWon(monthlyPayment)}원 | 모두의도구`;
   const description = `${amountLabel}원을 연 ${rate}% 금리로 ${years}년 대출 시 월 상환액은 약 ${formatWon(monthlyPayment)}원(원리금균등)입니다. 총 이자 ${formatWon(result.totalInterest)}원, 총 상환액 ${formatWon(result.totalPayment)}원.`;
 
   return {
@@ -57,7 +57,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://vibe-revenue.pages.dev/calculators/loan/${p}`,
+      url: `https://modu-dogu.pages.dev/calculators/loan/${p}`,
     },
   };
 }

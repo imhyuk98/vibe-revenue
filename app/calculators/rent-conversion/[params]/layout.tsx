@@ -49,7 +49,7 @@ export async function generateMetadata({
   const jeonseLabel = formatAmountLabel(jeonse);
   const depositLabel = formatAmountLabel(deposit);
 
-  const title = `전세 ${jeonseLabel}원 → 보증금 ${depositLabel}원 + 월세 ${formatWon(result.monthlyRent)}원 | 계산기나라`;
+  const title = `전세 ${jeonseLabel}원 → 보증금 ${depositLabel}원 + 월세 ${formatWon(result.monthlyRent)}원 | 모두의도구`;
   const description = `전세 ${jeonseLabel}원을 보증금 ${depositLabel}원으로 전환 시(전환율 ${rate}%) 월세는 약 ${formatWon(result.monthlyRent)}원입니다. 전월세 전환 계산 결과.`;
 
   return {
@@ -64,7 +64,7 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `https://vibe-revenue.pages.dev/calculators/rent-conversion/${p}`,
+      url: `https://modu-dogu.pages.dev/calculators/rent-conversion/${p}`,
     },
   };
 }

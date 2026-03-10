@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "자동차세 계산기 - 배기량별 자동차세 계산",
     description:
       "차량 배기량과 차령에 따른 자동차세(지방세 포함)를 계산할 수 있는 무료 온라인 자동차세 계산기입니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/car-tax",
+    url: "https://modu-dogu.pages.dev/calculators/car-tax",
   },
 };
 
@@ -36,7 +36,7 @@ export default function CarTaxLayout({
             name: "자동차세 계산기",
             description:
               "차량 배기량과 차령에 따른 자동차세(지방세 포함)를 계산할 수 있는 무료 온라인 자동차세 계산기입니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/car-tax",
+            url: "https://modu-dogu.pages.dev/calculators/car-tax",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

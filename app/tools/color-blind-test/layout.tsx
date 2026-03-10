@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: "색맹 테스트 (색각 검사) - 이시하라 스타일 온라인 검사",
     description:
       "이시하라 스타일의 색각 검사를 온라인으로 체험해보세요. 10문제로 색각 이상 여부를 간편하게 확인합니다.",
-    url: "https://vibe-revenue.pages.dev/tools/color-blind-test",
+    url: "https://modu-dogu.pages.dev/tools/color-blind-test",
   },
 };
 
@@ -36,7 +36,7 @@ export default function ColorBlindTestLayout({
             name: "색맹 테스트 (색각 검사)",
             description:
               "이시하라 스타일의 색각 검사를 온라인으로 체험해보세요. 10문제로 색각 이상 여부를 간편하게 확인합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/color-blind-test",
+            url: "https://modu-dogu.pages.dev/tools/color-blind-test",
             applicationCategory: "HealthApplication",
             operatingSystem: "All",
             offers: {

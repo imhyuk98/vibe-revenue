@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "계산기나라 - 생활 계산기 모음",
-    template: "%s | 계산기나라",
+    default: "모두의도구 - 생활 계산기 모음",
+    template: "%s | 모두의도구",
   },
   description:
     "연봉 실수령액, 대출이자, 환율, 부동산 세금, 주식 수익률, MBTI, 운세, JSON 포매터, QR코드 등 60가지 이상의 생활 계산기와 온라인 도구를 무료로 제공합니다.",
@@ -35,17 +35,17 @@ export const metadata: Metadata = {
     "온라인 도구",
   ],
   openGraph: {
-    title: "계산기나라 - 생활 계산기 & 온라인 도구 모음",
+    title: "모두의도구 - 생활 계산기 & 온라인 도구 모음",
     description:
       "연봉 실수령액, 대출이자, 환율, 부동산 세금, 주식 수익률, MBTI, 운세, JSON 포매터, QR코드 등 60가지 이상의 생활 계산기와 온라인 도구를 무료로 제공합니다.",
     type: "website",
     locale: "ko_KR",
-    url: "https://vibe-revenue.pages.dev",
-    siteName: "계산기나라",
+    url: "https://modu-dogu.pages.dev",
+    siteName: "모두의도구",
   },
   twitter: {
     card: "summary",
-    title: "계산기나라 - 생활 계산기 & 온라인 도구 모음",
+    title: "모두의도구 - 생활 계산기 & 온라인 도구 모음",
     description:
       "연봉 실수령액, 대출이자, 환율, 부동산 세금, 주식 수익률, MBTI, 운세, JSON 포매터, QR코드 등 60가지 이상의 생활 계산기와 온라인 도구를 무료로 제공합니다.",
   },

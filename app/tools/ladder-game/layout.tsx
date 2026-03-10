@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "사다리 타기 - 온라인 사다리 게임 (랜덤 결과 뽑기)",
     description:
       "온라인 사다리 타기 게임입니다. 참가자와 결과를 입력하고 사다리를 타보세요.",
-    url: "https://vibe-revenue.pages.dev/tools/ladder-game",
+    url: "https://modu-dogu.pages.dev/tools/ladder-game",
   },
 };
 
@@ -38,7 +38,7 @@ export default function LadderGameLayout({
             name: "사다리 타기",
             description:
               "온라인 사다리 타기 게임입니다. 참가자와 결과를 입력하고 사다리를 타보세요. 애니메이션으로 경로를 확인할 수 있습니다.",
-            url: "https://vibe-revenue.pages.dev/tools/ladder-game",
+            url: "https://modu-dogu.pages.dev/tools/ladder-game",
             applicationCategory: "GameApplication",
             operatingSystem: "All",
             offers: {

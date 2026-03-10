@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "AI 꿈 해몽 - 꿈풀이 꿈해석 무료",
     description:
       "AI가 꿈을 해석해드립니다. 80가지 이상의 꿈 키워드 데이터베이스로 정확한 꿈풀이를 제공합니다.",
-    url: "https://vibe-revenue.pages.dev/tools/dream-interpretation",
+    url: "https://modu-dogu.pages.dev/tools/dream-interpretation",
   },
 };
 
@@ -40,7 +40,7 @@ export default function DreamInterpretationLayout({
             name: "AI 꿈 해몽",
             description:
               "AI가 꿈을 해석해드립니다. 80가지 이상의 꿈 키워드 데이터베이스로 정확한 꿈풀이를 제공합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/dream-interpretation",
+            url: "https://modu-dogu.pages.dev/tools/dream-interpretation",
             applicationCategory: "EntertainmentApplication",
             operatingSystem: "All",
             offers: {

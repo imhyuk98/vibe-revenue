@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     title: "AI 운동 추천 - 맞춤 운동 루틴 생성기",
     description:
       "AI가 체형, 목표, 경험 수준에 맞는 맞춤 운동 루틴을 추천합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/exercise",
+    url: "https://modu-dogu.pages.dev/calculators/exercise",
   },
 };
 
@@ -38,7 +38,7 @@ export default function ExerciseLayout({
             name: "AI 운동 추천 - 맞춤 운동 루틴 생성기",
             description:
               "AI가 체형, 목표, 경험 수준에 맞는 맞춤 운동 루틴을 추천합니다. 다이어트, 근력 증가, 체력 향상 등 목표에 최적화된 주간 운동 계획을 무료로 생성하세요.",
-            url: "https://vibe-revenue.pages.dev/calculators/exercise",
+            url: "https://modu-dogu.pages.dev/calculators/exercise",
             applicationCategory: "HealthApplication",
             operatingSystem: "All",
             offers: {

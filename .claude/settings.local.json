@@ -29,7 +29,7 @@
       "Bash(test:*)",
       "Bash(ls:*)",
       "Bash(read f:*)",
-      "WebFetch(domain:vibe-revenue.pages.dev)",
+      "WebFetch(domain:modu-dogu.pages.dev)",
       "WebFetch(domain:www.omnicalculator.com)",
       "WebFetch(domain:www.calculatorsoup.com)",
       "WebFetch(domain:10015.io)",
@@ -75,7 +75,15 @@
       "WebFetch(domain:toz-app.com)",
       "WebFetch(domain:foxcg.com)",
       "WebFetch(domain:the.korearound.com)",
-      "WebFetch(domain:inno89.com)"
+      "WebFetch(domain:inno89.com)",
+      "WebFetch(domain:www.similarweb.com)",
+      "WebFetch(domain:www.bkfactory.co.kr)",
+      "WebFetch(domain:brunch.co.kr)",
+      "WebFetch(domain:adsensefarm.kr)",
+      "WebFetch(domain:news.hada.io)",
+      "WebFetch(domain:www.questera.ai)",
+      "WebFetch(domain:www.bachynski.blog)",
+      "WebFetch(domain:medium.com)"
     ]
   }
 }

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: "물타기 계산기 - 주식 평균단가 계산",
     description:
       "주식 물타기 시 평균단가, 총 매수금액, 각 차수별 비중을 자동으로 계산합니다.",
-    url: "https://vibe-revenue.pages.dev/calculators/average-price",
+    url: "https://modu-dogu.pages.dev/calculators/average-price",
   },
 };
 
@@ -37,7 +37,7 @@ export default function AveragePriceLayout({
             name: "물타기 계산기 (평균단가 계산)",
             description:
               "주식 물타기(추가 매수) 시 평균단가를 자동으로 계산합니다. 여러 차수의 매수가와 수량을 입력하면 평균단가, 총 매수금액, 각 차수별 비중을 확인할 수 있습니다.",
-            url: "https://vibe-revenue.pages.dev/calculators/average-price",
+            url: "https://modu-dogu.pages.dev/calculators/average-price",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

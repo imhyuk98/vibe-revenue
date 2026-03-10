@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "AI 책 추천 - 기분별 맞춤 도서 추천",
     description:
       "AI가 기분, 장르, 독서 수준, 분량, 연령대를 분석하여 맞춤 도서를 추천합니다. 베스트셀러부터 숨은 명작까지!",
-    url: "https://vibe-revenue.pages.dev/tools/book-recommendation",
+    url: "https://modu-dogu.pages.dev/tools/book-recommendation",
   },
 };
 
@@ -39,7 +39,7 @@ export default function BookRecommendationLayout({
             name: "AI 책 추천",
             description:
               "AI가 기분, 장르, 독서 수준, 분량, 연령대를 분석하여 맞춤 도서를 추천합니다.",
-            url: "https://vibe-revenue.pages.dev/tools/book-recommendation",
+            url: "https://modu-dogu.pages.dev/tools/book-recommendation",
             applicationCategory: "UtilityApplication",
             operatingSystem: "All",
             offers: {

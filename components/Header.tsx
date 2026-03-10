@@ -203,7 +203,7 @@ export default function Header() {
     <header className="bg-[var(--card-bg)] border-b border-[var(--card-border)] sticky top-0 z-50">
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link href="/" className="text-xl font-bold text-blue-600">
-          계산기나라
+          모두의도구
         </Link>
 
         {/* Desktop nav */}

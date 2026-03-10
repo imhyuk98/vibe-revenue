@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://vibe-revenue.pages.dev/sitemap.xml
+Sitemap: https://modu-dogu.pages.dev/sitemap.xml
