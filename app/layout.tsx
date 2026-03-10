@@ -66,6 +66,31 @@ export default function RootLayout({
       <body
         className={`${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "모두의도구",
+              alternateName: "modu-dogu",
+              url: "https://modu-dogu.pages.dev",
+              description:
+                "연봉 실수령액, 대출이자, 환율, 부동산 세금, 주식 수익률, MBTI, 운세, JSON 포매터, QR코드 등 70가지 이상의 생활 계산기와 온라인 도구를 무료로 제공합니다.",
+              inLanguage: "ko",
+              publisher: {
+                "@type": "Organization",
+                name: "모두의도구",
+                url: "https://modu-dogu.pages.dev",
+              },
+              potentialAction: {
+                "@type": "SearchAction",
+                target: "https://modu-dogu.pages.dev/?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
+            }),
+          }}
+        />
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3204700288703280"

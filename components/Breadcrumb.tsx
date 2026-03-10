@@ -182,15 +182,47 @@ export default function Breadcrumb() {
 
   if (!category || !title) return null;
 
+  const baseUrl = "https://modu-dogu.pages.dev";
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "홈",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: category.label,
+        item: `${baseUrl}/${parts[0]}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: title,
+        item: `${baseUrl}${pathname}`,
+      },
+    ],
+  };
+
   return (
-    <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5 flex-wrap" aria-label="Breadcrumb">
-      <Link href="/" className="hover:text-blue-600 transition-colors">
-        홈
-      </Link>
-      <span className="text-gray-300">/</span>
-      <span>{category.label}</span>
-      <span className="text-gray-300">/</span>
-      <span className="text-gray-700 font-medium">{title}</span>
-    </nav>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <nav className="text-sm text-gray-500 mb-4 flex items-center gap-1.5 flex-wrap" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-blue-600 transition-colors">
+          홈
+        </Link>
+        <span className="text-gray-300">/</span>
+        <span>{category.label}</span>
+        <span className="text-gray-300">/</span>
+        <span className="text-gray-700 font-medium">{title}</span>
+      </nav>
+    </>
   );
 }
