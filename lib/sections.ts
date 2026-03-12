@@ -113,6 +113,7 @@ const games: Item[] = [
   { title: "지뢰찾기", href: "/tools/minesweeper", emoji: "💣", desc: "지뢰를 피해라" },
   { title: "스네이크", href: "/tools/snake-game", emoji: "🐍", desc: "뱀 키우기 게임" },
   { title: "오목", href: "/tools/omok", emoji: "⚫", desc: "AI와 오목 대결" },
+  { title: "사과 게임", href: "/tools/apple-game", emoji: "🍎", desc: "합이 10! 숫자 퍼즐" },
 ];
 
 const tools: Item[] = [

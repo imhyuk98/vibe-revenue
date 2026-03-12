@@ -79,6 +79,7 @@ const categoryMap: Record<string, { label: string; href?: string }> = {
   minesweeper: { label: "게임" },
   "snake-game": { label: "게임" },
   omok: { label: "게임" },
+  "apple-game": { label: "게임" },
   // Converters
   "image-converter": { label: "변환기" },
   "csv-json": { label: "변환기" },
@@ -177,6 +178,7 @@ const titleMap: Record<string, string> = {
   minesweeper: "지뢰찾기",
   "snake-game": "스네이크",
   omok: "오목",
+  "apple-game": "사과 게임",
 };
 
 export default function Breadcrumb() {
