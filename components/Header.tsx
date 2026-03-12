@@ -10,6 +10,7 @@ const financeCalcs = [
   { title: "예금이자 계산기", href: "/calculators/deposit" },
   { title: "적금 이자 계산기", href: "/calculators/savings" },
   { title: "퇴직금 계산기", href: "/calculators/retirement" },
+  { title: "시급 월급 변환기", href: "/calculators/hourly-wage" },
   { title: "실업급여 계산기", href: "/calculators/unemployment" },
   { title: "주식 수익률 계산기", href: "/calculators/stock-return" },
   { title: "물타기 계산기", href: "/calculators/average-price" },
@@ -18,6 +19,7 @@ const financeCalcs = [
   { title: "전기요금 계산기", href: "/calculators/electricity" },
   { title: "부가세 계산기", href: "/calculators/vat" },
   { title: "로또 세금 계산기", href: "/calculators/lotto-tax" },
+  { title: "연말정산 계산기", href: "/calculators/year-end-tax" },
 ];
 
 const realEstateCalcs = [
@@ -27,6 +29,7 @@ const realEstateCalcs = [
   { title: "증여세 계산기", href: "/calculators/gift-tax" },
   { title: "상속세 계산기", href: "/calculators/inheritance-tax" },
   { title: "전월세 전환", href: "/calculators/rent-conversion" },
+  { title: "청약 점수 계산기", href: "/calculators/housing-subscription" },
 ];
 
 const lifeCalcs = [
@@ -38,10 +41,21 @@ const lifeCalcs = [
   { title: "단위 변환기", href: "/calculators/unit-converter" },
   { title: "비율 계산기", href: "/calculators/ratio" },
   { title: "BMI 계산기", href: "/calculators/bmi" },
+  { title: "기초대사량(BMR)", href: "/calculators/bmr" },
   { title: "음주 측정기", href: "/calculators/alcohol" },
   { title: "연차 계산기", href: "/calculators/annual-leave" },
   { title: "학점 계산기", href: "/calculators/gpa" },
+  { title: "표준체중 계산기", href: "/calculators/standard-weight" },
   { title: "공학용 계산기", href: "/calculators/scientific" },
+  { title: "도시가스 요금", href: "/calculators/gas-bill" },
+  { title: "유류비 계산기", href: "/calculators/fuel-cost" },
+  { title: "TDEE 계산기", href: "/calculators/tdee" },
+  { title: "체지방률 계산기", href: "/calculators/body-fat" },
+  { title: "물 섭취량 계산기", href: "/calculators/water-intake" },
+  { title: "AI 식단 추천", href: "/calculators/macro-diet" },
+  { title: "AI 운동 추천", href: "/calculators/exercise" },
+  { title: "군대 전역일", href: "/calculators/military" },
+  { title: "택배 배송비", href: "/calculators/shipping" },
 ];
 
 const funCalcs = [
@@ -56,6 +70,9 @@ const funCalcs = [
   { title: "커플 D-day", href: "/calculators/couple-dday" },
   { title: "심리테스트", href: "/tools/psychology-test" },
   { title: "MBTI 검사기", href: "/tools/mbti-test" },
+  { title: "아재개그 생성기", href: "/tools/dad-joke" },
+  { title: "AI 꿈 해몽", href: "/tools/dream-interpretation" },
+  { title: "AI 타로", href: "/tools/tarot" },
 ];
 
 const drinkingGameItems = [
@@ -71,6 +88,7 @@ const drinkingGameItems = [
   { title: "눈치 게임", href: "/tools/nunchi-game" },
   { title: "텔레파시 게임", href: "/tools/telepathy-game" },
   { title: "사다리 타기", href: "/tools/ladder-game" },
+  { title: "밸런스 게임", href: "/tools/balance-game" },
 ];
 
 const gameItems = [
@@ -83,10 +101,20 @@ const gameItems = [
   { title: "지뢰찾기", href: "/tools/minesweeper" },
   { title: "스네이크", href: "/tools/snake-game" },
   { title: "오목", href: "/tools/omok" },
+  { title: "사과 게임", href: "/tools/apple-game" },
+  { title: "행성 합치기", href: "/tools/planet-merge" },
 ];
 
 const converterItems = [
   { title: "이미지 변환기", href: "/tools/image-converter" },
+  { title: "이미지 압축", href: "/tools/image-compress" },
+  { title: "이미지 크기 조절", href: "/tools/image-resize" },
+  { title: "이미지 모자이크", href: "/tools/image-mosaic" },
+  { title: "이미지 워터마크", href: "/tools/image-watermark" },
+  { title: "이미지 자르기", href: "/tools/image-crop" },
+  { title: "이미지 회전", href: "/tools/image-rotate" },
+  { title: "이미지 PDF 변환", href: "/tools/image-to-pdf" },
+  { title: "이미지 색상 추출", href: "/tools/image-color-picker" },
   { title: "CSV JSON 변환기", href: "/tools/csv-json" },
   { title: "Markdown HTML", href: "/tools/markdown-html" },
   { title: "Base64 인코더", href: "/tools/base64" },
@@ -101,6 +129,15 @@ const toolItems = [
   { title: "랜덤 룰렛", href: "/tools/random-roulette" },
   { title: "랜덤 숫자 생성기", href: "/tools/random-number" },
   { title: "타자 속도 측정", href: "/tools/typing-test" },
+  { title: "주유소 최저가", href: "/tools/fuel-map" },
+  { title: "AI 작명기", href: "/tools/name-generator" },
+  { title: "AI 선물 추천", href: "/tools/gift-recommendation" },
+  { title: "AI 인스타 해시태그", href: "/tools/hashtag-generator" },
+  { title: "AI 책 추천", href: "/tools/book-recommendation" },
+  { title: "AI 오늘 뭐 먹지", href: "/tools/food-recommendation" },
+  { title: "AI 영화 추천", href: "/tools/movie-recommendation" },
+  { title: "AI 여행지 추천", href: "/tools/travel-recommendation" },
+  { title: "AI 패션 코디", href: "/tools/fashion-recommendation" },
 ];
 
 function DropdownMenu({

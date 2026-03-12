@@ -343,13 +343,7 @@ export default function AppleGame() {
       const sum = cells.reduce((acc, [r, c]) => acc + gridRef.current[r][c].value, 0);
 
       if (sum === TARGET_SUM && cells.length > 0) {
-        // Remove cells
-        const newGrid = gridRef.current.map((row) => row.map((cell) => ({ ...cell })));
-        cells.forEach(([r, c]) => {
-          newGrid[r][c].removed = true;
-        });
-        setGrid(newGrid);
-
+        // 제거한 사과 1개당 1점 (원본 규칙)
         const points = cells.length;
         const newScore = score + points;
         setScore(newScore);
@@ -375,32 +369,14 @@ export default function AppleGame() {
           setScorePopups((prev) => prev.filter((p) => p.id !== id));
         }, 800);
 
-        // Apply gravity: shift remaining cells down
-        setTimeout(() => {
-          setGrid((prev) => {
-            const g = prev.map((row) => row.map((cell) => ({ ...cell })));
-            for (let c = 0; c < COLS; c++) {
-              // Collect non-removed values from bottom to top
-              const values: number[] = [];
-              for (let r = ROWS - 1; r >= 0; r--) {
-                if (!g[r][c].removed) {
-                  values.push(g[r][c].value);
-                }
-              }
-              // Fill from bottom
-              for (let r = ROWS - 1; r >= 0; r--) {
-                const idx = ROWS - 1 - r;
-                if (idx < values.length) {
-                  g[r][c] = { value: values[idx], removed: false };
-                } else {
-                  // Fill empty slots with new random numbers
-                  g[r][c] = { value: Math.floor(Math.random() * 9) + 1, removed: false };
-                }
-              }
-            }
-            return g;
+        // Mark cells as removed (stay in place, no gravity)
+        setGrid((prev) => {
+          const g = prev.map((row) => row.map((cell) => ({ ...cell })));
+          cells.forEach(([r, c]) => {
+            g[r][c].removed = true;
           });
-        }, 200);
+          return g;
+        });
       }
 
       setSelectionRect(null);
